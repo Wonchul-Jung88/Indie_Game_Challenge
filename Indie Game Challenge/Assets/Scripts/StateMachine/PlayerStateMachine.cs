@@ -35,7 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool _isJumpPressed = false;
     float _initialJumpVelocity;
     float _maxJumpHeight = 4.0f;
-    float _maxJumpTime = .75f;
+    //float _maxJumpTime = .75f;
     bool _isJumping = false;
     int _isJumpingHash;
     int _jumpCountHash;
@@ -92,7 +92,7 @@ public class PlayerStateMachine : MonoBehaviour
         _isRunningHash = Animator.StringToHash("IsRunning");
         //_isJumpingHash = Animator.StringToHash("IsJumping");
         //_jumpCountHash = Animator.StringToHash("JumpCount");
-        //_isFallingHash = Animator.StringToHash("IsFalling");
+        _isFallingHash = Animator.StringToHash("IsFalling");
 
         // set the player input callbacks
         _playerInput.CharacterControls.Move.started += onMovementInput;
