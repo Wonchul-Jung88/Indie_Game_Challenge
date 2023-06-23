@@ -14,5 +14,11 @@ public class MazeGenerator : Editor
         {
             myScript.BuildMaze();
         }
+
+        // Add a new button for clearing the maze
+        if (GUILayout.Button("Clear Maze"))
+        {
+            myScript.ClearMaze();
+        }
     }
 }

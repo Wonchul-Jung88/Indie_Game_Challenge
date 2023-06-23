@@ -12,6 +12,8 @@ public class MazeGeneratorScript : MonoBehaviour
     public int tileWidth;
     public int noRooms;
     public int noLoops;
+    public GameObject player;
+    public GameObject goal;
     [Range(2, 4)]
     public int noSections = 3;
     public bool spawnRoof;
@@ -41,6 +43,19 @@ public class MazeGeneratorScript : MonoBehaviour
     private int maxDistance = 0;
     //Pass in maze start position (default is 1,0,1)
     private Vector3 startPos = new Vector3(1, 0, 1);
+    private Vector3 playerStartPos;
+    private Vector3 goalPos;
+
+    private void Awake()
+    {
+        BuildMaze();
+    }
+
+    private void Start()
+    {
+        player.transform.position = playerStartPos;
+        goal.transform.position = goalPos;
+    }
 
     public void BuildMaze()
     {
@@ -60,6 +75,25 @@ public class MazeGeneratorScript : MonoBehaviour
         MakeKeyHolders();
         Spawnmaze();
     }
+
+    public void ClearMaze()
+    {
+        // Create a temporary list to store children
+        List<GameObject> children = new List<GameObject>();
+
+        // Add children to the list
+        foreach (Transform child in this.gameObject.transform)
+        {
+            children.Add(child.gameObject);
+        }
+
+        // Remove children
+        foreach (GameObject child in children)
+        {
+            GameObject.DestroyImmediate(child);
+        }
+    }
+
     void GenerateMaze()
     {
         //create a basic array of integers to use for the inital maze creation.
@@ -445,6 +479,7 @@ public class MazeGeneratorScript : MonoBehaviour
                 if (n.isFinish == true)
                 {
                     textD.GetComponent<TextMeshPro>().faceColor = new Color32(250, 63, 63, 255);
+                    goalPos = n.position;
                 }
 
                 //set start tile text to pink
@@ -506,10 +541,14 @@ public class MazeGeneratorScript : MonoBehaviour
                 //spawn tile prefabs
                 //Blue - (0,105,255,255), yellow (new Color32( 254 , 224 , 0, 255 ), green new Color32( 0 , 254 , 111, 255))
 
-                GameObject newObject = PrefabUtility.InstantiatePrefab(n.tilePrefab) as GameObject;
+
+                GameObject newObject = PrefabUtility.InstantiatePrefab(n.tilePrefab, MazeTiles.transform) as GameObject;
                 newObject.transform.position = new Vector3(xOffset, 0, zOffset);
                 newObject.transform.rotation = Quaternion.Euler(0, n.tileRotation, 0);
-                newObject.transform.parent = MazeTiles.transform;
+
+                if (n.isStart) playerStartPos = newObject.transform.position;
+                else if (n.isFinish) goalPos = newObject.transform.position;
+
 
                 //Instantiate(n.tilePrefab, (new Vector3(xOffset, 0, zOffset)), Quaternion.Euler(0, n.tileRotation, 0), this.transform);
                 //write out spawned tile info
