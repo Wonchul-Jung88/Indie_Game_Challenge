@@ -14,6 +14,7 @@ public class MazeGeneratorScript : MonoBehaviour
     public int noLoops;
     public GameObject player;
     public GameObject goal;
+    public GameObject coin;
     [Range(2, 4)]
     public int noSections = 3;
     public bool spawnRoof;
@@ -545,6 +546,17 @@ public class MazeGeneratorScript : MonoBehaviour
                 GameObject newObject = PrefabUtility.InstantiatePrefab(n.tilePrefab, MazeTiles.transform) as GameObject;
                 newObject.transform.position = new Vector3(xOffset, 0, zOffset);
                 newObject.transform.rotation = Quaternion.Euler(0, n.tileRotation, 0);
+
+                // Generate a random number between 0 and 100
+                float randomValue = UnityEngine.Random.Range(0, 100);
+
+                // If the random number is less than or equal to 25 (which will be true 25% of the time), instantiate the coinObject
+                if (randomValue <= 25)
+                {
+                    GameObject coinObject = GameObject.Instantiate(coin) as GameObject;
+                    coinObject.transform.position = new Vector3(xOffset, 1, zOffset);
+                }
+
 
                 if (n.isStart) playerStartPos = newObject.transform.position;
                 else if (n.isFinish) goalPos = newObject.transform.position;
