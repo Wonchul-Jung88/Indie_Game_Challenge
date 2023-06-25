@@ -1,16 +1,17 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance { get; private set; } // Singleton instance
 
-    public int CoinsCollected { get; private set; } // The number of coins the player has collected
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
+            // Unsubscribe from the sceneLoaded event
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+
             // Destroy if more than one instance exists
             Destroy(gameObject);
         }
@@ -19,14 +20,20 @@ public class CoinManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // Keeps the gameObject alive between scenes
 
-            // Initialize CoinsCollected with the value from PlayerPrefs
-            // If no data exists, default to 0
-            CoinsCollected = PlayerPrefs.GetInt("CoinsCollected", 0);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        LoadCoinsCollected(); // Load the number of coins collected from the last session
+        // "CoinsCollected" is the key we're interested in
+        if (PlayerPrefs.HasKey("CoinsCollected"))
+        {
+            // If the key exists, delete the PlayerPrefs data for that key
+            PlayerPrefs.DeleteKey("CoinsCollected");
+            Debug.Log("PlayerPrefs data for 'CoinsCollected' deleted.");
+        }
+        //else
+        //{
+        //    Debug.Log("No PlayerPrefs data found for 'CoinsCollected'.");
+        //}
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -40,21 +47,11 @@ public class CoinManager : MonoBehaviour
     // Call this method to increase the coin count
     public void AddCoin()
     {
-        CoinsCollected++;
-        // Save the updated coin count to PlayerPrefs
-        PlayerPrefs.SetInt("CoinsCollected", CoinsCollected);
-        PlayerPrefs.Save();
-
-        Debug.Log("Coin Count = " + CoinsCollected);
+        GameData.Instance.CoinCount++;
     }
 
     public void SaveCoinsCollected()
     {
-        PlayerPrefs.SetInt("CoinsCollected", CoinsCollected);
-    }
-
-    public void LoadCoinsCollected()
-    {
-        CoinsCollected = PlayerPrefs.GetInt("CoinsCollected", 0);
+        GameData.Instance.Save();
     }
 }

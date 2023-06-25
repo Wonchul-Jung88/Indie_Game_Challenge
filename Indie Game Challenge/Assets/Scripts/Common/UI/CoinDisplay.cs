@@ -13,6 +13,6 @@ public class CoinDisplay : MonoBehaviour
     private void Update()
     {
         // Update the text to display the current number of coins
-        textMeshPro.text = "Coins: " + CoinManager.Instance.CoinsCollected;
+        textMeshPro.text = "Coins: " + GameData.Instance.CoinCount;
     }
 }

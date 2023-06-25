@@ -564,7 +564,7 @@ public class MazeGeneratorScript : MonoBehaviour
 
                 //Instantiate(n.tilePrefab, (new Vector3(xOffset, 0, zOffset)), Quaternion.Euler(0, n.tileRotation, 0), this.transform);
                 //write out spawned tile info
-                Debug.Log(n.walkable + " " + n.position + " " + n.distance + " " + n.tileRotation + " " + n.tileType + " " + n.isStart + " " + n.isFinish + "" + n.section);
+                //Debug.Log(n.walkable + " " + n.position + " " + n.distance + " " + n.tileRotation + " " + n.tileType + " " + n.isStart + " " + n.isFinish + "" + n.section);
 
             }
 
@@ -620,7 +620,7 @@ public class MazeGeneratorScript : MonoBehaviour
                 }
             }
         }
-        Debug.Log("No of endcaps " + endCaps.Count);
+        //Debug.Log("No of endcaps " + endCaps.Count);
     }
 
     void MakeRooms()
@@ -636,7 +636,7 @@ public class MazeGeneratorScript : MonoBehaviour
         {
             Vector2 capToPath = endCaps[rnd.Next(endCaps.Count)];
             Maze[(int)capToPath.x, (int)capToPath.y] = 1;
-            Debug.Log(capToPath + "make room");
+            //Debug.Log(capToPath + "make room");
             endCaps.Remove(capToPath);
         }
     }
@@ -699,7 +699,7 @@ public class MazeGeneratorScript : MonoBehaviour
                 }
             }
         }
-        Debug.Log("No of loop paths " + loopPaths.Count);
+        //Debug.Log("No of loop paths " + loopPaths.Count);
     }
     void MakeNodeLoops()
     {
@@ -716,7 +716,7 @@ public class MazeGeneratorScript : MonoBehaviour
             NodeInfoMap[(int)loopToPath.x, (int)loopToPath.y].walkable = true;
             NodeInfoMap[(int)loopToPath.x, (int)loopToPath.y].distance = 99;
             NodeInfoMap[(int)loopToPath.x, (int)loopToPath.y].isLoop = true;
-            Debug.Log(loopToPath + "make loop");
+            //Debug.Log(loopToPath + "make loop");
             loopPaths.Remove(loopToPath);
         }
     }
@@ -825,12 +825,12 @@ public class MazeGeneratorScript : MonoBehaviour
                 if (n.section == section && n.walkable == true && n.hasObstacle == false && n.criticalPath == false && n.isStart == false)
                 {
                     keysNonCritTemp.Add(n);
-                    Debug.Log("Key location added for section: " + section + " critical: " + n.criticalPath);
+                    //Debug.Log("Key location added for section: " + section + " critical: " + n.criticalPath);
                 }
                 else if (n.section == section && n.walkable == true && n.hasObstacle == false && n.criticalPath == true)
                 {
                     keysCritTemp.Add(n);
-                    Debug.Log("Key location added for section: " + section + " critical: " + n.criticalPath);
+                    //Debug.Log("Key location added for section: " + section + " critical: " + n.criticalPath);
                 }
             }
 
@@ -839,17 +839,17 @@ public class MazeGeneratorScript : MonoBehaviour
             {
                 keyToKeep = keysNonCritTemp[UnityEngine.Random.Range(0, keysNonCritTemp.Count - 1)];
                 keyToKeep.hasKeyItem = true;
-                Debug.Log("Keeping key Item " + keyToKeep.distance);
+                //Debug.Log("Keeping key Item " + keyToKeep.distance);
             }
             else if (keysCritTemp.Count > 0)
             {
                 keyToKeep = keysCritTemp[UnityEngine.Random.Range(0, keysCritTemp.Count - 1)];
                 keyToKeep.hasKeyItem = true;
-                Debug.Log("Keeping key Item " + keyToKeep.distance);
+                //Debug.Log("Keeping key Item " + keyToKeep.distance);
             }
             else
             {
-                Debug.LogError("No key item candidate");
+                //Debug.LogError("No key item candidate");
             }
 
             keysCritTemp.Clear();

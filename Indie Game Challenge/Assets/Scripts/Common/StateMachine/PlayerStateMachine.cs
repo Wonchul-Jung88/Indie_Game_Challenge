@@ -148,10 +148,18 @@ public class PlayerStateMachine : MonoBehaviour
 
         if (_isMovementPressed)
         {
-            // creates a new rotation based on where the player is currently pressing
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            // rotate the character to face the positionToLookAt
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _rotationFactorPerFrame * Time.deltaTime);
+            // Check if positionToLookAt is not zero vector
+            if (positionToLookAt != Vector3.zero)
+            {
+                // creates a new rotation based on where the player is currently pressing
+                Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
+                // rotate the character to face the positionToLookAt
+                transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _rotationFactorPerFrame * Time.deltaTime);
+            }
+            //else
+            //{
+            //    Debug.LogWarning("Position to look at is zero vector.");
+            //}
         }
     }
 
