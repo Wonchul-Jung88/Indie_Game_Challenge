@@ -340,8 +340,9 @@ GameObject:
   - component: {fileID: 629871943}
   - component: {fileID: 629871942}
   - component: {fileID: 629871941}
+  - component: {fileID: 629871945}
   m_Layer: 0
-  m_Name: Target
+  m_Name: Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,7 +363,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -433,6 +434,18 @@ Transform:
   m_Father: {fileID: 2125450690}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &629871945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629871940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 769f2ea2925192746baf9b29684bacde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &847709950 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 311072526065197308, guid: 5a3445d12d29a8747a1471749d0f8046, type: 3}
@@ -505,10 +518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3605834126565380847, guid: 5a3445d12d29a8747a1471749d0f8046, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1573715302}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a3445d12d29a8747a1471749d0f8046, type: 3}
 --- !u!1 &1129447033
@@ -619,11 +629,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4486919516139402358, guid: d7a67dfce6a215e43bdf9bcad949df81, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.1554908
+      value: 0.15549076
       objectReference: {fileID: 0}
     - target: {fileID: 4486919516139402358, guid: d7a67dfce6a215e43bdf9bcad949df81, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.10398158
+      value: -0.103981555
       objectReference: {fileID: 0}
     - target: {fileID: 6125576259059439400, guid: d7a67dfce6a215e43bdf9bcad949df81, type: 3}
       propertyPath: m_Name
@@ -1132,7 +1142,7 @@ GameObject:
   - component: {fileID: 1573715302}
   - component: {fileID: 1573715303}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MazeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1146,12 +1156,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573715301}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.68526894, y: 4.645998, z: -6.7891116}
+  m_LocalPosition: {x: 7.314731, y: 4.645998, z: 1.2108884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 847709955}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1573715303
 MonoBehaviour:

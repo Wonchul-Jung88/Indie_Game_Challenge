@@ -551,7 +551,7 @@ public class MazeGeneratorScript : MonoBehaviour
                 float randomValue = UnityEngine.Random.Range(0, 100);
 
                 // If the random number is less than or equal to 25 (which will be true 25% of the time), instantiate the coinObject
-                if (randomValue <= 25)
+                if (randomValue <= 25 && !n.isStart && !n.isFinish )
                 {
                     GameObject coinObject = GameObject.Instantiate(coin) as GameObject;
                     coinObject.transform.position = new Vector3(xOffset, 1, zOffset);
