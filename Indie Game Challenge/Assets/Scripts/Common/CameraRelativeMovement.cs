@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraRelativeMovement : MonoBehaviour
@@ -7,7 +8,7 @@ public class CameraRelativeMovement : MonoBehaviour
     float _horizontalInput;
     float _verticalInput;
     Vector3 _playerInput;
-    [SerializeField] CharacterController _characterController;
+    CharacterController _characterController;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class CameraRelativeMovement : MonoBehaviour
         _verticalInput = Input.GetAxis("Vertical");
 
         _playerInput.x = _horizontalInput;
+        _playerInput.y = _characterController.isGrounded? -9.8f : -9.8f * 0.2f;
         _playerInput.z = _verticalInput;
 
         Vector3 cameraRelativeMovement = ConvertToCameraSpace(_playerInput);

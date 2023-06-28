@@ -90,8 +90,8 @@ public class PlayerStateMachine : MonoBehaviour
         // set the parameter hash references
         _isWalkingHash = Animator.StringToHash("IsWalking");
         _isRunningHash = Animator.StringToHash("IsRunning");
-        //_isJumpingHash = Animator.StringToHash("IsJumping");
-        //_jumpCountHash = Animator.StringToHash("JumpCount");
+        _isJumpingHash = Animator.StringToHash("IsJumping");
+        _jumpCountHash = Animator.StringToHash("JumpCount");
         _isFallingHash = Animator.StringToHash("IsFalling");
 
         // set the player input callbacks
@@ -100,8 +100,10 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Move.canceled += onMovementInput;
         _playerInput.CharacterControls.Run.started += onRun;
         _playerInput.CharacterControls.Run.canceled += onRun;
-        //_playerInput.CharacterControls.jump.started += onJump;
-        //_playerInput.CharacterControls.jump.canceled += onJump;
+        _playerInput.CharacterControls.Jump.started += onJump;
+        _playerInput.CharacterControls.Jump.canceled += onJump;
+
+        SetJumpVariables();
     }
 
     private void Start()
@@ -156,10 +158,6 @@ public class PlayerStateMachine : MonoBehaviour
                 // rotate the character to face the positionToLookAt
                 transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _rotationFactorPerFrame * Time.deltaTime);
             }
-            //else
-            //{
-            //    Debug.LogWarning("Position to look at is zero vector.");
-            //}
         }
     }
 

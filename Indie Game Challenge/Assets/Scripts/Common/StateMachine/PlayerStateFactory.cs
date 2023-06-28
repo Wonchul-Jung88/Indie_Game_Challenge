@@ -21,7 +21,7 @@ public class PlayerStateFactory
         _states[PlayerStates.idle] = new PlayerIdleState(_context, this);
         _states[PlayerStates.walk] = new PlayerWalkState(_context, this);
         _states[PlayerStates.run] = new PlayerRunState(_context, this);
-        _states[PlayerStates.jump] = new PlayerRunState(_context, this);
+        _states[PlayerStates.jump] = new PlayerJumpState(_context, this);
         _states[PlayerStates.grounded] = new PlayerGroundedState(_context, this);
         _states[PlayerStates.fall] = new PlayerFallState(_context, this);
     }
