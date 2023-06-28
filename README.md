@@ -5,7 +5,7 @@ Indie Game Challenge
 The version of Unity is 2022.3.2f1
 
 ・資料はIndie Game Challenge\Assets\Documentにあります
-The document is located at Indie_Game_Challenge\Indie Game Challenge\Assets\Document.
+The document is located at Indie Game Challenge\Assets\Document.
 
 ・コンパイルエラーがある物をコミットしない様にしましょう
 Let's make sure not to commit anything that has compile errors.
