@@ -25,7 +25,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     // constants
     float _rotationFactorPerFrame = 15.0f;
-    float _runMultiplier = 4.0f;
+    float _runMultiplier = 10.0f;
+    float _walkMultiplier = 3.0f;
     float _zero = 0.0f;
 
     // gravity variables
@@ -34,7 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
     // jumping variables
     bool _isJumpPressed = false;
     float _initialJumpVelocity;
-    float _maxJumpHeight = 4.0f;
+    float _maxJumpHeight = 10.0f;
     //float _maxJumpTime = .75f;
     bool _isJumping = false;
     int _isJumpingHash;
@@ -73,6 +74,8 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
     public float RunMultiplier { get { return _runMultiplier; } }
+
+    public float WalkMultiplier { get { return _walkMultiplier; } }
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
 
     private void Awake()
