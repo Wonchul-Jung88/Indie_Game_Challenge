@@ -7,11 +7,8 @@ using UnityEngine.AI;
 public class EnemyAITutorial : MonoBehaviour
 {
     public NavMeshAgent agent;
-
     public Transform player;
-
     public LayerMask whatIsGround, whatIsPlayer;
-
     public float health;
 
     //Patroling
@@ -27,8 +24,16 @@ public class EnemyAITutorial : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    Animator _animator;
+    int _isChasingHash;
+    int _isAttackingHash;
+
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
+
+        _isChasingHash = Animator.StringToHash("IsChasing");
+        _isAttackingHash = Animator.StringToHash("IsAttacking");
     }
 
     private void Update()
@@ -44,6 +49,9 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void Patroling()
     {
+        _animator.SetBool(_isChasingHash, false);
+        _animator.SetBool(_isAttackingHash, false);
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -70,11 +78,16 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void ChasePlayer()
     {
+        _animator.SetBool(_isChasingHash, true);
+        _animator.SetBool(_isAttackingHash, false);
+
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
+        _animator.SetBool(_isAttackingHash, true);
+
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
