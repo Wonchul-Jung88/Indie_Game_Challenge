@@ -35,7 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
     // jumping variables
     bool _isJumpPressed = false;
     float _initialJumpVelocity;
-    float _maxJumpHeight = 10.0f;
+    float _maxJumpHeight = 2.0f;
     //float _maxJumpTime = .75f;
     bool _isJumping = false;
     int _isJumpingHash;
@@ -49,6 +49,11 @@ public class PlayerStateMachine : MonoBehaviour
     // state variables
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
+
+    // camera relative movement
+    float _crmhorizontalInput;
+    float _crmverticalInput;
+    Vector3 _crmplayerInput;
 
     // getters and setters
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
@@ -184,14 +189,29 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Add(3, thirdJumpGravity);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         HandleRotation();
         _currentState.UpdateStates();
+    }
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+
+        // Camera Relative Movement
+        _crmhorizontalInput = Input.GetAxis("Horizontal");
+        _crmverticalInput = Input.GetAxis("Vertical");
+
+        _crmplayerInput.x = _crmhorizontalInput;
+        _crmplayerInput.y = _appliedMovement.y;//_characterController.isGrounded ? -9.8f : -9.8f * 0.2f;
+        _crmplayerInput.z = _crmverticalInput;
+
+        Vector3 cameraRelativeMovement = ConvertToCameraSpace(_crmplayerInput);
+
+        _characterController.Move(cameraRelativeMovement * Time.deltaTime);
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)

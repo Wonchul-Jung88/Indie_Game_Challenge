@@ -10,6 +10,8 @@ public class CameraRelativeMovement : MonoBehaviour
     Vector3 _playerInput;
     CharacterController _characterController;
 
+    public float AppliedMovementY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +21,16 @@ public class CameraRelativeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _horizontalInput = Input.GetAxis("Horizontal");
-        _verticalInput = Input.GetAxis("Vertical");
+        //_horizontalInput = Input.GetAxis("Horizontal");
+        //_verticalInput = Input.GetAxis("Vertical");
 
-        _playerInput.x = _horizontalInput;
-        _playerInput.y = _characterController.isGrounded? -9.8f : -9.8f * 0.2f;
-        _playerInput.z = _verticalInput;
+        //_playerInput.x = _horizontalInput;
+        //_playerInput.y = _characterController.isGrounded ? -9.8f : -9.8f * 0.2f;
+        //_playerInput.z = _verticalInput;
 
-        Vector3 cameraRelativeMovement = ConvertToCameraSpace(_playerInput);
+        //Vector3 cameraRelativeMovement = ConvertToCameraSpace(_playerInput);
 
-        _characterController.Move(cameraRelativeMovement * Time.deltaTime);
+        //_characterController.Move(cameraRelativeMovement * Time.deltaTime);
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)

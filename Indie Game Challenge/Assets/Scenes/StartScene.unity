@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spider_black (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -841,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spider_black (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1256,6 +1264,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spider_black (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1486,7 +1498,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.54574263, y: -0.29429376, z: 0.2126702, w: 0.7552004}
+  m_LocalRotation: {x: 0.5457426, y: -0.29429376, z: 0.2126702, w: 0.7552004}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1565,7 +1577,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902873346}
-  m_LocalRotation: {x: 0.5179498, y: -0.30182475, z: 0.20183966, w: 0.774526}
+  m_LocalRotation: {x: 0.5179498, y: -0.3018248, z: 0.20183967, w: 0.774526}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1660,7 +1672,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.54574263, y: -0.29429388, z: 0.21267033, w: 0.7552003}
+  m_LocalRotation: {x: 0.54574263, y: -0.2942938, z: 0.21267024, w: 0.7552004}
   m_LocalPosition: {x: 6.76628, y: 32.128, z: -7.3632507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1839,7 +1851,7 @@ GameObject:
   - component: {fileID: 1146201101}
   - component: {fileID: 1146201100}
   m_Layer: 7
-  m_Name: Plane (1)
+  m_Name: StartArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,6 +1991,10 @@ PrefabInstance:
     - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_Name
       value: spider_black (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
@@ -3079,10 +3095,10 @@ PrefabInstance:
       addedObject: {fileID: 1407360714}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1407360712}
+      addedObject: {fileID: 1407360713}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1407360713}
+      addedObject: {fileID: 1407360712}
   m_SourcePrefab: {fileID: 100100000, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
 --- !u!4 &1407360710 stripped
 Transform:
@@ -3106,6 +3122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79785288feef409a936e9b24730b7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AppliedMovementY: 0
 --- !u!114 &1407360713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3547,6 +3564,10 @@ PrefabInstance:
     - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_Name
       value: spider_black
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
@@ -4649,6 +4670,10 @@ PrefabInstance:
     - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_Name
       value: spider_black (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128811620208064792, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5505336437074420642, guid: e42dce10de392fb46b7cf553d7658cf4, type: 3}
       propertyPath: m_RootOrder
