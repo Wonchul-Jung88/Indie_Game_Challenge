@@ -111,6 +111,8 @@ public class EnemyAITutorial : MonoBehaviour
     {
         health -= damage;
         _animator.SetTrigger("Hurt");
+        Vector3 randomness = new Vector3(Random.Range(0f, 0.25f), Random.Range(0f, 0.25f), Random.Range(0, 0.25f));
+        DamagePopUpGenerator.Instance.CreatePopUp(transform.position + Vector3.up + randomness, damage.ToString(), Color.yellow);
 
         if (health <= 0)
         {

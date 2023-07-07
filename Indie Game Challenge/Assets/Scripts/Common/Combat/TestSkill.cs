@@ -37,16 +37,16 @@ public class TestSkill : MonoBehaviour
                     balls.Add(ball);
                     lastSkillTime = Time.time;
 
-                    Debug.Log("Ball created. Current ball count: " + balls.Count);
+                    //Debug.Log("Ball created. Current ball count: " + balls.Count);
                 }
                 else
                 {
-                    Debug.Log("Reached the maximum number of balls. Current max: " + maxBalls);
+                    //Debug.Log("Reached the maximum number of balls. Current max: " + maxBalls);
                 }
             }
             else
             {
-                Debug.Log("Skill is cooling down. Remaining time: " + (cooldownTime - (Time.time - lastSkillTime)) + " seconds");
+                //Debug.Log("Skill is cooling down. Remaining time: " + (cooldownTime - (Time.time - lastSkillTime)) + " seconds");
             }
         }
 
@@ -68,7 +68,7 @@ public class TestSkill : MonoBehaviour
         if (balls.Contains(ball))
         {
             balls.Remove(ball);
-            Debug.Log("Ball destroyed. Remaining ball count: " + balls.Count);
+            //Debug.Log("Ball destroyed. Remaining ball count: " + balls.Count);
         }
     }
 
