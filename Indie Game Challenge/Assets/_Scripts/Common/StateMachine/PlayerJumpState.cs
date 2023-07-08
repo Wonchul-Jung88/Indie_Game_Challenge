@@ -69,6 +69,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     void HandleJump()
     {
+        Ctx.dust.Play();
+
         if (Ctx.JumpCount < 3 && Ctx.CurrentJumpResetRoutine != null)
         {
             Ctx.StopCoroutine(Ctx.CurrentJumpResetRoutine);

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    public ParticleSystem dust;
+
     // declare reference variables
     CharacterController _characterController;
     Animator _animator;
