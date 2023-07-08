@@ -4,6 +4,7 @@ public class TestSkillDamage : MonoBehaviour
 {
     public int damage = 10; // ボールが与えるダメージ量
     private TestSkill testSkill;
+    public GameObject explosionPrefab; // assign your explosion prefab in the inspector
 
     private void Start()
     {
@@ -20,8 +21,13 @@ public class TestSkillDamage : MonoBehaviour
             if (enemyAI != null)
             {
                 enemyAI.TakeDamageToDie(damage);
-                Debug.Log("Ball has collided with an enemy.");
+
+                // Instantiate an explosion at the ball's position
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+                //Debug.Log("Ball has collided with an enemy.");
                 testSkill.NotifyBallDestroyed(gameObject); // ボールが敵と衝突したことをTestSkillスクリプトに通知
+
                 Destroy(gameObject);
             }
             else
