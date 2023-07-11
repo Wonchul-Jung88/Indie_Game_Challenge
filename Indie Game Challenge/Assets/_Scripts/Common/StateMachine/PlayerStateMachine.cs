@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerStateMachine : MonoBehaviour
 {
     public ParticleSystem dust;
+    public ParticleSystem warp;
 
     // declare reference variables
     CharacterController _characterController;
@@ -24,6 +25,7 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _cameraRelativeMovement;
     bool _isMovementPressed;
     bool _isRunPressed;
+    bool _isDash;
 
     // constants
     float _rotationFactorPerFrame = 15.0f;
@@ -67,6 +69,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int JumpCountHash { get { return _jumpCountHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
+    public bool IsDash { get { return _isDash; } }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; }  set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
@@ -186,11 +189,55 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Add(3, thirdJumpGravity);
     }
 
+    private float lastDashEndTime = -5.0f; // Initialize to a value that allows dashing immediately at the start of the game
+    private float dashTime = 2.0f;
+    private float remainingDashTime = 0;
+    private float doubleTapTime = 0.2f; // ダブルタップと認識するまでの最大時間
+    private float lastTapTime = 0; // 最後にタップされた時間
+    private Vector2 lastMoveDirection; // To keep track of the previous move direction
+
     private void Update()
     {
+        // WASDのいずれかが押されたかどうかを検出
+        if (_playerInput.CharacterControls.Move.triggered)
+        {
+            Vector2 currentMoveDirection = _playerInput.CharacterControls.Move.ReadValue<Vector2>().normalized;
+
+            // 最後のタップからdoubleTapTime以内に新たなタップがあればダッシュを開始
+            // Additionally, ensure that enough time has passed since the last dash, that the player is running,
+            // and that the move direction hasn't changed significantly
+            if (Time.time - lastTapTime <= doubleTapTime && Time.time - lastDashEndTime >= 5.0f && _isRunPressed
+                && Vector2.Dot(lastMoveDirection, currentMoveDirection) > 0.9f) // 0.9 is a threshold for direction change, adjust as needed
+            {
+                Debug.Log("Double tap detected. Starting dash.");
+                remainingDashTime = dashTime;
+            }
+
+            // タップ時間を更新
+            lastTapTime = Time.time;
+            lastMoveDirection = currentMoveDirection;
+        }
+
+        if (remainingDashTime > 0)
+        {
+            Debug.Log("Dashing... Remaining time: " + remainingDashTime);
+            _isDash = true;
+            remainingDashTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (_isDash)
+            {
+                Debug.Log("Dash ended.");
+                lastDashEndTime = Time.time;
+            }
+            _isDash = false;
+        }
+
         HandleRotation();
         _currentState.UpdateStates();
     }
+
 
     // Update is called once per frame
     void FixedUpdate()

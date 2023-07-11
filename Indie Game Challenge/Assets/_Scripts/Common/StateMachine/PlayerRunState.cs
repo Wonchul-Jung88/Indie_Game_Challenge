@@ -17,9 +17,18 @@ public class PlayerRunState : PlayerBaseState
 
     public override void UpdateState()
     {
-        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier;
-        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.RunMultiplier;
-        CheckSwitchStates();
+        if (Ctx.IsDash) {
+            Ctx.warp.Play();
+            Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier * 3.0f;
+            Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.RunMultiplier * 3.0f;
+            CheckSwitchStates();
+        }
+        else {
+            Ctx.warp.Stop();
+            Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier;
+            Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.RunMultiplier;
+            CheckSwitchStates();
+        }
     }
 
     public override void ExitState() { }
@@ -30,10 +39,12 @@ public class PlayerRunState : PlayerBaseState
     {
         if (!Ctx.IsMovementPressed)
         {
+            Ctx.warp.Stop();
             SwitchState(Factory.Idle());
         }
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
+            Ctx.warp.Stop();
             SwitchState(Factory.Walk());
         }
     }
