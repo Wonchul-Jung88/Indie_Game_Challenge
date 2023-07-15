@@ -1,5 +1,7 @@
-
-public class EnemyUnitBase : UnitBase
+namespace Tarodev
 {
-  
+    public class EnemyUnitBase : UnitBase
+    {
+
+    }
 }

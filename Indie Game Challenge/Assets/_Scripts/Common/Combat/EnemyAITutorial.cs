@@ -132,8 +132,8 @@ public class EnemyAITutorial : MonoBehaviour
         _animator.SetBool("IsDead", true);
         isDead = true;
 
-        this.enabled = false;
-        GetComponent<Collider>().enabled = false;
+        //this.enabled = false;
+        GetComponent<Collider>().isTrigger = true;
     }
 
     private void DestroyEnemy()

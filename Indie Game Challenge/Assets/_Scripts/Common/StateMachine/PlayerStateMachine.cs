@@ -7,6 +7,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     public ParticleSystem dust;
     public ParticleSystem warp;
+    public EquipWeapon weapon;
 
     // declare reference variables
     CharacterController _characterController;
@@ -50,6 +51,11 @@ public class PlayerStateMachine : MonoBehaviour
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
     Coroutine _currentJumpResetRoutine = null;
 
+    // attack variables
+    int _isAttackingHash;
+    bool _isAttackPressed = false;
+    bool _isAttackAnimationRunning = false;
+
     // state variables
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
@@ -66,6 +72,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsRunningHash { get { return _isRunningHash; } }
     public int IsJumpingHash { get { return _isJumpingHash; } }
     public int IsFallingHash { get { return _isFallingHash; } }
+    public int IsAttackingHash { get { return _isAttackingHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
@@ -73,6 +80,8 @@ public class PlayerStateMachine : MonoBehaviour
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; }  set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
+    public bool IsAttackPressed { get { return _isAttackPressed; } }
+    public bool IsAttackAnimationRunning { get { return _isAttackAnimationRunning; } }
     public float Gravity { get { return _gravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
@@ -101,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
         _isJumpingHash = Animator.StringToHash("IsJumping");
         _jumpCountHash = Animator.StringToHash("JumpCount");
         _isFallingHash = Animator.StringToHash("IsFalling");
+        _isAttackingHash = Animator.StringToHash("IsAttacking");
 
         // set the player input callbacks
         _playerInput.CharacterControls.Move.started += onMovementInput;
@@ -110,6 +120,10 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Run.canceled += onRun;
         _playerInput.CharacterControls.Jump.started += onJump;
         _playerInput.CharacterControls.Jump.canceled += onJump;
+        _playerInput.CharacterControls.Attack.started += onAttack;
+        _playerInput.CharacterControls.Attack.canceled += onAttack;
+
+        weapon = GetComponent<EquipWeapon>();
 
         SetJumpVariables();
     }
@@ -138,6 +152,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isJumpPressed = context.ReadValueAsButton();
         _requireNewJumpPress = false;
+    }
+
+    private void onAttack(InputAction.CallbackContext context)
+    {
+        _isAttackPressed = context.ReadValueAsButton();
     }
 
     private void onMovementInput(InputAction.CallbackContext context)
@@ -271,5 +290,15 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 vectorRotatedToCameraSpace = cameraForwardZProduct + cameraRightXProduct;
         vectorRotatedToCameraSpace.y = currentYValue;
         return vectorRotatedToCameraSpace;
+    }
+
+    public void StartAttackAnimation()
+    {
+        _isAttackAnimationRunning = true;
+    }
+
+    public void StopAttackAnimation()
+    {
+        _isAttackAnimationRunning = false;
     }
 }
