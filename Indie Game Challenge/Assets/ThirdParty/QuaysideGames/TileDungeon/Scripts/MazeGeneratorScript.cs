@@ -43,7 +43,7 @@ public class MazeGeneratorScript : MonoBehaviour
     private Vector2 _currentTile;
     private int maxDistance = 0;
     //Pass in maze start position (default is 1,0,1)
-    private Vector3 startPos = new Vector3(1, 0, 1);
+    private Vector3 startPos = new Vector3(5, 0, 5);
     private Vector3 playerStartPos;
     private Vector3 goalPos;
 
