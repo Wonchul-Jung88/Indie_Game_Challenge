@@ -211,18 +211,17 @@ public class PlayerStateMachine : MonoBehaviour
     private float lastDashEndTime = -5.0f; // Initialize to a value that allows dashing immediately at the start of the game
     private float dashTime = 2.0f;
     private float remainingDashTime = 0;
-    private float doubleTapTime = 0.2f; // ダブルタップと認識するまでの最大時間
-    private float lastTapTime = 0; // 最後にタップされた時間
+    private float doubleTapTime = 0.2f;
+    private float lastTapTime = 0;
     private Vector2 lastMoveDirection; // To keep track of the previous move direction
 
     private void Update()
     {
-        // WASDのいずれかが押されたかどうかを検出
         if (_playerInput.CharacterControls.Move.triggered)
         {
             Vector2 currentMoveDirection = _playerInput.CharacterControls.Move.ReadValue<Vector2>().normalized;
 
-            // 最後のタップからdoubleTapTime以内に新たなタップがあればダッシュを開始
+            
             // Additionally, ensure that enough time has passed since the last dash, that the player is running,
             // and that the move direction hasn't changed significantly
             if (Time.time - lastTapTime <= doubleTapTime && Time.time - lastDashEndTime >= 5.0f && _isRunPressed
@@ -232,7 +231,6 @@ public class PlayerStateMachine : MonoBehaviour
                 remainingDashTime = dashTime;
             }
 
-            // タップ時間を更新
             lastTapTime = Time.time;
             lastMoveDirection = currentMoveDirection;
         }

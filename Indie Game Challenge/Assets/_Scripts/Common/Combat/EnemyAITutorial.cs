@@ -7,6 +7,7 @@ public class EnemyAITutorial : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
+    public int maxHealth;
 
     //Patroling
     public Vector3 walkPoint;
@@ -26,12 +27,23 @@ public class EnemyAITutorial : MonoBehaviour
     int _isChasingHash;
     int _isAttackingHash;
 
+    public GameObject explosionPrefab;
+
+    public float knockBackThreshold = 0.01f;
+    public float rotationSpeed = 50f;
+
+    private Rigidbody rb;
+    private EnemyAITutorial ai;
+    private bool isKnockBack;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
 
         _isChasingHash = Animator.StringToHash("IsChasing");
         _isAttackingHash = Animator.StringToHash("IsAttacking");
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -44,6 +56,20 @@ public class EnemyAITutorial : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        if (isKnockBack)
+        {
+            float rotationAmount = rotationSpeed * Time.deltaTime;
+            transform.Rotate(0, rotationAmount, 0);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isKnockBack && rb.velocity.magnitude <= knockBackThreshold)
+        {
+            isKnockBack = false;
+        }
     }
 
     private void Patroling()
@@ -120,6 +146,12 @@ public class EnemyAITutorial : MonoBehaviour
         }
     }
 
+    public void ApplyKnockBack(Vector3 force, ForceMode mode)
+    {
+        rb.AddForce(force, mode);
+        isKnockBack = true;
+    }
+
     public void TakeDamageToDestroy(int damage)
     {
         health -= damage;
@@ -134,6 +166,7 @@ public class EnemyAITutorial : MonoBehaviour
 
         //this.enabled = false;
         GetComponent<Collider>().isTrigger = true;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void DestroyEnemy()
@@ -147,5 +180,26 @@ public class EnemyAITutorial : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            EnemyAITutorial enemyAI = collision.gameObject.GetComponent<EnemyAITutorial>();
+
+            if (enemyAI != null && enemyAI.gameObject != this)
+            {
+                enemyAI.TakeDamageToDie(maxHealth);
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+                var direction = collision.gameObject.transform.position - this.gameObject.transform.position;
+                enemyAI.ApplyKnockBack(direction.normalized, ForceMode.Impulse);
+            }
+            else
+            {
+                Debug.LogError("enemyAI component is not attached to the enemy object.");
+            }
+        }
     }
 }
