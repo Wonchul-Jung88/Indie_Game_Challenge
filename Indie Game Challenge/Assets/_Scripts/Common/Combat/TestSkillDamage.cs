@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class TestSkillDamage : MonoBehaviour
 {
-    public int damage = 10; // ボールが与えるダメージ量
+    public int damage = 10;
     private TestSkill testSkill;
-    public GameObject explosionPrefab; // assign your explosion prefab in the inspector
+    public GameObject explosionPrefab;
 
     private void Start()
     {
-        GameObject player = GameObject.FindWithTag("Player"); // プレイヤーのタグが"Player"であることを想定
+        GameObject player = GameObject.FindWithTag("Player");
         testSkill = player.GetComponent<TestSkill>();
     }
 
@@ -26,7 +26,7 @@ public class TestSkillDamage : MonoBehaviour
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
                 //Debug.Log("Ball has collided with an enemy.");
-                testSkill.NotifyBallDestroyed(gameObject); // ボールが敵と衝突したことをTestSkillスクリプトに通知
+                testSkill.NotifyBallDestroyed(gameObject);
 
                 Destroy(gameObject);
             }
