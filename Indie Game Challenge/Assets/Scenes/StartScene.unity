@@ -471,7 +471,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313364815}
-  m_LocalRotation: {x: 0.52638173, y: -0.31778184, z: 0.22095765, w: 0.7570435}
+  m_LocalRotation: {x: 0.52638173, y: -0.31778187, z: 0.22095768, w: 0.7570434}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -961,6 +961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 425234541017643923, guid: 42ef1b9967039a9488f7a95bd181c491, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2818465560533780588, guid: 42ef1b9967039a9488f7a95bd181c491, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1350,7 +1354,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.54006493, y: -0.31371015, z: 0.2267014, w: 0.7473435}
+  m_LocalRotation: {x: 0.54006493, y: -0.31371018, z: 0.22670142, w: 0.74734354}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1429,7 +1433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902873346}
-  m_LocalRotation: {x: 0.51256126, y: -0.32173803, z: 0.2151563, w: 0.7664681}
+  m_LocalRotation: {x: 0.5125612, y: -0.3217381, z: 0.21515635, w: 0.76646817}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1555,7 +1559,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.54006493, y: -0.31371027, z: 0.22670153, w: 0.7473434}
+  m_LocalRotation: {x: 0.540065, y: -0.31371018, z: 0.22670153, w: 0.7473434}
   m_LocalPosition: {x: 7.1376553, y: 32.128, z: -7.0038476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2172,6 +2176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spider_black
       objectReference: {fileID: 0}
+    - target: {fileID: 7132214571823155313, guid: c9766bdab87aa8749b61d2c7c92de953, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2723,6 +2731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SKELETON
       objectReference: {fileID: 0}
+    - target: {fileID: 184747410599801081, guid: 1892e0d62b095a5478d41b5bfb2636b0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 550360995820836502, guid: 1892e0d62b095a5478d41b5bfb2636b0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3115,6 +3127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DemonGirl 1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1364137092129519714, guid: e3a324676adf84747bdb078fd502d5a8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3136,6 +3152,10 @@ PrefabInstance:
     - target: {fileID: 366673433626485803, guid: 8614b84cf80caf04eaa7074c8a1c7d76, type: 3}
       propertyPath: m_Name
       value: DemonGirl 2 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 366673433626485803, guid: 8614b84cf80caf04eaa7074c8a1c7d76, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 368707809020770679, guid: 8614b84cf80caf04eaa7074c8a1c7d76, type: 3}
       propertyPath: m_RootOrder
@@ -3336,6 +3356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spider_brown
       objectReference: {fileID: 0}
+    - target: {fileID: 8790550825302220330, guid: 093778190bdea974b84bc1d112761e78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3424,6 +3448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghoul
       objectReference: {fileID: 0}
+    - target: {fileID: 2244812283650542585, guid: 91e7c772708b56f4c85bfd513db5172c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5924554538047155979, guid: 91e7c772708b56f4c85bfd513db5172c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3489,6 +3517,10 @@ PrefabInstance:
     - target: {fileID: 4991072638555219943, guid: 05dd614b24709ca438de966b7a3999fb, type: 3}
       propertyPath: m_Name
       value: minotaur1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991072638555219943, guid: 05dd614b24709ca438de966b7a3999fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7826299739109641974, guid: 05dd614b24709ca438de966b7a3999fb, type: 3}
       propertyPath: m_RootOrder
@@ -3894,6 +3926,10 @@ PrefabInstance:
     - target: {fileID: 4302568910076218932, guid: ae0bb26cf6f63034bb682123fe6f5262, type: 3}
       propertyPath: m_Name
       value: spider_green
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302568910076218932, guid: ae0bb26cf6f63034bb682123fe6f5262, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

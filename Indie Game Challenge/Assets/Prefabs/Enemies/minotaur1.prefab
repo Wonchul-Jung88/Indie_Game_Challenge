@@ -2542,7 +2542,7 @@ Transform:
   - {fileID: 6513722439709343887}
   - {fileID: 1589326137067647445}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &2449419572164293967
 Animator:
@@ -2554,7 +2554,7 @@ Animator:
   m_GameObject: {fileID: 4991072638555219943}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 63e974d9ec82619419e69ae2287be94e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1ec31ee6b4e699b4c919f9ddd24f6f73, type: 2}
+  m_Controller: {fileID: 9100000, guid: 237b83ce4d25b4f4eba6245aa10c1d22, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2586,6 +2586,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 0
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 0
@@ -2594,6 +2595,9 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  explosionPrefab: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &-5683356381891506610
 NavMeshAgent:
   m_ObjectHideFlags: 0
