@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -262,6 +263,18 @@ public class PlayerStateMachine : MonoBehaviour
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
     }
+
+    public IEnumerator ApplyKnockBack(Vector3 direction, float intensity, float duration)
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            _characterController.Move(intensity * direction.normalized * Time.deltaTime);
+            yield return null; // Wait until next frame
+        }
+    }
+
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
     {

@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -567,6 +567,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 5
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0.5
@@ -575,6 +576,9 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  explosionPrefab: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &674684246443119811
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -643,5 +647,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 2, z: 0.7}
+  m_Size: {x: 0.3, y: 2, z: 0.3}
   m_Center: {x: 0, y: 1, z: 0}

@@ -87,6 +87,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 5
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0.3
@@ -95,6 +96,9 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  explosionPrefab: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &362068782278217116
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -163,7 +167,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 2, z: 0.7}
+  m_Size: {x: 0.3, y: 2, z: 0.3}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &341606969466064749
 GameObject:
@@ -874,7 +878,7 @@ Transform:
   m_Children:
   - {fileID: 8604112886473957191}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3186425467629916160
 GameObject:

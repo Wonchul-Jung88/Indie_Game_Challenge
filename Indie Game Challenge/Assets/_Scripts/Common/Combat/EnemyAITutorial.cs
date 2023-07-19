@@ -27,7 +27,8 @@ public class EnemyAITutorial : MonoBehaviour
     int _isChasingHash;
     int _isAttackingHash;
 
-    public GameObject explosionPrefab;
+    //public GameObject explosionPrefab;
+    public GameObject AttackBox;
 
     public float knockBackThreshold = 0.01f;
     public float rotationSpeed = 50f;
@@ -74,6 +75,7 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void Patroling()
     {
+        agent.speed = 1.0f;
         _animator.SetBool(_isChasingHash, false);
         _animator.SetBool(_isAttackingHash, false);
 
@@ -103,6 +105,7 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void ChasePlayer()
     {
+        agent.speed = 10.0f;
         _animator.SetBool(_isChasingHash, true);
         _animator.SetBool(_isAttackingHash, false);
 
@@ -111,6 +114,7 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void AttackPlayer()
     {
+        agent.speed = 0.0f;
         _animator.SetBool(_isAttackingHash, true);
 
         //Make sure enemy doesn't move
@@ -191,7 +195,7 @@ public class EnemyAITutorial : MonoBehaviour
             if (enemyAI != null && enemyAI.gameObject != this)
             {
                 enemyAI.TakeDamageToDie(maxHealth);
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                //Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
                 var direction = collision.gameObject.transform.position - this.gameObject.transform.position;
                 enemyAI.ApplyKnockBack(direction.normalized, ForceMode.Impulse);
@@ -201,5 +205,15 @@ public class EnemyAITutorial : MonoBehaviour
                 Debug.LogError("enemyAI component is not attached to the enemy object.");
             }
         }
+    }
+
+    public void EnableAttackBox()
+    {
+        AttackBox.GetComponent<Collider>().enabled = true;
+    }
+
+    public void DisableAttackBox()
+    {
+        AttackBox.GetComponent<Collider>().enabled = false;
     }
 }
