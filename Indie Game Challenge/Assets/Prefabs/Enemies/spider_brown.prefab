@@ -378,6 +378,65 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00010666717, y: 0.0054854373, z: 0.0024398682}
     m_Extent: {x: 0.019547112, y: 0.016542029, z: 0.009858215}
   m_DirtyAABB: 0
+--- !u!1 &923694320693886597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2665498524135559611}
+  - component: {fileID: 3056023241345242896}
+  m_Layer: 0
+  m_Name: WebShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2665498524135559611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923694320693886597}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1415029446044911639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &3056023241345242896
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923694320693886597}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1212782862336512334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,6 +2021,7 @@ GameObject:
   - component: {fileID: 7231416503841960897}
   - component: {fileID: 1486696689237243461}
   - component: {fileID: 1235883784211226856}
+  - component: {fileID: 5043399554264073904}
   m_Layer: 0
   m_Name: spider_brown
   m_TagString: Untagged
@@ -1983,6 +2043,7 @@ Transform:
   m_Children:
   - {fileID: 4351435420508861199}
   - {fileID: 8699468862039390772}
+  - {fileID: 2665498524135559611}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2020,7 +2081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 7231416503841960897}
-  player: {fileID: 3605834126565380847, guid: 5a3445d12d29a8747a1471749d0f8046, type: 3}
+  player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
@@ -2110,6 +2171,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 1.5, z: 2.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5043399554264073904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790550825302220330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee971583ded013641ab32e6c14e327b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webPrefab: {fileID: 336878045830894210, guid: d651d4952d77fbe49a46002b74c2874b, type: 3}
+  shootForce: 5
+  webLifeTime: 10
+  webShooter: {fileID: 2665498524135559611}
+  cooldownTime: 0.5
+  angle: 45
 --- !u!1 &8807788970995276272
 GameObject:
   m_ObjectHideFlags: 0
