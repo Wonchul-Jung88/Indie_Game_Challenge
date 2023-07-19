@@ -31,8 +31,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     // constants
     float _rotationFactorPerFrame = 15.0f;
-    float _runMultiplier = 10.0f;
-    float _walkMultiplier = 3.0f;
+    float _runMultiplier = 8.0f;
+    float _walkMultiplier = 2.0f;
     float _zero = 0.0f;
 
     // gravity variables
@@ -277,6 +277,11 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    public void ReduceSpeed()
+    {
+        _runMultiplier = _runMultiplier * 0.93f;
+        _walkMultiplier = _walkMultiplier * 0.93f;
+    }
 
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)

@@ -15,6 +15,7 @@ public class SpiderWebCollision : MonoBehaviour
             {
                 Vector3 knockbackDirection = player.transform.position - transform.position;
                 StartCoroutine(player.ApplyKnockBack(knockbackDirection, knockbackIntensity, knockbackDuration));
+                player.ReduceSpeed();
             }
             else
             {
