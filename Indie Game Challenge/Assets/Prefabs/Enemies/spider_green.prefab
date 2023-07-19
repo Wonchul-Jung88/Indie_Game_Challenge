@@ -1098,15 +1098,19 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  health: 25
+  health: 20
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 20
-  timeBetweenAttacks: 0.3
-  sightRange: 10
-  attackRange: 3
+  timeBetweenAttacks: 0.5
+  sightRange: 40
+  attackRange: 35
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  AttackBox: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &-7462248051013314716
 NavMeshAgent:
   m_ObjectHideFlags: 0

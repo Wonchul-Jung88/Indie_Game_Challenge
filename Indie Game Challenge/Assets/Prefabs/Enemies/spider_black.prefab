@@ -191,6 +191,65 @@ Transform:
   m_Father: {fileID: 4806025080352348194}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -10.4048605, y: 161.26521, z: -177.24208}
+--- !u!1 &854555852166377280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1092247938439540599}
+  - component: {fileID: 1161616674255127698}
+  m_Layer: 9
+  m_Name: WebShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1092247938439540599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854555852166377280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6493485352734939967}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1161616674255127698
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854555852166377280}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &883176789931344265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1515,7 @@ GameObject:
   - component: {fileID: 201650833915517270}
   - component: {fileID: 2918960005933500218}
   - component: {fileID: 1238353272491708329}
+  - component: {fileID: 6413375386371242659}
   m_Layer: 9
   m_Name: spider_black
   m_TagString: Untagged
@@ -1470,13 +1530,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7132214571823155313}
-  m_LocalRotation: {x: -0, y: 0.9086364, z: -0, w: 0.4175883}
+  m_LocalRotation: {x: 0, y: 0.90863574, z: 0, w: 0.41758972}
   m_LocalPosition: {x: -12.45, y: 0, z: 9.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7776819265737766246}
   - {fileID: 49598686763134295}
+  - {fileID: 1092247938439540599}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 130.635, z: 0}
@@ -1514,7 +1575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 201650833915517270}
-  player: {fileID: 3605834126565380847, guid: 5a3445d12d29a8747a1471749d0f8046, type: 3}
+  player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
@@ -1522,14 +1583,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 20
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 20
   timeBetweenAttacks: 0.5
-  sightRange: 10
-  attackRange: 5
+  sightRange: 40
+  attackRange: 35
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  AttackBox: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &201650833915517270
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1600,6 +1665,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 1.5, z: 2.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &6413375386371242659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132214571823155313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee971583ded013641ab32e6c14e327b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webPrefab: {fileID: 336878045830894210, guid: 7cc7d3b11904d754a9f6328da5b92b72, type: 3}
+  shootForce: 20
+  webLifeTime: 5
+  webShooter: {fileID: 1092247938439540599}
+  cooldownTime: 0.5
 --- !u!1 &7274395740725846667
 GameObject:
   m_ObjectHideFlags: 0

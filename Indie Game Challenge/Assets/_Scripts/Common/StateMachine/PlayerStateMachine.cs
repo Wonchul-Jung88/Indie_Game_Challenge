@@ -270,10 +270,13 @@ public class PlayerStateMachine : MonoBehaviour
 
         while (Time.time - startTime < duration)
         {
-            _characterController.Move(intensity * direction.normalized * Time.deltaTime);
+            Vector3 movement = intensity * direction.normalized * Time.deltaTime;
+            _characterController.Move(movement);
+
             yield return null; // Wait until next frame
         }
     }
+
 
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)

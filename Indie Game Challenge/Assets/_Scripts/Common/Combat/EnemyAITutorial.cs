@@ -130,6 +130,7 @@ public class EnemyAITutorial : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+
     }
 
     private void ResetAttack()
@@ -188,6 +189,7 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!isDead) return;
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             EnemyAITutorial enemyAI = collision.gameObject.GetComponent<EnemyAITutorial>();
@@ -209,11 +211,11 @@ public class EnemyAITutorial : MonoBehaviour
 
     public void EnableAttackBox()
     {
-        AttackBox.GetComponent<Collider>().enabled = true;
+        if(AttackBox != null) AttackBox.GetComponent<Collider>().enabled = true;
     }
 
     public void DisableAttackBox()
     {
-        AttackBox.GetComponent<Collider>().enabled = false;
+        if (AttackBox != null) AttackBox.GetComponent<Collider>().enabled = false;
     }
 }

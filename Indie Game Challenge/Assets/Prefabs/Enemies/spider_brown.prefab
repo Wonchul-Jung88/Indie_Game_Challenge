@@ -1976,7 +1976,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8790550825302220330}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.266674, y: 0, z: -6.8163185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2027,15 +2027,19 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  health: 30
+  health: 20
+  maxHealth: 0
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 30
-  timeBetweenAttacks: 0.2
-  sightRange: 8
-  attackRange: 2
+  walkPointRange: 20
+  timeBetweenAttacks: 0.5
+  sightRange: 40
+  attackRange: 35
   playerInSightRange: 0
   playerInAttackRange: 0
   isDead: 0
+  AttackBox: {fileID: 0}
+  knockBackThreshold: 0.01
+  rotationSpeed: 50
 --- !u!195 &7231416503841960897
 NavMeshAgent:
   m_ObjectHideFlags: 0
