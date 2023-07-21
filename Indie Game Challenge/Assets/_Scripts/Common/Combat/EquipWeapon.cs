@@ -30,30 +30,29 @@ public class EquipWeapon : MonoBehaviour
     {
         if (WeaponRigidbody != null) WeaponRigidbody.isKinematic = false;
         if (WeaponNavMeshAgent != null) WeaponNavMeshAgent.enabled = true;
+
+        // Log details about the direction and power of the throw
+        Debug.Log("Player forward direction: " + Player.forward);
+        Debug.Log("Player up direction: " + Player.up);
+        Debug.Log("Throw power: " + throwPower);
+
+        Vector3 forwardForce = Player.forward * throwPower;
+        Vector3 upwardForce = Player.up * 10;
+        Debug.Log("Forward force: " + forwardForce);
+        Debug.Log("Upward force: " + upwardForce);
+
+        Vector3 totalForce = forwardForce + upwardForce;
+        Debug.Log("Total force: " + totalForce);
+
+        WeaponPoint.DetachChildren();
         //WeaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        WeaponRigidbody.AddForce(Player.forward * throwPower + Player.up * 2, ForceMode.Impulse);
+        WeaponRigidbody.useGravity = false;
+        WeaponRigidbody.AddForce(totalForce, ForceMode.Impulse);
         WeaponRigidbody = null;
         slotFull = false;
         WeaponRig.weight = 0;
-        WeaponPoint.DetachChildren();
     }
 
-    void Drop()
-    {
-        slotFull = false;
-        WeaponRig.weight = 0;
-        WeaponPoint.DetachChildren();
-
-        if (WeaponRigidbody != null)
-        {
-            //WeaponRigidbody.isKinematic = false;
-        }
-
-        if (WeaponNavMeshAgent != null)
-        {
-            WeaponNavMeshAgent.enabled = true;
-        }
-    }
 
     void Equip()
     {
