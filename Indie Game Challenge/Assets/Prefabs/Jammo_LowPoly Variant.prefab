@@ -54,14 +54,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6965138188551594864}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.04647, y: 0.00022, z: 0}
-  m_LocalScale: {x: 0.035714287, y: 0.035714287, z: 0.035714287}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.0344, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1685989795767494737}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &7092559977695799553
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -980,7 +980,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dust: {fileID: 3971730915182311691}
   warp: {fileID: 1976044052744215494}
-  weapon: {fileID: 0}
 --- !u!114 &7341488662476778113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,6 +1138,7 @@ MonoBehaviour:
   WeaponPoint: {fileID: 4030857844192800614}
   Player: {fileID: 94648701439012658}
   WeaponRig: {fileID: 2879805984293642262}
+  throwPower: 30
   slotFull: 0
 --- !u!65 &2930393587461148825
 BoxCollider:

@@ -8,6 +8,7 @@ public class EnemyAITutorial : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public int maxHealth;
+    public GameObject WeaponBox;
 
     //Patroling
     public Vector3 walkPoint;
@@ -170,8 +171,11 @@ public class EnemyAITutorial : MonoBehaviour
         isDead = true;
 
         //this.enabled = false;
-        GetComponent<Collider>().isTrigger = true;
+        GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
+        WeaponBox.SetActive(WeaponBox);
+        GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        AttackBox.SetActive(false);
     }
 
     private void DestroyEnemy()

@@ -25,7 +25,6 @@ public class TestSkillDamage : MonoBehaviour
                 // Instantiate an explosion at the ball's position
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-                //Debug.Log("Ball has collided with an enemy.");
                 testSkill.NotifyBallDestroyed(gameObject);
 
                 Destroy(gameObject);

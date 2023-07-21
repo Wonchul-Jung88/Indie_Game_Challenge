@@ -13,6 +13,7 @@ public class PlayerWalkState : PlayerBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+        Ctx.Animator.SetBool(Ctx.IsAimingHash, false);
     }
 
     public override void UpdateState()

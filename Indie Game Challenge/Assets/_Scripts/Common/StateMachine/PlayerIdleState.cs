@@ -13,6 +13,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+        Ctx.Animator.SetBool(Ctx.IsAimingHash, false);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
     }
