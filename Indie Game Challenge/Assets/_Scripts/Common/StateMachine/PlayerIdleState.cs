@@ -28,9 +28,15 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
+        if (Ctx.IsAttackAnimationRunning) return;
+
         if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
+        }
+        else if (Ctx.Weapon.slotFull && Ctx.IsRunPressed)
+        {
+            SwitchState(Factory.Aim());
         }
         else if (Ctx.IsMovementPressed)
         {

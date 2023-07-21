@@ -32,6 +32,9 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Idle());
         }
+        else if (Ctx.Weapon.slotFull && Ctx.IsRunPressed) {
+            SwitchState(Factory.Aim());
+        }
         else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());

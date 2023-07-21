@@ -65,9 +65,6 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed && Ctx.weapon.slotFull) {
-            SwitchState(Factory.Attack());
-        }
     }
 
     void HandleJump()

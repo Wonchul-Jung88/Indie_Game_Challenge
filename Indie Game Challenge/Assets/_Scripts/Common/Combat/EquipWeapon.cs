@@ -12,16 +12,27 @@ public class EquipWeapon : MonoBehaviour
 
     public Transform WeaponPoint, Player;
     public Rig WeaponRig;
+    public float throwPower = 30;
 
     public bool slotFull; // Changed from public static to public
 
     // Update is called once per frame
     void Update()
     {
-        if (slotFull && Input.GetKey(KeyCode.F) && Weapon != null)
-        {
-            Drop();
-        }
+        //if (slotFull && Input.GetKey(KeyCode.F) && Weapon != null)
+        //{
+        //    //Drop();
+        //    ThrowWeapon();
+        //}
+    }
+
+    public void ThrowWeapon()
+    {
+        if (WeaponRigidbody != null) WeaponRigidbody.isKinematic = false;
+        if (WeaponNavMeshAgent != null) WeaponNavMeshAgent.enabled = true;
+        WeaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        WeaponPoint.DetachChildren();
+        WeaponRigidbody.AddForce(Player.forward * throwPower + Player.up * 2, ForceMode.Impulse);
     }
 
     void Drop()

@@ -12,7 +12,7 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
-        Ctx.weapon.WeaponRig.weight = 0;
+        Ctx.Weapon.WeaponRig.weight = 0;
         InitializeSubState();
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
     }
@@ -25,7 +25,7 @@ public class PlayerAttackState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        Ctx.weapon.WeaponRig.weight = 1;
+        Ctx.Weapon.WeaponRig.weight = 1;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
     }
 

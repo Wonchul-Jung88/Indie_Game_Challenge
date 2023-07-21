@@ -8,7 +8,6 @@ public class PlayerStateMachine : MonoBehaviour
 {
     public ParticleSystem dust;
     public ParticleSystem warp;
-    public EquipWeapon weapon;
 
     // declare reference variables
     CharacterController _characterController;
@@ -54,8 +53,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     // attack variables
     int _isAttackingHash;
+    int _isAimingHash;
     bool _isAttackPressed = false;
     bool _isAttackAnimationRunning = false;
+    EquipWeapon _weapon;
 
     // state variables
     PlayerBaseState _currentState;
@@ -74,6 +75,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsJumpingHash { get { return _isJumpingHash; } }
     public int IsFallingHash { get { return _isFallingHash; } }
     public int IsAttackingHash { get { return _isAttackingHash; } }
+    public int IsAimingHash { get { return _isAimingHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
@@ -92,6 +94,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public float WalkMultiplier { get { return _walkMultiplier; } }
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
+    public EquipWeapon Weapon { get { return _weapon; } }
 
     private void Awake()
     {
@@ -112,6 +115,7 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpCountHash = Animator.StringToHash("JumpCount");
         _isFallingHash = Animator.StringToHash("IsFalling");
         _isAttackingHash = Animator.StringToHash("IsAttacking");
+        _isAimingHash = Animator.StringToHash("IsAiming");
 
         // set the player input callbacks
         _playerInput.CharacterControls.Move.started += onMovementInput;
@@ -124,7 +128,7 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Attack.started += onAttack;
         _playerInput.CharacterControls.Attack.canceled += onAttack;
 
-        weapon = GetComponent<EquipWeapon>();
+        _weapon = GetComponent<EquipWeapon>();
 
         SetJumpVariables();
     }

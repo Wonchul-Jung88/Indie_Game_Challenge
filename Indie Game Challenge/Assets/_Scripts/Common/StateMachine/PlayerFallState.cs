@@ -39,9 +39,6 @@ public class PlayerFallState : PlayerBaseState, IRootState
         if (Ctx.CharacterController.isGrounded) {
             SwitchState(Factory.Grounded());
         }
-        else if (Ctx.IsAttackPressed && Ctx.weapon.slotFull) {
-            SwitchState(Factory.Attack());
-        }
     }
 
     public override void InitializeSubState()
