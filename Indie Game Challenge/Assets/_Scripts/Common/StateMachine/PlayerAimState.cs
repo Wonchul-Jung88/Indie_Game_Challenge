@@ -32,8 +32,7 @@ public class PlayerAimState : PlayerBaseState
             Ctx.Weapon.WeaponRig.weight = 1;
             SwitchState(Factory.Idle());
         }
-
-        else if (!Ctx.IsRunPressed && Ctx.IsMovementPressed )
+        else if ( !Ctx.IsRunPressed && Ctx.IsMovementPressed )
         {
             Ctx.Weapon.WeaponRig.weight = 1;
             SwitchState(Factory.Walk());

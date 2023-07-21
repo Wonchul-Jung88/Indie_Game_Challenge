@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,48 +17,60 @@ public class EquipWeapon : MonoBehaviour
 
     public bool slotFull; // Changed from public static to public
 
+    WeaponScript _weaponScript;
+    //public GameObject _tempWeapon;
+
+
+    private void Start()
+    {
+        //_weaponScript = _tempWeapon.GetComponent<WeaponScript>();
+        //WeaponRigidbody = _tempWeapon.GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //if (slotFull && Input.GetKey(KeyCode.F) && Weapon != null)
+        //if (Input.GetKey(KeyCode.F))
         //{
-        //    //Drop();
-        //    ThrowWeapon();
+        //    ThrowWeapon2();
         //}
     }
 
     public void ThrowWeapon()
     {
-        if (WeaponRigidbody != null) WeaponRigidbody.isKinematic = false;
-        if (WeaponNavMeshAgent != null) WeaponNavMeshAgent.enabled = true;
-
-        // Log details about the direction and power of the throw
-        Debug.Log("Player forward direction: " + Player.forward);
-        Debug.Log("Player up direction: " + Player.up);
-        Debug.Log("Throw power: " + throwPower);
-
-        Vector3 forwardForce = Player.forward * throwPower;
-        Vector3 upwardForce = Player.up * 10;
-        Debug.Log("Forward force: " + forwardForce);
-        Debug.Log("Upward force: " + upwardForce);
-
-        Vector3 totalForce = forwardForce + upwardForce;
-        Debug.Log("Total force: " + totalForce);
-
-        WeaponPoint.DetachChildren();
-        //WeaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        WeaponRigidbody.useGravity = false;
-        WeaponRigidbody.AddForce(totalForce, ForceMode.Impulse);
-        WeaponRigidbody = null;
         slotFull = false;
+        _weaponScript.activated = true;
+        WeaponRigidbody.isKinematic = false;
+        WeaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        //if (WeaponNavMeshAgent != null) WeaponNavMeshAgent.enabled = true;
+        Weapon.transform.parent = null;
+        //Weapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
+        Weapon.transform.position += transform.right / 5;
+        WeaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
+
+        //WeaponRigidbody = null;
         WeaponRig.weight = 0;
     }
 
-
-    void Equip()
+    public void ThrowWeapon2()
     {
+        slotFull = false;
+        _weaponScript.activated = true;
+        WeaponRigidbody.isKinematic = false;
+        WeaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        //_tempWeapon.transform.parent = null;
+        //_tempWeapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
+        //_tempWeapon.transform.position += transform.right / 5;
+        WeaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
+    }
+
+    void Equip( GameObject _weapon )
+    {
+        Weapon = _weapon;
         if (Weapon == null) return;
-        
+        WeaponRigidbody = Weapon.GetComponent<Rigidbody>();
+        WeaponNavMeshAgent = Weapon.GetComponent<NavMeshAgent>();
+
         slotFull = true;
         WeaponRig.weight = 1;
         Weapon.transform.SetParent(WeaponPoint);
@@ -69,12 +82,15 @@ public class EquipWeapon : MonoBehaviour
 
         if (WeaponRigidbody != null)
         {
-            //WeaponRigidbody.isKinematic = true;
+            Debug.Log("Weapon Rigid Body is not null");
+            WeaponRigidbody.isKinematic = true;
         }
 
         Weapon.transform.localPosition = Vector3.zero;
         Weapon.transform.localRotation = Quaternion.Euler(Vector3.zero);
         Weapon.transform.localScale = Vector3.one / 28.0f;
+        _weaponScript = Weapon.GetComponent<WeaponScript>();
+        _weaponScript.enabled = true;
     }
 
     void OnTriggerStay(Collider other)
@@ -89,12 +105,9 @@ public class EquipWeapon : MonoBehaviour
             {
                 if (enemyAI.isDead)
                 {
-                    Weapon = parentObject.gameObject;
-                    WeaponRigidbody = Weapon.GetComponent<Rigidbody>();
-                    WeaponNavMeshAgent = Weapon.GetComponent<NavMeshAgent>();
                     if (Input.GetKey(KeyCode.E))
                     {
-                        Equip();
+                        Equip(parentObject.gameObject);
                     }
                 }
             }

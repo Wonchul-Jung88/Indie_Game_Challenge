@@ -173,9 +173,9 @@ public class EnemyAITutorial : MonoBehaviour
         //this.enabled = false;
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
-        WeaponBox.SetActive(WeaponBox);
-        GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        AttackBox.SetActive(false);
+        WeaponBox.SetActive(true);
+        //GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        //AttackBox.SetActive(false);
     }
 
     private void DestroyEnemy()
