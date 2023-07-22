@@ -51,6 +51,7 @@ public class EnemyAITutorial : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
+
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -170,12 +171,10 @@ public class EnemyAITutorial : MonoBehaviour
         _animator.SetBool("IsDead", true);
         isDead = true;
 
-        //this.enabled = false;
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         WeaponBox.SetActive(true);
-        //GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        //AttackBox.SetActive(false);
+        AttackBox.SetActive(false);
     }
 
     private void DestroyEnemy()

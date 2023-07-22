@@ -14,7 +14,7 @@ public class WeaponScript : MonoBehaviour
     {
         if (activated)
         {
-            //transform.localEulerAngles += Vector3.forward * rotationSpeed * Time.deltaTime;
+            transform.localEulerAngles += Vector3.forward * rotationSpeed * Time.deltaTime;
         }
 
     }
@@ -33,15 +33,4 @@ public class WeaponScript : MonoBehaviour
             activated = false;
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Breakable"))
-    //    {
-    //        if (other.GetComponent<BreakBoxScript>() != null)
-    //        {
-    //            other.GetComponent<BreakBoxScript>().Break();
-    //        }
-    //    }
-    //}
 }
