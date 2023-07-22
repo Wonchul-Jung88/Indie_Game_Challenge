@@ -22,6 +22,9 @@ public class EquipWeapon : MonoBehaviour
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
         var _weaponNavMeshAgent = Weapon.GetComponent<NavMeshAgent>();
 
+        var _weaponScript = Weapon.GetComponent<WeaponScript>();
+        _weaponScript.activated = true;
+
         _weaponRigidbody.isKinematic = true;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
         if (_weaponNavMeshAgent != null) _weaponNavMeshAgent.enabled = true;
