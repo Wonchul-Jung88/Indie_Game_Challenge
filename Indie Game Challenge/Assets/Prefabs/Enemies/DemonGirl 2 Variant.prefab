@@ -67,52 +67,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcController: {fileID: 6049693308498993507}
---- !u!1 &3509548568428832154
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2514824183973191743}
-  - component: {fileID: 9021146463394014304}
-  m_Layer: 0
-  m_Name: Rig 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2514824183973191743
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3509548568428832154}
-  m_LocalRotation: {x: -0, y: -0.67660314, z: -0, w: 0.7363479}
-  m_LocalPosition: {x: 111.974205, y: 0, z: -99.80872}
-  m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 368707809020770679}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9021146463394014304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3509548568428832154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Effectors: []
 --- !u!1 &8042273136293950936
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +186,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 50, y: 5, z: 50}
+  m_Size: {x: 30, y: 5, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1819918554182874041
 MonoBehaviour:
@@ -779,9 +733,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2514824183973191743}
-    - targetCorrespondingSourceObject: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6554874303691867241}
     - targetCorrespondingSourceObject: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
       insertIndex: -1
@@ -872,7 +823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canConverse: 0
   _merchantImage: {fileID: 4139624143928825246, guid: a6fe0403da7838641982a8d6dc442588, type: 3}
-  marker: {fileID: 0}
+  _ConverseMessage: {fileID: 5688687350766326181, guid: aef701f309df4334ebb22ceb7be2735b, type: 3}
 --- !u!4 &368707809020770679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4104614698926284, guid: 28fce92923d67c2449f9c3d295c70aef, type: 3}
