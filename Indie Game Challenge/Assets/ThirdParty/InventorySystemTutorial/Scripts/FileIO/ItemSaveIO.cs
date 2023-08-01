@@ -24,4 +24,15 @@ public static class ItemSaveIO
 		}
 		return null;
 	}
+
+    public static StatsContainerSaveData LoadStats(string path)
+    {
+        string filePath = baseSavePath + "/" + path + ".dat";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            return FileReadWrite.ReadFromBinaryFile<StatsContainerSaveData>(filePath);
+        }
+        return null;
+    }
 }
