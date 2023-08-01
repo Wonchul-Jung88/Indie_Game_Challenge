@@ -7,7 +7,7 @@ using Boxophobic.Utils;
 
 public class SkyboxExtendedHub : EditorWindow
 {
-    string assetFolder = "Assets/BOXOPHOBIC/Atmospheric Height Fog";
+    string assetFolder = "ThirdParty/BOXOPHOBIC/Atmospheric Height Fog";
 
     int assetVersion;
     string bannerVersion;
