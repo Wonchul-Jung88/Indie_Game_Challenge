@@ -17,6 +17,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void UpdateState()
     {
+        Ctx.StaminaController.Sprinting();
         if (Ctx.IsDash) {
             Ctx.warp.Play();
             Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier * 3.0f;
@@ -37,7 +38,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed)
+        if (!Ctx.IsMovementPressed || Ctx.StaminaController.playerStamina < 0)
         {
             Ctx.warp.Stop();
             SwitchState(Factory.Idle());

@@ -51,6 +51,9 @@ public class PlayerStateMachine : MonoBehaviour
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
     Coroutine _currentJumpResetRoutine = null;
 
+    //Stamina Controller
+    StaminaController _staminaController;
+
     // attack variables
     int _isAttackingHash;
     int _isAimingHash;
@@ -96,6 +99,8 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
     public EquipWeapon Weapon { get { return _weapon; } }
 
+    public StaminaController StaminaController { get { return _staminaController; } }
+
     private void Awake()
     {
         // initially set reference variables
@@ -129,8 +134,14 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControls.Attack.canceled += onAttack;
 
         _weapon = GetComponent<EquipWeapon>();
+        _staminaController = GetComponent<StaminaController>();
 
         SetJumpVariables();
+    }
+
+    public void SetRunSpeed(float speed)
+    {
+        _runMultiplier = speed;
     }
 
     private void Start()
