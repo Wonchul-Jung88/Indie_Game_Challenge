@@ -32,7 +32,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Ctx.IsAttackAnimationRunning) return;
 
-        if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        if (Ctx.IsMovementPressed && Ctx.IsRunPressed && Ctx.StaminaController.hasRegenerated)
         {
             SwitchState(Factory.Run());
         }
@@ -40,7 +40,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Aim());
         }
-        else if (Ctx.IsMovementPressed)
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SwitchState(Factory.Walk());
         }

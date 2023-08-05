@@ -18,8 +18,8 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void UpdateState()
     {
-        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.WalkMultiplier;
-        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.WalkMultiplier;
+        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
+        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
         CheckSwitchStates();
     }
 
@@ -29,14 +29,14 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed)
+        if (!Ctx.IsMovementPressed || (Ctx.IsRunPressed && !Ctx.StaminaController.hasRegenerated))
         {
             SwitchState(Factory.Idle());
         }
         else if (Ctx.Weapon.slotFull && Ctx.IsRunPressed) {
             SwitchState(Factory.Aim());
         }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && Ctx.StaminaController.hasRegenerated)
         {
             SwitchState(Factory.Run());
         }

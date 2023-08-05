@@ -694,7 +694,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313364815}
-  m_LocalRotation: {x: 0.5702154, y: 0.0395027, z: -0.027466716, w: 0.8200851}
+  m_LocalRotation: {x: 0.5702154, y: 0.039502755, z: -0.027466757, w: 0.8200851}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3078,7 +3078,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.58503795, y: 0.03899653, z: -0.028180689, w: 0.8095775}
+  m_LocalRotation: {x: 0.5850379, y: 0.03899658, z: -0.028180726, w: 0.80957747}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3352,7 +3352,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.58503795, y: 0.038996518, z: -0.028180677, w: 0.8095775}
+  m_LocalRotation: {x: 0.585038, y: 0.038996585, z: -0.028180724, w: 0.8095775}
   m_LocalPosition: {x: 99.03885, y: 32, z: 90.046295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7521,8 +7521,9 @@ MonoBehaviour:
   jumpCost: 20
   hasRegenerated: 1
   weAreSprinting: 0
-  staminaDrain: 0.5
-  staminaRegen: 0.5
+  exhaustedFactor: 1
+  staminaDrain: 20
+  staminaRegen: 20
   slowedRunSpeed: 4
   normalRunSpeed: 8
   staminaProgressUI: {fileID: 1469952626}

@@ -12,10 +12,11 @@ public class StaminaController : MonoBehaviour
     [SerializeField] private float jumpCost = 20;
     [HideInInspector] public bool hasRegenerated = true;
     [HideInInspector] public bool weAreSprinting = false;
+    public float exhaustedFactor = 1.0f;
 
     [Header("Stamina Regen Parameters")]
-    [Range(0, 50)][SerializeField] private float staminaDrain = 0.5f;
-    [Range(0, 50)][SerializeField] private float staminaRegen = 0.5f;
+    [Range(0, 50)][SerializeField] private float staminaDrain = 10f;
+    [Range(0, 50)][SerializeField] private float staminaRegen = 10f;
 
     [Header("Stamina Speed Parameters")]
     [SerializeField] private int slowedRunSpeed = 4;
@@ -42,7 +43,7 @@ public class StaminaController : MonoBehaviour
                 if ( playerStamina >= maxStamina )
                 {
                     sliderCanvasGroup.alpha = 0;
-                    hasRegenerated = true;
+                    exhaustedFactor = 1.0f;
                 }
             }
         }
@@ -61,6 +62,7 @@ public class StaminaController : MonoBehaviour
                 hasRegenerated = false;
                 //slow the player
                 sliderCanvasGroup.alpha = 0;
+                exhaustedFactor = 0.1f;
             }
         }
     }

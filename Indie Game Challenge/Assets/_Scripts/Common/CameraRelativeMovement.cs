@@ -21,6 +21,9 @@ public class CameraRelativeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ( (_stateMachine.CurrentState is PlayerGroundedState) && _stateMachine.CurrentState.SubState is PlayerIdleState)
+            return;
+
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
 
