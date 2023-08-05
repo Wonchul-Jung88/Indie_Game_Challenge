@@ -10,7 +10,7 @@ public class NPCTalkingTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            npcController.OKConverse();
+            npcController.InitiateConversation( other.gameObject );
         }
     }
 

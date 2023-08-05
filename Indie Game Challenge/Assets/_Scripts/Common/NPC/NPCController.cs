@@ -6,33 +6,110 @@ using UnityEngine.Animations.Rigging;
 public class NPCController : MonoBehaviour
 {
     public bool canConverse = false;
-    public GameObject _merchantImage;
-    public GameObject _ConverseMessage;
+    public GameObject merchantImage;
+    public GameObject converseMessage;
+    public GameObject endConverseMessage;
 
+    [SerializeField]
+    private Canvas canvas;
     private GameObject _usingImage;
+    private GameObject _conversationTarget;
+    private PlayerStateMachine _stateMachine;
+
+    public GameObject statsMenu;
+
+    private void Start()
+    {
+        if (canvas == null)
+        {
+            canvas = FindObjectOfType<Canvas>();
+        }
+    }
 
     private void Update()
     {
-        if (_usingImage != null)
+        HandleImagePosition();
+        HandleConversationInput();
+        HandleStatsMenuInput();
+    }
+
+    private void HandleImagePosition()
+    {
+        if (_usingImage != null && Camera.main != null)
         {
-            _usingImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + 3 * Vector3.up);
+            _usingImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 3);
         }
+    }
+
+    private void HandleConversationInput()
+    {
+        if (_conversationTarget != null && Input.GetKeyDown(KeyCode.T))
+        {
+            if (_conversationTarget.TryGetComponent<PlayerStateMachine>(out _stateMachine) && _stateMachine != null)
+            {
+                if (!_stateMachine.IsRunPressed)
+                {
+                    _stateMachine.ConversationStart();
+                    ShowStatsMenu();
+                    ReplaceUsingImage(endConverseMessage);
+                }
+            }
+        }
+    }
+
+    private void HandleStatsMenuInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && statsMenu.activeSelf)
+        {
+            _stateMachine.ConversationEnd();
+            HideStatsMenu();
+            ReplaceUsingImage(converseMessage);
+        }
+    }
+
+    public void InitiateConversation(GameObject conversationTarget)
+    {
+        ReplaceUsingImage(converseMessage);
+        _conversationTarget = conversationTarget;
     }
 
     private void ReplaceUsingImage(GameObject newImage)
     {
-        // Destroy the current _usingImage if it exists
         if (_usingImage != null)
         {
             Destroy(_usingImage);
         }
 
-        // Instantiate the new image
-        Canvas canvas = FindObjectOfType<Canvas>();
         if (newImage != null && canvas != null)
         {
             _usingImage = Instantiate(newImage, canvas.transform);
         }
+    }
+
+    public void NGConverse()
+    {
+        ReplaceUsingImage(merchantImage);
+        _conversationTarget = null;
+    }
+
+    public void TurnHeadTowardsPlayer(Transform playerTransform)
+    {
+        // TODO: Implement this method
+    }
+
+    public void ResetHeadPosition()
+    {
+        // TODO: Implement this method
+    }
+
+    public void ShowMarker()
+    {
+        ReplaceUsingImage(merchantImage);
+    }
+
+    public void HideMarker()
+    {
+        ClearUsingImage();
     }
 
     private void ClearUsingImage()
@@ -44,37 +121,13 @@ public class NPCController : MonoBehaviour
         }
     }
 
-
-    public void OKConverse()
+    public void ShowStatsMenu()
     {
-        ReplaceUsingImage(_ConverseMessage);
+        statsMenu.SetActive(true);
     }
 
-    public void NGConverse()
+    public void HideStatsMenu()
     {
-        ReplaceUsingImage(_merchantImage);
-    }
-
-    public void TurnHeadTowardsPlayer(Transform playerTransform)
-    {
-    }
-
-    public void ResetHeadPosition()
-    {
-
-    }
-
-    // Method to show the marker
-    public void ShowMarker()
-    {
-        ReplaceUsingImage(_merchantImage);
-    }
-
-    // Method to hide the marker
-    public void HideMarker()
-    {
-        // Instead of destroying _usingImage here, we simply set it to null
-        // as the ReplaceUsingImage method now handles the destruction
-        ClearUsingImage();
+        statsMenu.SetActive(false);
     }
 }

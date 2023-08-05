@@ -65,6 +65,8 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
 
+    bool _isTalking = false;
+
     // getters and setters
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Animator Animator { get { return _animator; } }
@@ -88,6 +90,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsAttackPressed { get { return _isAttackPressed; } }
     public bool IsAttackAnimationRunning { get { return _isAttackAnimationRunning; } }
+    public bool IsTalking { get { return _isTalking; } }
     public float Gravity { get { return _gravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
@@ -334,5 +337,15 @@ public class PlayerStateMachine : MonoBehaviour
     public void StopAttackAnimation()
     {
         _isAttackAnimationRunning = false;
+    }
+
+    public void ConversationStart()
+    {
+        _isTalking = true;
+    }
+
+    public void ConversationEnd()
+    {
+        _isTalking = false;
     }
 }

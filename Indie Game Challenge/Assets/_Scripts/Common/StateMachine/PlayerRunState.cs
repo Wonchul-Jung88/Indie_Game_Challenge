@@ -43,6 +43,10 @@ public class PlayerRunState : PlayerBaseState
             Ctx.warp.Stop();
             SwitchState(Factory.Idle());
         }
+        else if (Ctx.IsTalking)
+        {
+            SwitchState(Factory.Talk());
+        }
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             Ctx.warp.Stop();
