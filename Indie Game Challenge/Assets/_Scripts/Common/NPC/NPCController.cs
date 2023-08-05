@@ -35,6 +35,16 @@ public class NPCController : MonoBehaviour
         }
     }
 
+    private void ClearUsingImage()
+    {
+        if (_usingImage != null)
+        {
+            Destroy(_usingImage);
+            _usingImage = null;
+        }
+    }
+
+
     public void OKConverse()
     {
         ReplaceUsingImage(_ConverseMessage);
@@ -65,6 +75,6 @@ public class NPCController : MonoBehaviour
     {
         // Instead of destroying _usingImage here, we simply set it to null
         // as the ReplaceUsingImage method now handles the destruction
-        _usingImage = null;
+        ClearUsingImage();
     }
 }
