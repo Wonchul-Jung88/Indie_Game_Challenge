@@ -9,9 +9,14 @@ public static class ItemSaveIO
 		baseSavePath = Application.persistentDataPath;
 	}
 
-	public static void SaveItems(ItemContainerSaveData items, string path)
+    public static void SaveItems(ItemContainerSaveData saveData, string path)
+    {
+        FileReadWrite.WriteToBinaryFile(baseSavePath + "/" + path + ".dat", saveData);
+    }
+
+    public static void SaveStats(StatsContainerSaveData saveData, string path)
 	{
-		FileReadWrite.WriteToBinaryFile(baseSavePath + "/" + path + ".dat", items);
+		FileReadWrite.WriteToBinaryFile(baseSavePath + "/" + path + ".dat", saveData);
 	}
 
 	public static ItemContainerSaveData LoadItems(string path)

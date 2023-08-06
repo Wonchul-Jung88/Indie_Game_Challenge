@@ -18,9 +18,9 @@ public class StaminaController : MonoBehaviour
     [Range(0, 50)][SerializeField] private float staminaDrain = 10f;
     [Range(0, 50)][SerializeField] private float staminaRegen = 10f;
 
-    [Header("Stamina Speed Parameters")]
-    [SerializeField] private int slowedRunSpeed = 4;
-    [SerializeField] private int normalRunSpeed = 8;
+    //[Header("Stamina Speed Parameters")]
+    //[SerializeField] private int slowedRunSpeed = 4;
+    //[SerializeField] private int normalRunSpeed = 8;
 
     [Header("Stamina UI Elements")]
     [SerializeField] private Image staminaProgressUI = null;

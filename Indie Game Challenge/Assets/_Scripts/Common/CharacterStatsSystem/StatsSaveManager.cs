@@ -1,85 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatsSaveManager : MonoBehaviour
 {
-    [SerializeField] StatsDatabase statsDatabase;
+    private const string StatsFileName = "Stats";
 
-    //private const string InventoryFileName = "Inventory";
-    private const string EquipmentFileName = "Equipment";
-
-    //public void LoadInventory(CharacterStatsBody character)
-    //{
-    //    ItemContainerSaveData savedSlots = ItemSaveIO.LoadItems(InventoryFileName);
-    //    if (savedSlots == null) return;
-    //    //character.Inventory.Clear();
-
-    //    for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
-    //    {
-    //        ItemSlot itemSlot = character.Inventory.ItemSlots[i];
-    //        ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
-
-    //        if (savedSlot == null)
-    //        {
-    //            itemSlot.Item = null;
-    //            itemSlot.Amount = 0;
-    //        }
-    //        else
-    //        {
-    //            itemSlot.Item = statsDatabase.GetStatCopy(savedSlot.ItemID);
-    //            itemSlot.Amount = savedSlot.Amount;
-    //        }
-    //    }
-    //}
-
-    public void LoadEquipment(CharacterStatsBody character)
+    public void LoadStats(CharacterStatsBody character)
     {
-        StatsContainerSaveData savedSlots = ItemSaveIO.LoadStats(EquipmentFileName);
-        if (savedSlots == null) return;
+        StatsContainerSaveData saveData = ItemSaveIO.LoadStats(StatsFileName);
+        if (saveData == null) return;
 
-        foreach (StatsSlotSaveData savedSlot in savedSlots.SavedSlots)
+        saveData.SavedSlots.ForEach(slot =>
         {
-            if (savedSlot == null)
-            {
-                continue;
+            if (slot.Type == StatsType.Speed) {
+                character.Speed.AddModifier(new Kryz.CharacterStats.StatModifier(10, Kryz.CharacterStats.StatModType.Flat));
             }
-
-            Stats item = statsDatabase.GetStatCopy(savedSlot.StatID);
-            //character.Inventory.AddItem(item);
-            character.Equip((EquippableStats)item);
-        }
+        });
     }
 
-    public void SaveInventory(CharacterStatsBody character)
+    public void SaveItems(CharacterStatsBody character)
     {
-        //SaveItems(character.Inventory.ItemSlots, InventoryFileName);
+        SaveStats(character, StatsFileName);
     }
 
-    public void SaveEquipment(CharacterStatsBody character)
+    public void SaveStats(CharacterStatsBody character)
     {
-        SaveStats(character.StatsEquipmentSlots, EquipmentFileName);
+        SaveStats(character, StatsFileName);
     }
 
-    private void SaveStats(IList<StatsSlot> statsSlots, string fileName)
+    public void SaveStats(CharacterStatsBody character, string fileName)
     {
-        var saveData = new ItemContainerSaveData(statsSlots.Count);
+        var totalCount = character.Speed.StatModifiers.Count + character.Stamina.StatModifiers.Count + character.Power.StatModifiers.Count + character.Guts.StatModifiers.Count + character.Intelegence.StatModifiers.Count;
+        var saveData = new StatsContainerSaveData();
 
-        for (int i = 0; i < saveData.SavedSlots.Length; i++)
+        character.Speed.StatModifiers.ToList().ForEach(mod =>
         {
-            StatsSlot statsSlot = statsSlots[i];
+            saveData.SavedSlots.Add(new StatsSaveData(StatsType.Speed, 1));
+        });
 
-            if (statsSlot.Stats == null)
-            {
-                saveData.SavedSlots[i] = null;
-            }
-            else
-            {
-                saveData.SavedSlots[i] = new ItemSlotSaveData(statsSlot.Stats.ID, statsSlot.Amount);
-            }
-        }
-
-        ItemSaveIO.SaveItems(saveData, fileName);
+        ItemSaveIO.SaveStats(saveData, fileName);
     }
 }

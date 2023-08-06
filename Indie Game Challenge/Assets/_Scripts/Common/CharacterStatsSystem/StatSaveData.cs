@@ -1,14 +1,15 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
-public class StatsSlotSaveData
+public class StatsSaveData
 {
-    public string StatID;
+    public StatsType Type;
     public int Amount;
 
-    public StatsSlotSaveData(string id, int amount)
+    public StatsSaveData(StatsType type, int amount)
     {
-        StatID = id;
+        Type = type;
         Amount = amount;
     }
 }
@@ -16,10 +17,10 @@ public class StatsSlotSaveData
 [Serializable]
 public class StatsContainerSaveData
 {
-    public StatsSlotSaveData[] SavedSlots;
+    public List<StatsSaveData> SavedSlots;
 
-    public StatsContainerSaveData(int numStats)
+    public StatsContainerSaveData()
     {
-        SavedSlots = new StatsSlotSaveData[numStats];
+        SavedSlots = new List<StatsSaveData>();
     }
 }

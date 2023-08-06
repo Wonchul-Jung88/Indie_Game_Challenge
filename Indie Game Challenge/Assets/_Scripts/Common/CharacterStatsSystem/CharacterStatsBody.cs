@@ -1,12 +1,11 @@
 using Kryz.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterStatsBody : MonoBehaviour
 {
-    public StatsEquipmentSlot[] StatsEquipmentSlots;
-
     [Header("Stats")]
     public CharacterStat Speed;
     public CharacterStat Stamina;
@@ -14,77 +13,46 @@ public class CharacterStatsBody : MonoBehaviour
     public CharacterStat Guts;
     public CharacterStat Intelegence;
 
-    [SerializeField] StatsSaveManager itemSaveManager;
+    [SerializeField] StatsSaveManager StatsSaveManager;
 
     public void LoadStats()
     {
-        if (itemSaveManager != null)
+        if (StatsSaveManager != null)
         {
-            itemSaveManager.LoadEquipment(this);
+            StatsSaveManager.LoadStats(this);
         }
     }
 
     public void SaveStats()
     {
-        if (itemSaveManager != null)
+        if (StatsSaveManager != null)
         {
-            itemSaveManager.SaveEquipment(this);
+            StatsSaveManager.SaveStats(this);
         }
     }
 
-    public void Equip(EquippableStats stats)
+    public void AddSpeed()
     {
-        EquippableStats previousItem;
-        if (this.AddStats(stats, out previousItem))
-        {
-            if (previousItem != null)
-            {
-                //Inventory.AddItem(previousItem);
-                previousItem.Unequip(this);
-                //statPanel.UpdateStatValues();
-            }
-            stats.Equip(this);
-            //statPanel.UpdateStatValues();
-        }
+        Speed.AddModifier(new StatModifier(10, StatModType.Flat));
     }
 
-    public void Unequip(EquippableStats stats)
+    public void AddStamina()
     {
-        if (this.RemoveStats(stats))
-        {
-            stats.Unequip(this);
-            //statPanel.UpdateStatValues();
-            //Inventory.AddItem(item);
-        }
+        Stamina.AddModifier(new StatModifier(10, StatModType.Flat));
     }
 
-    public bool AddStats(EquippableStats stats, out EquippableStats previousItem)
+    public void AddPower()
     {
-        for (int i = 0; i < StatsEquipmentSlots.Length; i++)
-        {
-            if (StatsEquipmentSlots[i].StatsType == stats.EquipmentType)
-            {
-                previousItem = (EquippableStats)StatsEquipmentSlots[i].Stats;
-                StatsEquipmentSlots[i].Stats = stats;
-                StatsEquipmentSlots[i].Amount = 1;
-                return true;
-            }
-        }
-        previousItem = null;
-        return false;
+        Power.AddModifier(new StatModifier(10, StatModType.Flat));
     }
 
-    public bool RemoveStats(EquippableStats item)
+    public void AddGuts()
     {
-        for (int i = 0; i < StatsEquipmentSlots.Length; i++)
-        {
-            if (StatsEquipmentSlots[i].Stats == item)
-            {
-                StatsEquipmentSlots[i].Stats = null;
-                StatsEquipmentSlots[i].Amount = 0;
-                return true;
-            }
-        }
-        return false;
+        Guts.AddModifier(new StatModifier(10, StatModType.Flat));
+    }
+
+    public void AddIntelegence()
+    {
+        Intelegence.AddModifier(new StatModifier(10, StatModType.Flat));
     }
 }
