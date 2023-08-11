@@ -179,6 +179,7 @@ MonoBehaviour:
   health: 5
   maxHealth: 0
   WeaponBox: {fileID: 8183458114203764084}
+  DropLootPrefab: {fileID: 2497100212329628716, guid: 167ca14b85c422c41a86298158de4693, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
   timeBetweenAttacks: 1
@@ -273,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activated: 0
-  rotationSpeed: 0
+  rotationFactor: 1500
 --- !u!1 &647101256752946218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1068,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3489956623682696823}
   m_LocalRotation: {x: -0.05056211, y: 0.6492726, z: 0.024473095, w: 0.75847846}
-  m_LocalPosition: {x: 0.030428428, y: 0.04859978, z: 0.79453474}
+  m_LocalPosition: {x: 0.030426044, y: 0.048599064, z: 0.79453474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -44,6 +44,7 @@ public class StaminaController : MonoBehaviour
                 {
                     sliderCanvasGroup.alpha = 0;
                     exhaustedFactor = 1.0f;
+                    hasRegenerated = true;
                 }
             }
         }
