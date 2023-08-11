@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,11 +35,17 @@ public class EnemyAITutorial : MonoBehaviour
     public GameObject AttackBox;
 
     public float knockBackThreshold = 0.01f;
-    public float rotationSpeed = 50f;
+    public float rotationSpeed = 10f;
 
     private Rigidbody rb;
     private EnemyAITutorial ai;
     private bool isKnockBack;
+    private Vector3 randomTargetPoint;
+
+    private float _speed;
+    public float patrolRadius = 10.0f;
+    
+    private bool isUpdatingTarget = false; // 追加: コルーチンの状態を追跡するフラグ
 
     private void Awake()
     {
@@ -47,6 +55,9 @@ public class EnemyAITutorial : MonoBehaviour
         _isAttackingHash = Animator.StringToHash("IsAttacking");
 
         rb = GetComponent<Rigidbody>();
+
+        GenerateRandomTargetPoint();
+        StartCoroutine(UpdateTargetPointWithInterval());
     }
 
     private void Update()
@@ -78,20 +89,51 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void Patroling()
     {
-        agent.speed = 1.0f;
+        if (!isUpdatingTarget) // 追加: コルーチンが動作していない場合のみスタート
+        {
+            StartCoroutine(UpdateTargetPointWithInterval());
+            isUpdatingTarget = true; // 追加: コルーチンの状態を更新
+        }
+
+        //agent.speed = 1.0f;
+        _speed = 1.0f;
         _animator.SetBool(_isChasingHash, false);
         _animator.SetBool(_isAttackingHash, false);
 
         if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
+        MoveTowards(randomTargetPoint);
+        //if (walkPointSet) agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //Walkpoint reached
         if (distanceToWalkPoint.magnitude < 1f)
             walkPointSet = false;
+    }
+
+    void GenerateRandomTargetPoint()
+    {
+        randomTargetPoint = transform.position + new Vector3(
+            Random.Range(-patrolRadius, patrolRadius),
+            0,
+            Random.Range(-patrolRadius, patrolRadius)
+        );
+    }
+
+    public float updateInterval = 5.0f; // この時間間隔でランダムなポイントを生成します。
+
+    // コルーチン内の最後でフラグをfalseに設定
+    IEnumerator UpdateTargetPointWithInterval()
+    {
+        while (true)
+        {
+            GenerateRandomTargetPoint();
+
+            // 3から6の間でランダムな時間をupdateIntervalに設定
+            updateInterval = Random.Range(3.0f, 6.0f);
+            yield return new WaitForSeconds(updateInterval);
+        }
     }
 
     private void SearchWalkPoint()
@@ -108,22 +150,31 @@ public class EnemyAITutorial : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.speed = 10.0f;
+        if (isUpdatingTarget)
+        {
+            StopCoroutine(UpdateTargetPointWithInterval());
+            isUpdatingTarget = false; // 追加: コルーチンの状態を更新
+        }
+
+        //agent.speed = 10.0f;
+        _speed = 10.0f;
         _animator.SetBool(_isChasingHash, true);
         _animator.SetBool(_isAttackingHash, false);
 
-        agent.SetDestination(player.position);
+        //agent.SetDestination(player.position);
+        // プレイヤーの方向を向く
+        MoveTowards(player.position);
     }
 
     private void AttackPlayer()
     {
-        agent.speed = 0.0f;
+        //agent.speed = 0.0f;
+        _speed = 0.0f;
         _animator.SetBool(_isAttackingHash, true);
 
         //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
+        //agent.SetDestination(transform.position);
+        LookAtWithYFixed(player);
 
         if (!alreadyAttacked)
         {
@@ -133,8 +184,50 @@ public class EnemyAITutorial : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
-
     }
+
+    public float rotationSmoothTime = 0.3f; // 方向の補間のためのスムーズタイム
+    private Vector3 currentVelocity; // SmoothDampのための現在のベロシティ
+
+    void MoveTowards(Vector3 target)
+    {
+        Vector3 lookPosition = target;
+        lookPosition.y = transform.position.y; // Y座標を現在のオブジェクトのY座標に設定
+
+        Vector3 desiredDirection = (lookPosition - transform.position).normalized;
+        desiredDirection.y = 0;
+
+        // 方向をSmoothDampで滑らかにする
+        Vector3 smoothDirection = Vector3.SmoothDamp(transform.forward, desiredDirection, ref currentVelocity, rotationSmoothTime);
+        transform.rotation = Quaternion.LookRotation(smoothDirection);
+
+        float actualMoveDistance = _speed * Time.deltaTime;
+        float remainingDistanceToTarget = (target - transform.position).magnitude;
+
+        // ターゲットまでの距離が次のフレームでの移動距離より短い場合、実際の距離だけ進む
+        if (remainingDistanceToTarget < actualMoveDistance)
+        {
+            actualMoveDistance = remainingDistanceToTarget;
+        }
+
+        transform.position += smoothDirection * actualMoveDistance;
+
+        // ターゲットに到達した場合、新しいランダムなターゲットポイントを生成
+        if (remainingDistanceToTarget <= actualMoveDistance)
+        {
+            GenerateRandomTargetPoint();
+        }
+    }
+
+    void LookAtWithYFixed(Transform target)
+    {
+        transform.LookAt(target);
+        Vector3 eulerAngles = transform.eulerAngles;
+        eulerAngles.x = 0;  // X軸の回転を0に設定
+        eulerAngles.z = 0;  // Z軸の回転を0に設定
+        transform.eulerAngles = eulerAngles;
+    }
+
 
     private void ResetAttack()
     {
