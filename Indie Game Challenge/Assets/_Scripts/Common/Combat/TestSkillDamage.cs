@@ -12,11 +12,11 @@ public class TestSkillDamage : MonoBehaviour
         testSkill = player.GetComponent<TestSkill>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            EnemyAITutorial enemyAI = collision.gameObject.GetComponent<EnemyAITutorial>();
+            EnemyAITutorial enemyAI = other.gameObject.GetComponent<EnemyAITutorial>();
 
             if (enemyAI != null)
             {
@@ -29,10 +29,7 @@ public class TestSkillDamage : MonoBehaviour
 
                 Destroy(gameObject);
             }
-            else
-            {
-                Debug.LogError("enemyAI component is not attached to the enemy object.");
-            }
         }
     }
+
 }
