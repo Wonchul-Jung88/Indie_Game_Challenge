@@ -26,31 +26,18 @@ public class TestSkill : MonoBehaviour
         
         int maxBalls = maxBallsBase + level;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Time.time - lastSkillTime >= cooldownTime)
         {
-            if (Time.time - lastSkillTime >= cooldownTime)
+            if (balls.Count < maxBalls)
             {
-                if (balls.Count < maxBalls)
-                {
-                    Vector3 spawnPosition = transform.position + new Vector3(0, controller.center.y, 0);
-                    GameObject ball = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-                    balls.Add(ball);
-                    lastSkillTime = Time.time;
-
-                    //Debug.Log("Ball created. Current ball count: " + balls.Count);
-                }
-                else
-                {
-                    //Debug.Log("Reached the maximum number of balls. Current max: " + maxBalls);
-                }
-            }
-            else
-            {
-                //Debug.Log("Skill is cooling down. Remaining time: " + (cooldownTime - (Time.time - lastSkillTime)) + " seconds");
+                Vector3 spawnPosition = transform.position + new Vector3(0, controller.center.y, 0);
+                GameObject ball = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+                balls.Add(ball);
+                lastSkillTime = Time.time;
             }
         }
 
-       
+
         for (int i = 0; i < balls.Count; i++)
         {
             if (balls[i] != null)
@@ -68,7 +55,6 @@ public class TestSkill : MonoBehaviour
         if (balls.Contains(ball))
         {
             balls.Remove(ball);
-            //Debug.Log("Ball destroyed. Remaining ball count: " + balls.Count);
         }
     }
 
