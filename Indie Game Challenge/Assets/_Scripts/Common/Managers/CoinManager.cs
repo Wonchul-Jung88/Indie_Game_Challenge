@@ -45,9 +45,14 @@ public class CoinManager : MonoBehaviour
     }
 
     // Call this method to increase the coin count
-    public void AddCoin()
+    public void GetCoin()
     {
         GameData.Instance.CoinCount++;
+    }
+
+    public void LoseCoin()
+    {
+        GameData.Instance.CoinCount--;
     }
 
     public void SaveCoinsCollected()

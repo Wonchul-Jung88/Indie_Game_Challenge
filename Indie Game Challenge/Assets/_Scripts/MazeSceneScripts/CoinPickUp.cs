@@ -8,7 +8,7 @@ public class CoinPickUp : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             // If it does, destroy the coin and increase coin count in CoinManager
-            CoinManager.Instance.AddCoin();
+            CoinManager.Instance.GetCoin();
             Destroy(gameObject);
         }
     }

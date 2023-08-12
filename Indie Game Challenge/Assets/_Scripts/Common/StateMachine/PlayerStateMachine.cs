@@ -348,4 +348,14 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isTalking = false;
     }
+
+    public void GetCoin()
+    {
+        CoinManager.Instance.GetCoin();
+    }
+
+    public void LoseCoin()
+    {
+        CoinManager.Instance.LoseCoin();
+    }
 }

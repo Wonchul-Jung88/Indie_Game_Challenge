@@ -8,7 +8,11 @@ public class DestroyLoot : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Destroy(transform.parent.gameObject);
+            if (other.gameObject.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine psm))
+            {
+                psm.GetCoin();
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 }
