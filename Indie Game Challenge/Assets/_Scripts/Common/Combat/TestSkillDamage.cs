@@ -18,7 +18,7 @@ public class TestSkillDamage : MonoBehaviour
         {
             EnemyAITutorial enemyAI = other.gameObject.GetComponent<EnemyAITutorial>();
 
-            if (enemyAI != null)
+            if (enemyAI != null && !enemyAI.isDead)
             {
                 enemyAI.TakeDamageToDie(damage);
 

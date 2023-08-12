@@ -20,21 +20,21 @@ public class EquipWeapon : MonoBehaviour
         slotFull = false;
 
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-        var _weaponNavMeshAgent = Weapon.GetComponent<NavMeshAgent>();
-
         var _weaponScript = Weapon.GetComponent<WeaponScript>();
-        _weaponScript.activated = true;
 
-        _weaponRigidbody.isKinematic = true;
+        Weapon.transform.Find("WeaponBox").GetComponent<Collider>().enabled = true;
+        Weapon.transform.Find("WeaponBox").GetComponent<Collider>().isTrigger = false;
+        WeaponRig.weight = 0;
+
+        _weaponScript.activated = true;
+        _weaponRigidbody.isKinematic = false;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        if (_weaponNavMeshAgent != null) _weaponNavMeshAgent.enabled = true;
 
         Weapon.transform.parent = null;
         //Weapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         Weapon.transform.position += transform.right / 5;
-        _weaponNavMeshAgent.velocity = transform.forward * throwPower;
-
-        WeaponRig.weight = 0;
+        //_weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
+        _weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
     }
 
     public void ThrowDynamite()
@@ -55,16 +55,10 @@ public class EquipWeapon : MonoBehaviour
         Weapon = _weapon;
         if (Weapon == null) return;
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-        var _weaponNavMeshAgent = Weapon.GetComponent<NavMeshAgent>();
 
         slotFull = true;
         WeaponRig.weight = 1;
         Weapon.transform.SetParent(WeaponPoint);
-
-        if (_weaponNavMeshAgent != null)
-        {
-            _weaponNavMeshAgent.enabled = false;
-        }
 
         if (_weaponRigidbody != null)
         {
