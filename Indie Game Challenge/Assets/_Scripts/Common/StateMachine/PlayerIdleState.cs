@@ -42,6 +42,7 @@ public class PlayerIdleState : PlayerBaseState
         }
         else if (Ctx.Weapon.slotFull && Ctx.IsRunPressed)
         {
+            Debug.Log( "In Idle CheckSwitch slotFull = " + Ctx.Weapon.slotFull);
             SwitchState(Factory.Aim());
         }
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)

@@ -17,8 +17,6 @@ public class EquipWeapon : MonoBehaviour
 
     public void ThrowWeapon()
     {
-        slotFull = false;
-
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
         var _weaponScript = Weapon.GetComponent<WeaponScript>();
 
@@ -35,11 +33,14 @@ public class EquipWeapon : MonoBehaviour
         Weapon.transform.position += transform.right / 5;
         //_weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         _weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
+        slotFull = false;
+        Debug.Log("In ThrowWeapon SlotFull = " + slotFull);
     }
 
     public void ThrowDynamite()
     {
         slotFull = false;
+        Debug.Log("In ThrowDynamite SlotFull = " + slotFull);
 
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
         _weaponRigidbody.isKinematic = false;
@@ -57,6 +58,7 @@ public class EquipWeapon : MonoBehaviour
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
 
         slotFull = true;
+        Debug.Log("In Equip SlotFull = " + slotFull);
         WeaponRig.weight = 1;
         Weapon.transform.SetParent(WeaponPoint);
 
@@ -72,22 +74,16 @@ public class EquipWeapon : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        // Get the parent object of the collider that was hit
+        if (other.transform.parent == null) return;
+
         Transform parentObject = other.transform.parent;
 
-        if (parentObject != null)
+        if (parentObject.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI)
+            && enemyAI.isDead
+            && Input.GetKey(KeyCode.E)
+            && !slotFull)
         {
-            // Check if the parent object has the EnemyAITutorial component
-            if (parentObject.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI))
-            {
-                if (enemyAI.isDead)
-                {
-                    if (Input.GetKey(KeyCode.E))
-                    {
-                        Equip(parentObject.gameObject);
-                    }
-                }
-            }
+            Equip(parentObject.gameObject);
         }
     }
 

@@ -27,7 +27,7 @@ public class WeaponScript : MonoBehaviour
 
             if (enemyAI != null && !enemyAI.isDead)
             {
-                Debug.Log("Enemy Collision");
+                //Debug.Log("Thrown Enemy collapse with another Enemy in WeaponScript");
             }
         }
     }
