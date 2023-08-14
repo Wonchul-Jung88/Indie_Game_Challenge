@@ -34,13 +34,11 @@ public class EquipWeapon : MonoBehaviour
         //_weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         _weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
         slotFull = false;
-        Debug.Log("In ThrowWeapon SlotFull = " + slotFull);
     }
 
     public void ThrowDynamite()
     {
         slotFull = false;
-        Debug.Log("In ThrowDynamite SlotFull = " + slotFull);
 
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
         _weaponRigidbody.isKinematic = false;
@@ -58,7 +56,6 @@ public class EquipWeapon : MonoBehaviour
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
 
         slotFull = true;
-        Debug.Log("In Equip SlotFull = " + slotFull);
         WeaponRig.weight = 1;
         Weapon.transform.SetParent(WeaponPoint);
 

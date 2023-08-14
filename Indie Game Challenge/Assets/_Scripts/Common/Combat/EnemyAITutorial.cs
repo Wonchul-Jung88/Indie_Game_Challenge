@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyAITutorial : MonoBehaviour
 {
-    public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;

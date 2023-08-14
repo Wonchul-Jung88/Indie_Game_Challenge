@@ -25,7 +25,7 @@ public class PlayerAimState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         if (Input.GetKey(KeyCode.F)) {
-            Debug.Log("Set Throw trigger");
+            Ctx.Weapon.slotFull = false;
             Ctx.Animator.SetTrigger("Throw");
             SwitchState(Factory.Idle());
         }
