@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
+using System.Linq;
 
 //This vesion get called using the build editor button script
 public class MazeGeneratorScript : MonoBehaviour
@@ -29,6 +30,9 @@ public class MazeGeneratorScript : MonoBehaviour
     public GameObject dividerArch;
     public GameObject dividerWindows;
     public GameObject doorKey;
+
+    public List<GameObject> enemySpawners;
+
     private int[,] Maze;
     private Node[,] NodeInfoMap;
     private Node startNode;
@@ -553,8 +557,14 @@ public class MazeGeneratorScript : MonoBehaviour
                 // If the random number is less than or equal to 25 (which will be true 25% of the time), instantiate the coinObject
                 if (randomValue <= 25 && !n.isStart && !n.isFinish )
                 {
-                    GameObject coinObject = GameObject.Instantiate(coin) as GameObject;
-                    coinObject.transform.position = new Vector3(xOffset, 1, zOffset);
+                    //GameObject coinObject = GameObject.Instantiate(coin) as GameObject;
+                    //coinObject.transform.position = new Vector3(xOffset, 1, zOffset);
+
+                    // ランダムにenemySpawnersの中から要素を選ぶ
+                    GameObject randomEnemySpawnerPrefab = enemySpawners[UnityEngine.Random.Range(0, enemySpawners.Count)];
+
+                    GameObject enemySpawner = GameObject.Instantiate(randomEnemySpawnerPrefab, newObject.transform) as GameObject;
+                    //enemySpawner.transform.position = new Vector3(xOffset, 1, zOffset);
                 }
 
 

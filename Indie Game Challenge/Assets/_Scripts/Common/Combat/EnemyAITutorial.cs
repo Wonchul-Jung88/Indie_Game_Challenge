@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAITutorial : MonoBehaviour
 {
-    public Transform player;
+    Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public int maxHealth;
@@ -45,9 +45,12 @@ public class EnemyAITutorial : MonoBehaviour
     public float patrolRadius = 10.0f;
     
     private bool isUpdatingTarget = false; // 追加: コルーチンの状態を追跡するフラグ
+    public EnemySpawner spawner;
 
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Find the first GameObject with the "Player" tag
+
         _animator = GetComponent<Animator>();
 
         _isChasingHash = Animator.StringToHash("IsChasing");
@@ -279,6 +282,14 @@ public class EnemyAITutorial : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (spawner != null)
+        {
+            spawner.DecrementEnemyCount();
+        }
     }
 
     private void OnDrawGizmosSelected()
