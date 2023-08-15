@@ -18,13 +18,12 @@ public class EquipWeapon : MonoBehaviour
     public void ThrowWeapon()
     {
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-        var _weaponScript = Weapon.GetComponent<WeaponScript>();
 
-        Weapon.transform.Find("WeaponBox").GetComponent<Collider>().enabled = true;
-        Weapon.transform.Find("WeaponBox").GetComponent<Collider>().isTrigger = false;
+        Weapon.GetComponent<Collider>().enabled = true;
+        Weapon.GetComponent<Collider>().isTrigger = false;
         WeaponRig.weight = 0;
 
-        _weaponScript.activated = true;
+        Weapon.GetComponent<WeaponScript>().activated = true;
         _weaponRigidbody.isKinematic = false;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
@@ -46,7 +45,7 @@ public class EquipWeapon : MonoBehaviour
         //_tempWeapon.transform.parent = null;
         //_tempWeapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         //_tempWeapon.transform.position += transform.right / 5;
-        _weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
+        _weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 5, ForceMode.Impulse);
     }
 
     void Equip( GameObject _weapon )
@@ -71,16 +70,12 @@ public class EquipWeapon : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.transform.parent == null) return;
-
-        Transform parentObject = other.transform.parent;
-
-        if (parentObject.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI)
+        if (other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI)
             && enemyAI.isDead
             && Input.GetKey(KeyCode.E)
             && !slotFull)
         {
-            Equip(parentObject.gameObject);
+            Equip(other.gameObject);
         }
     }
 

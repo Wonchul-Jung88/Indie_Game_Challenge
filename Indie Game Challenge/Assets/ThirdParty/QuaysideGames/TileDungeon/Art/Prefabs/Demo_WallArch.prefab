@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3462424030212503627}
   - component: {fileID: 4201225977215544472}
   - component: {fileID: 4859210331891564648}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6369180043646987123}
   - component: {fileID: 2096825091207479403}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_WallArch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

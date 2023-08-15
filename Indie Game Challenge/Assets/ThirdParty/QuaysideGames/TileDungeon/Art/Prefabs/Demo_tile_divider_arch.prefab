@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 432056795129655695}
   - component: {fileID: 8997166850620153215}
   - component: {fileID: 8305499292657648563}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7480731975061976676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_tile_divider_arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

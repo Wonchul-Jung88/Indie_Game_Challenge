@@ -3,14 +3,30 @@ using TMPro;
 
 public class DisplayCharacterStats : MonoBehaviour
 {
-    public CharacterStatsBody _statsBody; // The PlayerStateMachine component
+    private CharacterStatsBody _statsBody; // The PlayerStateMachine component
 
     private TextMeshProUGUI textMeshPro;
 
     private void Awake()
     {
         textMeshPro = GetComponent<TextMeshProUGUI>();
+
+        // ゲームシーンに存在する「Player」タグを持つオブジェクトの一番最初のものからCharacterStatsBodyコンポーネントを取得
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            _statsBody = player.GetComponent<CharacterStatsBody>();
+            if (_statsBody == null)
+            {
+                Debug.LogWarning("CharacterStatsBody component not found on player object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player object with 'Player' tag not found in the scene.");
+        }
     }
+
 
     void Update()
     {

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3697580928737100985}
   - component: {fileID: 8514836354796613541}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6574883327296149377}
   - component: {fileID: 5872250840645157714}
   - component: {fileID: 2908427950510157730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016526507528593926}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_tile_divider_windows_dual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 6166429345065215469}
   - component: {fileID: 3220403690765895965}
   - component: {fileID: 5413205571462688852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8439148989549683882}
   - component: {fileID: 3469985603884647140}
   - component: {fileID: 418342177708071449}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

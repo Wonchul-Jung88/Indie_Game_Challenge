@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3838453036297746553}
   - component: {fileID: 6965148231141057528}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6713234808677968705}
   - component: {fileID: 6299115268439113618}
   - component: {fileID: 3335004856012247906}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}

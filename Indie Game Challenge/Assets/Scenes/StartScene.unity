@@ -349,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.113327265
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -357,23 +357,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.138929
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -381,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_Controller
@@ -401,14 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 663dbd805044e43d6b85f3b030bcaf2d, type: 2}
     - target: {fileID: 5866666021909216657, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
-        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
-        'mixamorig:LeftHandThumb3'\n\tTransform 'mixamorig:RightArm'\n\tTransform
-        'mixamorig:LeftLeg'\n\tand more ...\n\tFrom animation clip 'Aim'\n\tFrom
-        animation clip 'Throw'"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2908,6 +2901,7 @@ Transform:
   - {fileID: 1324914636}
   - {fileID: 813280679}
   - {fileID: 7381211249838755933}
+  - {fileID: 139644156}
   - {fileID: 2071549930}
   - {fileID: 1720074069}
   - {fileID: 1768887067}
@@ -2917,7 +2911,6 @@ Transform:
   - {fileID: 1673245014}
   - {fileID: 1871502904}
   - {fileID: 1745685416}
-  - {fileID: 139644156}
   - {fileID: 1886357941}
   - {fileID: 1853280689}
   m_Father: {fileID: 0}
@@ -2998,7 +2991,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.12217373, y: 0.012431118, z: -0.0015303411, w: 0.99242973}
+  m_LocalRotation: {x: 0.12217372, y: 0.012431111, z: -0.0015303402, w: 0.99242973}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4696,7 +4689,7 @@ GameObject:
   - component: {fileID: 1867338090}
   - component: {fileID: 1867338092}
   - component: {fileID: 1867338091}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StartAreaTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}

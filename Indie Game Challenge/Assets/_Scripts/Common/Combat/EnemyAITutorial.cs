@@ -9,7 +9,6 @@ public class EnemyAITutorial : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public int maxHealth;
-    public GameObject WeaponBox;
     public GameObject DropLootPrefab;
 
     //Patroling
@@ -267,9 +266,8 @@ public class EnemyAITutorial : MonoBehaviour
         _animator.SetBool("IsDead", true);
         isDead = true;
 
-        GetComponent<Collider>().enabled = false;
+        GetComponent<Collider>().isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = true;
-        WeaponBox.SetActive(true);
         AttackBox.SetActive(false);
 
         for ( int i = 0; i < Random.Range(1,5); i++ )
@@ -298,28 +296,6 @@ public class EnemyAITutorial : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!isDead) return;
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            EnemyAITutorial enemyAI = collision.gameObject.GetComponent<EnemyAITutorial>();
-
-            if (enemyAI != null && enemyAI.gameObject != this)
-            {
-                enemyAI.TakeDamageToDie(maxHealth);
-                //Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-
-                var direction = collision.gameObject.transform.position - this.gameObject.transform.position;
-                enemyAI.ApplyKnockBack(direction.normalized, ForceMode.Impulse);
-            }
-            else
-            {
-                Debug.LogError("enemyAI component is not attached to the enemy object.");
-            }
-        }
     }
 
     public void EnableAttackBox()

@@ -4,14 +4,30 @@ using System;
 
 public class DisplayPlayerState : MonoBehaviour
 {
-    public PlayerStateMachine playerStateMachine; // The PlayerStateMachine component
+    private PlayerStateMachine playerStateMachine; // The PlayerStateMachine component
 
     private TextMeshProUGUI textMeshPro;
 
     private void Awake()
     {
         textMeshPro = GetComponent<TextMeshProUGUI>();
+
+        // ゲームシーンに存在する「Player」タグを持つオブジェクトの一番最初のものからCharacterStatsBodyコンポーネントを取得
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            playerStateMachine = player.GetComponent<PlayerStateMachine>();
+            if (playerStateMachine == null)
+            {
+                Debug.LogWarning("CharacterStatsBody component not found on player object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player object with 'Player' tag not found in the scene.");
+        }
     }
+
 
     void Update()
     {

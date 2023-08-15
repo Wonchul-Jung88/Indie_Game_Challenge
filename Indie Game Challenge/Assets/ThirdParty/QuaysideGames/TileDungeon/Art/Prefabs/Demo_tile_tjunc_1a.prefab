@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6909221482103114815}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Demo_tile_tjunc_1a
   m_TagString: Tile
   m_Icon: {fileID: 0}
