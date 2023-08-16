@@ -32,7 +32,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public override void CheckSwitchStates()
     {
         // if player is grounded and jump is pressed, switch to jump state
-        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress) {
+        if (Ctx.InputManager.IsJumpPressed && !Ctx.InputManager.RequireNewJumpPress && !Ctx.Weapon.slotFull) {
             SwitchState(Factory.Jump());
         }
         else if (!Ctx.CharacterController.isGrounded)
@@ -43,13 +43,16 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed) {
+        if (!Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
+        {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed) {
+        else if (Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
+        {
             SetSubState(Factory.Walk());
         }
-        else {
+        else
+        {
             SetSubState(Factory.Run());
         }
     }

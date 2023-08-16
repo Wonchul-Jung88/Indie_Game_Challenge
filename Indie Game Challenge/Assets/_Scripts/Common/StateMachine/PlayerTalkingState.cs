@@ -11,9 +11,7 @@ public class PlayerTalkingState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.Animator.SetBool(Ctx.IsAimingHash, false);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsTalkingHash, true);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
     }

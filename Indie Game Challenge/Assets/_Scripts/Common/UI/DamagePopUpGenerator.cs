@@ -11,15 +11,6 @@ public class DamagePopUpGenerator : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.F10))
-        //{
-        //    CreatePopUp(Vector3.one, Random.Range(0, 1000).ToString(), Color.yellow);
-        //}
-    }
-
     public void CreatePopUp(Vector3 position, string text, Color color)
     {
         var popup = Instantiate(prefab, position, Quaternion.identity);

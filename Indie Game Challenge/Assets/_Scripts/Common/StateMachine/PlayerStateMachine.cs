@@ -12,20 +12,14 @@ public class PlayerStateMachine : MonoBehaviour
     // declare reference variables
     CharacterController _characterController;
     Animator _animator;
-    PlayerInput _playerInput; // NOTE : PlayerInput class must be generated from New Input System in Inspector
-
-    // variables to store optimized setter/getter parameter IDs
-    int _isWalkingHash;
-    int _isRunningHash;
-    int _isFallingHash;
+    PlayerInputManager _inputManager;
+    PlayerAnimationManager _animationManager;
 
     // variables to store player input values
-    Vector2 _currentMovementInput;
     Vector3 _currentMovement;
     Vector3 _appliedMovement;
     Vector3 _cameraRelativeMovement;
-    bool _isMovementPressed;
-    bool _isRunPressed;
+    
     bool _isDash;
 
     // constants
@@ -38,14 +32,12 @@ public class PlayerStateMachine : MonoBehaviour
     float _gravity = -9.8f;
 
     // jumping variables
-    bool _isJumpPressed = false;
     float _initialJumpVelocity;
     float _maxJumpHeight = 2.0f;
     //float _maxJumpTime = .75f;
     bool _isJumping = false;
-    int _isJumpingHash;
-    int _jumpCountHash;
-    bool _requireNewJumpPress = false;
+    
+    
     int _jumpCount = 0;
     Dictionary<int, float> _initialJumpVelocities = new Dictionary<int, float>();
     Dictionary<int, float> _jumpGravities = new Dictionary<int, float>();
@@ -55,41 +47,23 @@ public class PlayerStateMachine : MonoBehaviour
     StaminaController _staminaController;
 
     // attack variables
-    int _isAttackingHash;
-    int _isAimingHash;
-    bool _isAttackPressed = false;
-    bool _isAttackAnimationRunning = false;
-    EquipWeapon _weapon;
 
-    // state variables
-    PlayerBaseState _currentState;
-    PlayerStateFactory _states;
+    EquipWeapon _weapon;
 
     bool _isTalking = false;
 
     // getters and setters
-    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
+    
     public Animator Animator { get { return _animator; } }
     public CharacterController CharacterController { get { return _characterController; } }
     public Coroutine CurrentJumpResetRoutine { get { return _currentJumpResetRoutine; } set { _currentJumpResetRoutine = value; } }
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
-    public int IsWalkingHash { get { return _isWalkingHash; } }
-    public int IsRunningHash { get { return _isRunningHash; } }
-    public int IsJumpingHash { get { return _isJumpingHash; } }
-    public int IsFallingHash { get { return _isFallingHash; } }
-    public int IsAttackingHash { get { return _isAttackingHash; } }
-    public int IsAimingHash { get { return _isAimingHash; } }
-    public int JumpCountHash { get { return _jumpCountHash; } }
-    public bool IsMovementPressed { get { return _isMovementPressed; } }
-    public bool IsRunPressed { get { return _isRunPressed; } }
+    
     public bool IsDash { get { return _isDash; } }
-    public bool RequireNewJumpPress { get { return _requireNewJumpPress; }  set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
-    public bool IsJumpPressed { get { return _isJumpPressed; } }
-    public bool IsAttackPressed { get { return _isAttackPressed; } }
-    public bool IsAttackAnimationRunning { get { return _isAttackAnimationRunning; } }
+    
     public bool IsTalking { get { return _isTalking; } }
     public float Gravity { get { return _gravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
@@ -99,45 +73,35 @@ public class PlayerStateMachine : MonoBehaviour
     public float RunMultiplier { get { return _runMultiplier; } }
 
     public float WalkMultiplier { get { return _walkMultiplier; } }
-    public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
+    
     public EquipWeapon Weapon { get { return _weapon; } }
 
     public StaminaController StaminaController { get { return _staminaController; } }
+    public PlayerInputManager InputManager { get { return _inputManager; } }
+    public PlayerAnimationManager AnimationManager { get { return _animationManager; } }
+
+    private PlayerBaseState _currentState;  // åªç›ÇÃÉvÉåÉCÉÑÅ[ÇÃèÛë‘
+    PlayerStateFactory _states;
+
+    public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
 
     private void Awake()
     {
-        // initially set reference variables
-        _playerInput = new PlayerInput();
+        //// initially set reference variables
+        _inputManager = GetComponent<PlayerInputManager>();
+        _inputManager.AwakeInitialize();
+        _animationManager = GetComponent<PlayerAnimationManager>();
+        _animationManager.AwakeInitialize();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _weapon = GetComponent<EquipWeapon>();
+        _weapon.AwakeInitialize(_inputManager);
+        _staminaController = GetComponent<StaminaController>();
 
         // setup state
         _states = new PlayerStateFactory(this);
         _currentState = _states.Grounded();
         _currentState.EnterState();
-
-        // set the parameter hash references
-        _isWalkingHash = Animator.StringToHash("IsWalking");
-        _isRunningHash = Animator.StringToHash("IsRunning");
-        _isJumpingHash = Animator.StringToHash("IsJumping");
-        _jumpCountHash = Animator.StringToHash("JumpCount");
-        _isFallingHash = Animator.StringToHash("IsFalling");
-        _isAttackingHash = Animator.StringToHash("IsAttacking");
-        _isAimingHash = Animator.StringToHash("IsAiming");
-
-        // set the player input callbacks
-        _playerInput.CharacterControls.Move.started += onMovementInput;
-        _playerInput.CharacterControls.Move.performed += onMovementInput;
-        _playerInput.CharacterControls.Move.canceled += onMovementInput;
-        _playerInput.CharacterControls.Run.started += onRun;
-        _playerInput.CharacterControls.Run.canceled += onRun;
-        _playerInput.CharacterControls.Jump.started += onJump;
-        _playerInput.CharacterControls.Jump.canceled += onJump;
-        _playerInput.CharacterControls.Attack.started += onAttack;
-        _playerInput.CharacterControls.Attack.canceled += onAttack;
-
-        _weapon = GetComponent<EquipWeapon>();
-        _staminaController = GetComponent<StaminaController>();
 
         SetJumpVariables();
     }
@@ -152,38 +116,6 @@ public class PlayerStateMachine : MonoBehaviour
         _characterController.Move(_appliedMovement * Time.deltaTime);
     }
 
-    private void OnEnable()
-    {
-        _playerInput.CharacterControls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.CharacterControls.Disable();
-    }
-
-    private void onRun(InputAction.CallbackContext context)
-    {
-        _isRunPressed = context.ReadValueAsButton();
-    }
-
-    private void onJump(InputAction.CallbackContext context)
-    {
-        _isJumpPressed = context.ReadValueAsButton();
-        _requireNewJumpPress = false;
-    }
-
-    private void onAttack(InputAction.CallbackContext context)
-    {
-        _isAttackPressed = context.ReadValueAsButton();
-    }
-
-    private void onMovementInput(InputAction.CallbackContext context)
-    {
-        _currentMovementInput = context.ReadValue<Vector2>();
-        _isMovementPressed = _currentMovementInput.x != _zero || _currentMovementInput.y != _zero;
-    }
-
     void HandleRotation()
     {
         Vector3 positionToLookAt;
@@ -194,7 +126,8 @@ public class PlayerStateMachine : MonoBehaviour
         // the current rotation of our character
         Quaternion currentRotation = transform.rotation;
 
-        if (_isMovementPressed)
+        //if (_isMovementPressed)
+        if (_inputManager.IsMovementPressed)
         {
             // Check if positionToLookAt is not zero vector
             if (positionToLookAt != Vector3.zero)
@@ -209,6 +142,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     void SetJumpVariables()
     {
+        _initialJumpVelocities.Clear();
+        _jumpGravities.Clear();
+
         float timeToApex = _maxJumpHeight / 2;
         float initialGravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
         _initialJumpVelocity = (2 * _maxJumpHeight) / timeToApex;
@@ -236,14 +172,15 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInput.CharacterControls.Move.triggered)
+        //if (_playerInput.CharacterControls.Move.triggered)
+        if (_inputManager.PlayerInput.CharacterControls.Move.triggered)
         {
-            Vector2 currentMoveDirection = _playerInput.CharacterControls.Move.ReadValue<Vector2>().normalized;
+            Vector2 currentMoveDirection = _inputManager.PlayerInput.CharacterControls.Move.ReadValue<Vector2>().normalized;
 
-            
             // Additionally, ensure that enough time has passed since the last dash, that the player is running,
             // and that the move direction hasn't changed significantly
-            if (Time.time - lastTapTime <= doubleTapTime && Time.time - lastDashEndTime >= 5.0f && _isRunPressed
+            //if (Time.time - lastTapTime <= doubleTapTime && Time.time - lastDashEndTime >= 5.0f && _isRunPressed
+            if (Time.time - lastTapTime <= doubleTapTime && Time.time - lastDashEndTime >= 5.0f && _inputManager.IsRunPressed
                 && Vector2.Dot(lastMoveDirection, currentMoveDirection) > 0.9f) // 0.9 is a threshold for direction change, adjust as needed
             {
                 Debug.Log("Double tap detected. Starting dash.");
@@ -270,10 +207,9 @@ public class PlayerStateMachine : MonoBehaviour
             _isDash = false;
         }
 
-        HandleRotation();
         _currentState.UpdateStates();
+        HandleRotation();
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -300,7 +236,6 @@ public class PlayerStateMachine : MonoBehaviour
         _runMultiplier = _runMultiplier * 0.93f;
         _walkMultiplier = _walkMultiplier * 0.93f;
     }
-
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
     {
@@ -329,16 +264,6 @@ public class PlayerStateMachine : MonoBehaviour
         return vectorRotatedToCameraSpace;
     }
 
-    public void StartAttackAnimation()
-    {
-        _isAttackAnimationRunning = true;
-    }
-
-    public void StopAttackAnimation()
-    {
-        _isAttackAnimationRunning = false;
-    }
-
     public void ConversationStart()
     {
         _isTalking = true;
@@ -357,5 +282,15 @@ public class PlayerStateMachine : MonoBehaviour
     public void LoseCoin()
     {
         CoinManager.Instance.LoseCoin();
+    }
+
+    private void OnEnable()
+    {
+        _inputManager.PlayerInput.CharacterControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _inputManager.PlayerInput.CharacterControls.Disable();
     }
 }

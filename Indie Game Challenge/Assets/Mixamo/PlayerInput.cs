@@ -71,6 +71,42 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Talk"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd9b5a24-ad1b-4f51-909b-7b24657131cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pick"",
+                    ""type"": ""Button"",
+                    ""id"": ""b63b1a96-4324-4850-9e47-a8ba2e5a94c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""05d5f075-7049-467c-aae1-2e13073560f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StatsMenuOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""91967774-407f-4c44-a94d-e17eb4aaf4a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +208,50 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f3e0b34-8af0-47d7-88bc-60647f20cf4a"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Talk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b34d11b3-3981-4ba9-8866-1427b4f4d062"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb195db9-455f-4013-a8df-a7dcf54d4586"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ae5b002-9332-4c33-acf2-21101451ebcc"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StatsMenuOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +265,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Look = m_CharacterControls.FindAction("Look", throwIfNotFound: true);
         m_CharacterControls_Jump = m_CharacterControls.FindAction("Jump", throwIfNotFound: true);
         m_CharacterControls_Attack = m_CharacterControls.FindAction("Attack", throwIfNotFound: true);
+        m_CharacterControls_Talk = m_CharacterControls.FindAction("Talk", throwIfNotFound: true);
+        m_CharacterControls_Pick = m_CharacterControls.FindAction("Pick", throwIfNotFound: true);
+        m_CharacterControls_Throw = m_CharacterControls.FindAction("Throw", throwIfNotFound: true);
+        m_CharacterControls_StatsMenuOpen = m_CharacterControls.FindAction("StatsMenuOpen", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +335,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Look;
     private readonly InputAction m_CharacterControls_Jump;
     private readonly InputAction m_CharacterControls_Attack;
+    private readonly InputAction m_CharacterControls_Talk;
+    private readonly InputAction m_CharacterControls_Pick;
+    private readonly InputAction m_CharacterControls_Throw;
+    private readonly InputAction m_CharacterControls_StatsMenuOpen;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -260,6 +348,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_CharacterControls_Look;
         public InputAction @Jump => m_Wrapper.m_CharacterControls_Jump;
         public InputAction @Attack => m_Wrapper.m_CharacterControls_Attack;
+        public InputAction @Talk => m_Wrapper.m_CharacterControls_Talk;
+        public InputAction @Pick => m_Wrapper.m_CharacterControls_Pick;
+        public InputAction @Throw => m_Wrapper.m_CharacterControls_Throw;
+        public InputAction @StatsMenuOpen => m_Wrapper.m_CharacterControls_StatsMenuOpen;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +376,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Talk.started += instance.OnTalk;
+            @Talk.performed += instance.OnTalk;
+            @Talk.canceled += instance.OnTalk;
+            @Pick.started += instance.OnPick;
+            @Pick.performed += instance.OnPick;
+            @Pick.canceled += instance.OnPick;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
+            @StatsMenuOpen.started += instance.OnStatsMenuOpen;
+            @StatsMenuOpen.performed += instance.OnStatsMenuOpen;
+            @StatsMenuOpen.canceled += instance.OnStatsMenuOpen;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -303,6 +407,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Talk.started -= instance.OnTalk;
+            @Talk.performed -= instance.OnTalk;
+            @Talk.canceled -= instance.OnTalk;
+            @Pick.started -= instance.OnPick;
+            @Pick.performed -= instance.OnPick;
+            @Pick.canceled -= instance.OnPick;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
+            @StatsMenuOpen.started -= instance.OnStatsMenuOpen;
+            @StatsMenuOpen.performed -= instance.OnStatsMenuOpen;
+            @StatsMenuOpen.canceled -= instance.OnStatsMenuOpen;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -327,5 +443,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnTalk(InputAction.CallbackContext context);
+        void OnPick(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
+        void OnStatsMenuOpen(InputAction.CallbackContext context);
     }
 }

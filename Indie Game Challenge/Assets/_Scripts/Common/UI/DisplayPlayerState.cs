@@ -4,11 +4,10 @@ using System;
 
 public class DisplayPlayerState : MonoBehaviour
 {
-    private PlayerStateMachine playerStateMachine; // The PlayerStateMachine component
-
+    private PlayerStateMachine _stateMachine;
     private TextMeshProUGUI textMeshPro;
 
-    private void Awake()
+    private void Start()
     {
         textMeshPro = GetComponent<TextMeshProUGUI>();
 
@@ -16,8 +15,8 @@ public class DisplayPlayerState : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player)
         {
-            playerStateMachine = player.GetComponent<PlayerStateMachine>();
-            if (playerStateMachine == null)
+            _stateMachine = player.GetComponent<PlayerStateMachine>();
+            if (_stateMachine == null)
             {
                 Debug.LogWarning("CharacterStatsBody component not found on player object.");
             }
@@ -32,9 +31,9 @@ public class DisplayPlayerState : MonoBehaviour
     void Update()
     {
         // Get the name of the current state from the PlayerStateMachine
-        string stateName = playerStateMachine.CurrentState?.GetType().Name ?? "null";
-        string substateName = playerStateMachine.CurrentState?.SubState?.GetType().Name ?? "null";
-        string superstateName = playerStateMachine.CurrentState?.SuperState?.GetType().Name ?? "null";
+        string stateName = _stateMachine.CurrentState?.GetType().Name ?? "null";
+        string substateName = _stateMachine.CurrentState?.SubState?.GetType().Name ?? "null";
+        string superstateName = _stateMachine.CurrentState?.SuperState?.GetType().Name ?? "null";
 
         // Display the name of the current state
         textMeshPro.text = "State: " + stateName + Environment.NewLine +

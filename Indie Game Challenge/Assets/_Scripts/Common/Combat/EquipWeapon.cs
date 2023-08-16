@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -8,54 +10,46 @@ using UnityEngine.Animations.Rigging;
 public class EquipWeapon : MonoBehaviour
 {
     GameObject Weapon;
+    PlayerInputManager _inputManager;
+    GameObject _targetObject;
 
     public Transform WeaponPoint, Player;
     public Rig WeaponRig;
     public float throwPower = 100;
 
     public bool slotFull;
+    public bool CanPick => _targetObject != null;
+
+    public void AwakeInitialize( PlayerInputManager inputManager )
+    {
+        _inputManager = inputManager;
+    }
 
     public void ThrowWeapon()
     {
+        ReleaseVariables();
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
 
         Weapon.GetComponent<Collider>().enabled = true;
         Weapon.GetComponent<Collider>().isTrigger = false;
-        WeaponRig.weight = 0;
 
         Weapon.GetComponent<WeaponScript>().activated = true;
         _weaponRigidbody.isKinematic = false;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
         Weapon.transform.parent = null;
-        //Weapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         Weapon.transform.position += transform.right / 5;
-        //_weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         _weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
         slotFull = false;
     }
 
-    public void ThrowDynamite()
+    void Equip()
     {
-        slotFull = false;
+        if (_targetObject == null) return;
+        Weapon = _targetObject;
 
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-        _weaponRigidbody.isKinematic = false;
-        _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        //_tempWeapon.transform.parent = null;
-        //_tempWeapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
-        //_tempWeapon.transform.position += transform.right / 5;
-        _weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + transform.up * 5, ForceMode.Impulse);
-    }
 
-    void Equip( GameObject _weapon )
-    {
-        Weapon = _weapon;
-        if (Weapon == null) return;
-        var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-
-        slotFull = true;
-        WeaponRig.weight = 1;
         Weapon.transform.SetParent(WeaponPoint);
 
         if (_weaponRigidbody != null)
@@ -66,34 +60,44 @@ public class EquipWeapon : MonoBehaviour
         Weapon.transform.localPosition = Vector3.zero;
         Weapon.transform.localRotation = Quaternion.Euler(Vector3.zero);
         Weapon.transform.localScale = Vector3.one / 28.0f;
+
+        PostEquip();
     }
 
-    void OnTriggerStay(Collider other)
+
+    private void PostEquip()
     {
-        if (other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI)
-            && enemyAI.isDead
-            && Input.GetKey(KeyCode.E)
-            && !slotFull)
+        _targetObject = null;
+        WeaponRig.weight = 1;
+        slotFull = true;
+    }
+
+    private void ReleaseVariables()
+    {
+        _targetObject = null;
+        WeaponRig.weight = 0;
+        slotFull = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // TryGetComponentの結果を変数に格納
+        bool hasEnemyAI = other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI);
+
+        // 早期リターン: 必要な条件を満たさない場合はnullをセットしてリターン
+        if (hasEnemyAI && enemyAI != null && enemyAI.isDead && !slotFull && _targetObject == null)
         {
-            Equip(other.gameObject);
+            _targetObject = other.gameObject;
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {// TryGetComponentの結果を変数に格納
+        bool hasEnemyAI = other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI);
 
-    public void EnableDamage()
-    {
-        if ( Weapon != null && Weapon.GetComponent<EnemyAITutorial>().isDead ) {
-            var collider = Weapon.GetComponent<Collider>();
-            collider.enabled = true;
-        }
-    }
-
-    public void DisableDamage()
-    {
-        if (Weapon != null && Weapon.GetComponent<EnemyAITutorial>().isDead)
+        if (other.gameObject == _targetObject)
         {
-            var collider = Weapon.GetComponent<Collider>();
-            collider.enabled = false;
+            _targetObject = null;
         }
     }
 }

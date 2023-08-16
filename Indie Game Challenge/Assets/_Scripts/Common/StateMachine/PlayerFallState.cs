@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerFallState : PlayerBaseState, IRootState
 {
-    public PlayerFallState( PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory )
-        : base( currentContext, playerStateFactory )
+    public PlayerFallState( PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+        : base( currentContext, playerStateFactory)
     {
         IsRootState = true;
     }
@@ -13,7 +13,7 @@ public class PlayerFallState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
-        Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsFallingHash, true);
     }
 
     public override void UpdateState()
@@ -24,7 +24,7 @@ public class PlayerFallState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        Ctx.Animator.SetBool(Ctx.IsFallingHash, false);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsFallingHash, false);
     }
 
     public void HandleGravity() {
@@ -43,11 +43,11 @@ public class PlayerFallState : PlayerBaseState, IRootState
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        if (!Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        else if (Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
         {
             SetSubState(Factory.Walk());
         }

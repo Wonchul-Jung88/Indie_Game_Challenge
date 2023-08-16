@@ -5,21 +5,21 @@ using UnityEngine;
 public class PlayerWalkState : PlayerBaseState
 {
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-        : base( currentContext, playerStateFactory )
+        : base( currentContext, playerStateFactory)
     {
     }
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.Animator.SetBool(Ctx.IsAimingHash, false);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsWalkingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsRunningHash, false);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, false);
     }
 
     public override void UpdateState()
     {
-        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
-        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
+        Ctx.AppliedMovementX = Ctx.InputManager.CurrentMovementInput.x * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
+        Ctx.AppliedMovementZ = Ctx.InputManager.CurrentMovementInput.y * Ctx.WalkMultiplier * Ctx.StaminaController.exhaustedFactor;
         CheckSwitchStates();
     }
 
@@ -29,7 +29,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed || (Ctx.IsRunPressed && !Ctx.StaminaController.hasRegenerated))
+        if (!Ctx.InputManager.IsMovementPressed || (Ctx.InputManager.IsRunPressed && !Ctx.StaminaController.hasRegenerated))
         {
             SwitchState(Factory.Idle());
         }
@@ -37,10 +37,14 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Talk());
         }
-        else if (Ctx.Weapon.slotFull && Ctx.IsRunPressed) {
+        else if (!Ctx.Weapon.slotFull && Ctx.InputManager.IsPickPressed && Ctx.Weapon.CanPick)
+        {
+            SwitchState(Factory.PickingUp());
+        }
+        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsRunPressed) {
             SwitchState(Factory.Aim());
         }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && Ctx.StaminaController.hasRegenerated)
+        else if (Ctx.InputManager.IsMovementPressed && Ctx.InputManager.IsRunPressed && Ctx.StaminaController.hasRegenerated)
         {
             SwitchState(Factory.Run());
         }

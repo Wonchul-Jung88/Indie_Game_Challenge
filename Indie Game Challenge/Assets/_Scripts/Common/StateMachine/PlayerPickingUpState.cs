@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerThrowState : PlayerBaseState
+public class PlayerPickingUpState : PlayerBaseState
 {
-    public PlayerThrowState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerPickingUpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
        : base(currentContext, playerStateFactory)
     {
     }
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsThrowingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsPickingUpHash, true);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
     }
@@ -24,7 +24,7 @@ public class PlayerThrowState : PlayerBaseState
 
     public override void InitializeSubState() { }
 
-    public void HandleThrowAnimationEnd()
+    public void HandlePickingUpAnimationEnd()
     {
         SwitchState(Factory.Idle());
     }

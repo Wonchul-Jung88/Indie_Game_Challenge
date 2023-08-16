@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""993dbbc0-4787-4d23-b99d-547d7dd29b4b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47154f6e-f9dc-4e10-a8f0-27ad51c6c8d2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Pick = m_Player.FindAction("Pick", throwIfNotFound: true);
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
+        m_Player_MenuOpen = m_Player.FindAction("MenuOpen", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Pick;
     private readonly InputAction m_Player_Throw;
+    private readonly InputAction m_Player_MenuOpen;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Pick => m_Wrapper.m_Player_Pick;
         public InputAction @Throw => m_Wrapper.m_Player_Throw;
+        public InputAction @MenuOpen => m_Wrapper.m_Player_MenuOpen;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Throw.started += instance.OnThrow;
             @Throw.performed += instance.OnThrow;
             @Throw.canceled += instance.OnThrow;
+            @MenuOpen.started += instance.OnMenuOpen;
+            @MenuOpen.performed += instance.OnMenuOpen;
+            @MenuOpen.canceled += instance.OnMenuOpen;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -390,6 +416,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Throw.started -= instance.OnThrow;
             @Throw.performed -= instance.OnThrow;
             @Throw.canceled -= instance.OnThrow;
+            @MenuOpen.started -= instance.OnMenuOpen;
+            @MenuOpen.performed -= instance.OnMenuOpen;
+            @MenuOpen.canceled -= instance.OnMenuOpen;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -417,5 +446,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnTalk(InputAction.CallbackContext context);
         void OnPick(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
+        void OnMenuOpen(InputAction.CallbackContext context);
     }
 }

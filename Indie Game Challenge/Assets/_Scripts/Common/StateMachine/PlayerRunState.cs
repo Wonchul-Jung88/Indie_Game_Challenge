@@ -11,8 +11,8 @@ public class PlayerRunState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsWalkingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsRunningHash, true);
     }
 
     public override void UpdateState()
@@ -20,14 +20,14 @@ public class PlayerRunState : PlayerBaseState
         Ctx.StaminaController.Sprinting();
         if (Ctx.IsDash) {
             Ctx.warp.Play();
-            Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier * 3.0f;
-            Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.RunMultiplier * 3.0f;
+            Ctx.AppliedMovementX = Ctx.InputManager.CurrentMovementInput.x * Ctx.RunMultiplier * 3.0f;
+            Ctx.AppliedMovementZ = Ctx.InputManager.CurrentMovementInput.y * Ctx.RunMultiplier * 3.0f;
             CheckSwitchStates();
         }
         else {
             Ctx.warp.Stop();
-            Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.RunMultiplier;
-            Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.RunMultiplier;
+            Ctx.AppliedMovementX = Ctx.InputManager.CurrentMovementInput.x * Ctx.RunMultiplier;
+            Ctx.AppliedMovementZ = Ctx.InputManager.CurrentMovementInput.y * Ctx.RunMultiplier;
             CheckSwitchStates();
         }
     }
@@ -38,16 +38,20 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed || Ctx.StaminaController.playerStamina < 0)
+        if (!Ctx.InputManager.IsMovementPressed || Ctx.StaminaController.playerStamina < 0)
         {
             Ctx.warp.Stop();
             SwitchState(Factory.Idle());
+        }
+        else if (!Ctx.Weapon.slotFull && Ctx.InputManager.IsPickPressed && Ctx.Weapon.CanPick)
+        {
+            SwitchState(Factory.PickingUp());
         }
         else if (Ctx.IsTalking)
         {
             SwitchState(Factory.Talk());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        else if (Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
         {
             Ctx.warp.Stop();
             SwitchState(Factory.Walk());

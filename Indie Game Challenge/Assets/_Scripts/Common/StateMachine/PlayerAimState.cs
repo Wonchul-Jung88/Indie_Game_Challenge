@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlayerAimState : PlayerBaseState
 {
-    public PlayerAimState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory )
-        : base( currentContext, playerStateFactory )
+    public PlayerAimState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+        : base( currentContext, playerStateFactory)
     {
     }
 
     public override void EnterState()
     {
-        Ctx.Weapon.WeaponRig.weight = 0;
-        Ctx.Animator.SetBool(Ctx.IsAimingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, true);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
     }
@@ -24,18 +23,15 @@ public class PlayerAimState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Input.GetKey(KeyCode.F)) {
-            Ctx.Weapon.slotFull = false;
-            Ctx.Animator.SetTrigger("Throw");
-            SwitchState(Factory.Idle());
-        }
-        else if ( !Ctx.IsRunPressed && !Ctx.IsMovementPressed ) {
-            Ctx.Weapon.WeaponRig.weight = 1;
-            SwitchState(Factory.Idle());
-        }
-        else if ( !Ctx.IsRunPressed && Ctx.IsMovementPressed )
+        if (Ctx.InputManager.IsThrowPressed)
         {
-            Ctx.Weapon.WeaponRig.weight = 1;
+            SwitchState(Factory.Throw());
+        }
+        else if ( !Ctx.InputManager.IsRunPressed && !Ctx.InputManager.IsMovementPressed ) {
+            SwitchState(Factory.Idle());
+        }
+        else if ( !Ctx.InputManager.IsRunPressed && Ctx.InputManager.IsMovementPressed )
+        {
             SwitchState(Factory.Walk());
         }
     }
@@ -43,6 +39,4 @@ public class PlayerAimState : PlayerBaseState
     public override void ExitState() { }
 
     public override void InitializeSubState() { }
-
-    
 }

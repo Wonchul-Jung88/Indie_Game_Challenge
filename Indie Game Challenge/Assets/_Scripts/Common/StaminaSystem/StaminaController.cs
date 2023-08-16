@@ -35,7 +35,7 @@ public class StaminaController : MonoBehaviour
 
     private void Update()
     {
-        if ( !player.IsRunPressed ) {
+        if ( !player.InputManager.IsRunPressed ) {
             if ( playerStamina <= maxStamina - 0.01 ) {
                 playerStamina += staminaRegen * Time.deltaTime;
                 UpdateStamina(1);
@@ -70,7 +70,7 @@ public class StaminaController : MonoBehaviour
 
     public void StaminaJump()
     {
-        if (player.IsJumpPressed && playerStamina >= (maxStamina * jumpCost / maxStamina))
+        if (player.InputManager.IsJumpPressed && playerStamina >= (maxStamina * jumpCost / maxStamina))
         {
             playerStamina -= jumpCost;
             UpdateStamina(1);

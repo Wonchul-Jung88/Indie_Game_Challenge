@@ -31,26 +31,26 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, false);
-        if (Ctx.IsJumpPressed)
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsJumpingHash, false);
+        if (Ctx.InputManager.IsJumpPressed)
         {
-            Ctx.RequireNewJumpPress = true;
+            Ctx.InputManager.RequireNewJumpPress = true;
         }
         Ctx.CurrentJumpResetRoutine = Ctx.StartCoroutine(IJumpResetRoutine());
         if (Ctx.JumpCount == 3)
         {
             Ctx.JumpCount = 0;
-            Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
+            Ctx.Animator.SetInteger(Ctx.AnimationManager.JumpCountHash, Ctx.JumpCount);
         }
     }
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        if (!Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        else if (Ctx.InputManager.IsMovementPressed && !Ctx.InputManager.IsRunPressed)
         {
             SetSubState(Factory.Walk());
         }
@@ -76,16 +76,16 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             Ctx.StopCoroutine(Ctx.CurrentJumpResetRoutine);
         }
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsJumpingHash, true);
         Ctx.IsJumping = true;
         Ctx.JumpCount += 1;
-        Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
+        Ctx.Animator.SetInteger(Ctx.AnimationManager.JumpCountHash, Ctx.JumpCount);
         Ctx.CurrentMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
     }
 
     public void HandleGravity() {
-        bool isFalling = Ctx.CurrentMovementY <= 0.0f || !Ctx.IsJumpPressed;
+        bool isFalling = Ctx.CurrentMovementY <= 0.0f || !Ctx.InputManager.IsJumpPressed;
         float fallMultiplier = 2.0f;
 
         if ( isFalling ) {

@@ -43,11 +43,12 @@ public class NPCController : MonoBehaviour
 
     private void HandleConversationInput()
     {
-        if (_conversationTarget != null && Input.GetKeyDown(KeyCode.T))
+        //if (_conversationTarget != null && Input.GetKeyDown(KeyCode.T))
+        if (_conversationTarget != null && _stateMachine.InputManager.IsTalkPressed)
         {
             if (_conversationTarget.TryGetComponent<PlayerStateMachine>(out _stateMachine) && _stateMachine != null)
             {
-                if (!_stateMachine.IsRunPressed)
+                if (!_stateMachine.InputManager.IsRunPressed)
                 {
                     _stateMachine.ConversationStart();
                     ShowStatsMenu();
@@ -59,7 +60,7 @@ public class NPCController : MonoBehaviour
 
     private void HandleStatsMenuInput()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && statsMenu.activeSelf)
+        if (_stateMachine.InputManager.IsStatsMenuOpenPressed && statsMenu.activeSelf)
         {
             _stateMachine.ConversationEnd();
             HideStatsMenu();

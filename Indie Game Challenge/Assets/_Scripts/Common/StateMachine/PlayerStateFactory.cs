@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor;
 
 enum PlayerStates
 {
@@ -11,6 +12,8 @@ enum PlayerStates
     attack,
     aim,
     talk,
+    pickingUp,
+    throwing,
 }
 
 public class PlayerStateFactory
@@ -27,9 +30,11 @@ public class PlayerStateFactory
         _states[PlayerStates.jump] = new PlayerJumpState(_context, this);
         _states[PlayerStates.grounded] = new PlayerGroundedState(_context, this);
         _states[PlayerStates.fall] = new PlayerFallState(_context, this);
-        _states[PlayerStates.attack] = new PlayerAttackState(_context, this);
+        //_states[PlayerStates.attack] = new PlayerAttackState(_context, this);
         _states[PlayerStates.aim] = new PlayerAimState(_context, this);
         _states[PlayerStates.talk] = new PlayerTalkingState(_context, this);
+        _states[PlayerStates.throwing] = new PlayerThrowState(_context, this);
+        _states[PlayerStates.pickingUp] = new PlayerPickingUpState(_context, this);
     }
 
     public PlayerBaseState Idle() {
@@ -50,14 +55,21 @@ public class PlayerStateFactory
     public PlayerBaseState Fall() {
         return _states[PlayerStates.fall];
     }
-    public PlayerBaseState Attack() {
-        return _states[PlayerStates.attack];
-    }
+    //public PlayerBaseState Attack() {
+    //    return _states[PlayerStates.attack];
+    //}
     public PlayerBaseState Aim() {
         return _states[PlayerStates.aim];
+    }
+    public PlayerBaseState Throw() {
+        return _states[PlayerStates.throwing];
     }
     public PlayerBaseState Talk()
     {
         return _states[PlayerStates.talk];
+    }
+    public PlayerBaseState PickingUp()
+    {
+        return _states[PlayerStates.pickingUp];
     }
 }

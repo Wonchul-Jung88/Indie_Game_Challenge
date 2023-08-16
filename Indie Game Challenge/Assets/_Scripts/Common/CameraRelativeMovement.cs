@@ -21,8 +21,11 @@ public class CameraRelativeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( (_stateMachine.CurrentState is PlayerGroundedState) && _stateMachine.CurrentState.SubState is PlayerIdleState)
+        if ((_stateMachine.CurrentState is PlayerGroundedState) &&
+            (_stateMachine.CurrentState.SubState is PlayerIdleState || _stateMachine.CurrentState.SubState is PlayerPickingUpState ||
+             _stateMachine.CurrentState.SubState is PlayerAimState || _stateMachine.CurrentState.SubState is PlayerThrowState)) {
             return;
+        }
 
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
