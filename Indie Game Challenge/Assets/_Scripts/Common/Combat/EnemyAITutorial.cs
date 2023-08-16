@@ -265,9 +265,6 @@ public class EnemyAITutorial : MonoBehaviour
     {
         _animator.SetBool("IsDead", true);
         isDead = true;
-
-        GetComponent<Collider>().isTrigger = true;
-        GetComponent<Rigidbody>().isKinematic = true;
         AttackBox.SetActive(false);
 
         for ( int i = 0; i < Random.Range(1,5); i++ )
@@ -275,6 +272,12 @@ public class EnemyAITutorial : MonoBehaviour
             Vector3 randomness = new Vector3(Random.Range(0f, 0.25f), Random.Range(0f, 0.25f), Random.Range(0, 0.25f));
             Instantiate(DropLootPrefab, transform.position + Vector3.up + randomness, Quaternion.identity);
         }
+    }
+
+    public void AfterDieAnimation()
+    {
+        GetComponent<Collider>().isTrigger = true;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void DestroyEnemy()
