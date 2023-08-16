@@ -174,7 +174,6 @@ MonoBehaviour:
     m_Bits: 256
   health: 5
   maxHealth: 5
-  WeaponBox: {fileID: 0}
   DropLootPrefab: {fileID: 2497100212329628716, guid: 167ca14b85c422c41a86298158de4693, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
@@ -251,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55941f5a35bd5e549a37a875da1ffb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blastWave: {fileID: 1437721953977790866, guid: c6df77dd407a38048a2d3ebd0bf3d1ed, type: 3}
   activated: 0
   rotationSpeed: -1800
 --- !u!1 &647101256752946218
