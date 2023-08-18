@@ -30,6 +30,34 @@ public class PlayerInputManager : MonoBehaviour
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
     public PlayerInput PlayerInput { get { return _playerInput; } }
 
+    public static PlayerInputManager Instance;
+
+    private void Awake()
+    {
+        _playerInput = new PlayerInput();
+
+        // set the player input callbacks
+        _playerInput.CharacterControls.Move.started += onMovementInput;
+        _playerInput.CharacterControls.Move.performed += onMovementInput;
+        _playerInput.CharacterControls.Move.canceled += onMovementInput;
+        _playerInput.CharacterControls.Run.started += onRun;
+        _playerInput.CharacterControls.Run.canceled += onRun;
+        _playerInput.CharacterControls.Jump.started += onJump;
+        _playerInput.CharacterControls.Jump.canceled += onJump;
+        _playerInput.CharacterControls.Attack.started += onAttack;
+        _playerInput.CharacterControls.Attack.canceled += onAttack;
+        _playerInput.CharacterControls.Talk.started += onTalk;
+        _playerInput.CharacterControls.Talk.canceled += onTalk;
+        _playerInput.CharacterControls.Throw.started += onThrow;
+        _playerInput.CharacterControls.Throw.canceled += onThrow;
+        _playerInput.CharacterControls.Pick.started += onPick;
+        _playerInput.CharacterControls.Pick.canceled += onPick;
+        _playerInput.CharacterControls.StatsMenuOpen.started += onStatsMenuOpen;
+        _playerInput.CharacterControls.StatsMenuOpen.canceled += onStatsMenuOpen;
+
+        Instance = this;
+    }
+
     public void AwakeInitialize()
     {
         _playerInput = new PlayerInput();

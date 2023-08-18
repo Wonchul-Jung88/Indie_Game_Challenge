@@ -27,6 +27,23 @@ public class PlayerAnimationManager : MonoBehaviour
     public int IsThrowingHash { get { return _isThrowingHash; } }
     public int ThrowHash { get { return _throwHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
+    public static PlayerAnimationManager Instance;
+    private void Awake()
+    {
+        _isWalkingHash = Animator.StringToHash("IsWalking");
+        _isRunningHash = Animator.StringToHash("IsRunning");
+        _isJumpingHash = Animator.StringToHash("IsJumping");
+        _jumpCountHash = Animator.StringToHash("JumpCount");
+        _isFallingHash = Animator.StringToHash("IsFalling");
+        _isAttackingHash = Animator.StringToHash("IsAttacking");
+        _isAimingHash = Animator.StringToHash("IsAiming");
+        _isTalkingHash = Animator.StringToHash("IsTalking");
+        _isPickingUpHash = Animator.StringToHash("IsPickingUp");
+        _isThrowingHash = Animator.StringToHash("IsThrowing");
+        _throwHash = Animator.StringToHash("Throw");
+
+        Instance = this;
+    }
 
     public void AwakeInitialize()
     {

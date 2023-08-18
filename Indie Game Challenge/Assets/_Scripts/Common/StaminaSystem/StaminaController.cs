@@ -26,16 +26,18 @@ public class StaminaController : MonoBehaviour
     [SerializeField] private Image staminaProgressUI = null;
     [SerializeField] private CanvasGroup sliderCanvasGroup = null;
 
-    private PlayerStateMachine player;
+    //private PlayerStateMachine player;
+    private PlayerInputManager _inputManager;
 
     private void Start()
     {
-        player = GetComponent<PlayerStateMachine>();
+        //player = GetComponent<PlayerStateMachine>();
+        _inputManager = PlayerInputManager.Instance;
     }
 
     private void Update()
     {
-        if ( !player.InputManager.IsRunPressed ) {
+        if ( !_inputManager.IsRunPressed ) {
             if ( playerStamina <= maxStamina - 0.01 ) {
                 playerStamina += staminaRegen * Time.deltaTime;
                 UpdateStamina(1);
@@ -70,7 +72,7 @@ public class StaminaController : MonoBehaviour
 
     public void StaminaJump()
     {
-        if (player.InputManager.IsJumpPressed && playerStamina >= (maxStamina * jumpCost / maxStamina))
+        if (_inputManager.IsJumpPressed && playerStamina >= (maxStamina * jumpCost / maxStamina))
         {
             playerStamina -= jumpCost;
             UpdateStamina(1);

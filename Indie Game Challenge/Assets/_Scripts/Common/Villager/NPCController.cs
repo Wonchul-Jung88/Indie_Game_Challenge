@@ -43,10 +43,12 @@ public class NPCController : MonoBehaviour
 
     private void HandleConversationInput()
     {
-        //if (_conversationTarget != null && Input.GetKeyDown(KeyCode.T))
-        if (_conversationTarget != null && _stateMachine.InputManager.IsTalkPressed)
+        if (_conversationTarget == null)
+            return;
+
+        if (_conversationTarget.TryGetComponent<PlayerStateMachine>(out _stateMachine) && _stateMachine != null)
         {
-            if (_conversationTarget.TryGetComponent<PlayerStateMachine>(out _stateMachine) && _stateMachine != null)
+            if (_stateMachine.InputManager.IsTalkPressed)
             {
                 if (!_stateMachine.InputManager.IsRunPressed)
                 {
@@ -58,13 +60,20 @@ public class NPCController : MonoBehaviour
         }
     }
 
+
     private void HandleStatsMenuInput()
     {
-        if (_stateMachine.InputManager.IsStatsMenuOpenPressed && statsMenu.activeSelf)
+        if (_conversationTarget == null)
+            return;
+
+        if (_conversationTarget.TryGetComponent<PlayerStateMachine>(out _stateMachine) && _stateMachine != null)
         {
-            _stateMachine.ConversationEnd();
-            HideStatsMenu();
-            ReplaceUsingImage(converseMessage);
+            if (_stateMachine.InputManager.IsStatsMenuOpenPressed && statsMenu.activeSelf)
+            {
+                _stateMachine.ConversationEnd();
+                HideStatsMenu();
+                ReplaceUsingImage(converseMessage);
+            }
         }
     }
 

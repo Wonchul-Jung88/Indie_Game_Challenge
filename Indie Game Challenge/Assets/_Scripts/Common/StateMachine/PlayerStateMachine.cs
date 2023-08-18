@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -88,22 +89,15 @@ public class PlayerStateMachine : MonoBehaviour
     private void Awake()
     {
         //// initially set reference variables
-        _inputManager = GetComponent<PlayerInputManager>();
-        _inputManager.AwakeInitialize();
-        _animationManager = GetComponent<PlayerAnimationManager>();
-        _animationManager.AwakeInitialize();
+        //_inputManager = GetComponent<PlayerInputManager>();
+        //_inputManager.AwakeInitialize();
+        //_animationManager = GetComponent<PlayerAnimationManager>();
+        //_animationManager.AwakeInitialize();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _weapon = GetComponent<EquipWeapon>();
         _weapon.AwakeInitialize(_inputManager);
         _staminaController = GetComponent<StaminaController>();
-
-        // setup state
-        _states = new PlayerStateFactory(this);
-        _currentState = _states.Grounded();
-        _currentState.EnterState();
-
-        SetJumpVariables();
     }
 
     public void SetRunSpeed(float speed)
@@ -114,6 +108,16 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         _characterController.Move(_appliedMovement * Time.deltaTime);
+        _inputManager = PlayerInputManager.Instance;
+        _inputManager.PlayerInput.CharacterControls.Enable();
+        _animationManager = PlayerAnimationManager.Instance;
+
+        // setup state
+        _states = new PlayerStateFactory(this);
+        _currentState = _states.Grounded();
+        _currentState.EnterState();
+
+        SetJumpVariables();
     }
 
     void HandleRotation()
@@ -286,8 +290,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_inputManager == null) return;
         _inputManager.PlayerInput.CharacterControls.Enable();
     }
+
 
     private void OnDisable()
     {
