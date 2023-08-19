@@ -380,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 902d08de2e33b924e9a8b26acf19e2da, type: 3}
       propertyPath: m_Controller
@@ -1755,7 +1755,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.1221737, y: 0.012431083, z: -0.0015303364, w: 0.99242973}
+  m_LocalRotation: {x: 0.1221737, y: 0.012431075, z: -0.0015303354, w: 0.99242973}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4291,11 +4291,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8440319060748924117, guid: 334b5ce2e6e27834aba412f5cb5cca96, type: 3}
+      propertyPath: m_Data.m_UpAxis
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440319060748924117, guid: 334b5ce2e6e27834aba412f5cb5cca96, type: 3}
+      propertyPath: m_Data.m_AimAxis
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440319060748924117, guid: 334b5ce2e6e27834aba412f5cb5cca96, type: 3}
+      propertyPath: m_Data.m_ConstrainedObject
+      value: 
+      objectReference: {fileID: 7098194411727992119}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 334b5ce2e6e27834aba412f5cb5cca96, type: 3}
+--- !u!4 &7098194411727992119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1409181051467000063, guid: 334b5ce2e6e27834aba412f5cb5cca96, type: 3}
+  m_PrefabInstance: {fileID: 7098194411727992118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7381211249838755932
 PrefabInstance:
   m_ObjectHideFlags: 0

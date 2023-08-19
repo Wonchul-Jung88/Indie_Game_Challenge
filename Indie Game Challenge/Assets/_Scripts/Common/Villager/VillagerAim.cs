@@ -6,7 +6,7 @@ using UnityEngine.Animations.Rigging;
 public class VillagerAim : MonoBehaviour
 {
     public Transform aimController;
-    public Transform aimTarget;
+    Transform aimTarget;
     public MultiAimConstraint multiAim;
 
     void Update()
