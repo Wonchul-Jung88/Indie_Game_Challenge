@@ -34,14 +34,6 @@ public class StateController : MonoBehaviour
         }
     }
 
-    public void OnThrowAnimationStart()
-    {
-        if (_currentState.ExtraState is PlayerAimState)
-        {
-            (_currentState.ExtraState as PlayerAimState).HandleThrowAnimationStart();
-        }
-    }
-
     public void OnPickingUpAnimationEnd()
     {
         if (_currentState.SubState is PlayerPickingUpState)

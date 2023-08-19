@@ -11,6 +11,7 @@ public class PlayerThrowState : PlayerBaseState, IExtraState
 
     public override void EnterState()
     {
+        Ctx.Weapon.IsThrowing = true;
         Ctx.Animator.SetBool(Ctx.AnimationManager.IsThrowingHash, true);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;

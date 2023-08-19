@@ -4,6 +4,22 @@ public class WeaponScript : MonoBehaviour
 {
     public GameObject blastWave;
     public bool activated;
+    private Rigidbody rb; // Rigidbodyの参照を追加
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if (activated)
+        {
+            // 位置と速度のデバッグログを出力
+            Debug.Log($"Weapon Position: {transform.position}");
+            Debug.Log($"Weapon Velocity: {rb.velocity}");
+        }
+    }
 
     private void OnCollisionEnter(Collision other)
     {

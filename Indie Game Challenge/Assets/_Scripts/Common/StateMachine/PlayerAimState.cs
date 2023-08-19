@@ -22,7 +22,7 @@ public class PlayerAimState : PlayerBaseState, IExtraState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.InputManager.IsRunPressed)
+        if (!Ctx.InputManager.IsRunPressed || Ctx.Weapon.IsThrowing)
         {
             SwitchState(Factory.DefaultExtra());
         }
@@ -31,12 +31,6 @@ public class PlayerAimState : PlayerBaseState, IExtraState
     public override void ExitState()
     {
         Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, false);
-    }
-
-    public void HandleThrowAnimationStart()
-    {
-        Ctx.Weapon.IsThrowing = true;
-        SwitchState(Factory.DefaultExtra());
     }
 
     public override void InitializeSubState() { }

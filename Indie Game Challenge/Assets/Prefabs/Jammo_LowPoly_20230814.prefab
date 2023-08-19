@@ -898,9 +898,6 @@ PrefabInstance:
       addedObject: {fileID: 786571075321521206}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5222015342518232805}
-    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2631468927468125220}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
@@ -926,9 +923,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4587680582637853266}
-    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6427296017867015726}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 82a2914d8f86c62488456950c8330e38, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2075730408554614128}
@@ -1283,25 +1277,6 @@ MonoBehaviour:
   orbitSpeed: 200
   maxBallsBase: 5
   level: 1
---- !u!114 &5222015342518232805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041816830989376291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cb0504b829d81b478977eda0a9f824d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 0}
-  attackRange: 0.5
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  attackDamage: 1
-  attackRate: 2
 --- !u!114 &2631468927468125220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,7 +1386,7 @@ MonoBehaviour:
   WeaponPoint: {fileID: 3405669587944720894}
   Player: {fileID: 5413790026076252464}
   WeaponRig: {fileID: 6713468497316448800}
-  throwPower: 100
+  throwPower: 150
   slotFull: 0
   IsThrowing: 0
 --- !u!65 &823932841855350085
@@ -1433,8 +1408,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1.5, z: 2}
-  m_Center: {x: 0, y: 0.75, z: 1}
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0.75, z: 0.5}
 --- !u!114 &4037148562549693023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,8 +1422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bfc12184df594ead46d3e0c2c4614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStamina: 100
-  maxStamina: 100
+  playerStamina: 1000
+  maxStamina: 1000
   jumpCost: 20
   hasRegenerated: 1
   weAreSprinting: 0
@@ -1516,18 +1491,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d79785288feef409a936e9b24730b7a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6427296017867015726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041816830989376291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c37c88d55e4caf41b93967441e2fb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2075730408554614128

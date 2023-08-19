@@ -40,10 +40,18 @@ public class EquipWeapon : MonoBehaviour
 
         Weapon.transform.parent = null;
         Weapon.transform.position += transform.right / 5;
-        //_weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
-        _weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + Camera.main.transform.up, ForceMode.Impulse);
+
+        // デバッグ情報の出力
+        Vector3 forceToAdd = transform.forward * throwPower + transform.up * 2f;
+        Debug.Log($"Forward Direction: {transform.forward}");
+        Debug.Log($"Throw Power: {throwPower}");
+        Debug.Log($"Up Direction: {transform.up}");
+        Debug.Log($"Force to Add: {forceToAdd}");
+
+        _weaponRigidbody.AddForce(forceToAdd, ForceMode.Impulse);
         slotFull = false;
     }
+
 
     void Equip()
     {
