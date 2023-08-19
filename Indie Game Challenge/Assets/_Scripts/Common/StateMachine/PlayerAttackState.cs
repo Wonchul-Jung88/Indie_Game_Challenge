@@ -32,4 +32,8 @@ public class PlayerAttackState : PlayerBaseState, IRootState
     public void HandleGravity()
     {
     }
+
+    public override void InitializeExtraState()
+    {
+    }
 }

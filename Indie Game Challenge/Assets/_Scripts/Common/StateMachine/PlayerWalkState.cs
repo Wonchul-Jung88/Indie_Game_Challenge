@@ -11,9 +11,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsWalkingHash, true);
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsRunningHash, false);
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, false);
+        Ctx.Animator.SetFloat(Ctx.AnimationManager.MoveSpeedHash, 0.5f);
     }
 
     public override void UpdateState()
@@ -33,20 +31,23 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Idle());
         }
-        else if (Ctx.IsTalking)
-        {
-            SwitchState(Factory.Talk());
-        }
         else if (!Ctx.Weapon.slotFull && Ctx.InputManager.IsPickPressed && Ctx.Weapon.CanPick)
         {
             SwitchState(Factory.PickingUp());
         }
-        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsRunPressed) {
-            SwitchState(Factory.Aim());
+        else if (Ctx.IsTalking)
+        {
+            SwitchState(Factory.Talk());
         }
-        else if (Ctx.InputManager.IsMovementPressed && Ctx.InputManager.IsRunPressed && Ctx.StaminaController.hasRegenerated)
+        else if (Ctx.InputManager.IsMovementPressed && Ctx.InputManager.IsRunPressed && Ctx.StaminaController.hasRegenerated && !Ctx.Weapon.slotFull)
         {
             SwitchState(Factory.Run());
         }
+        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsThrowPressed)
+        {
+            SwitchState(Factory.Throw());
+        }
     }
+
+    public override void InitializeExtraState() { }
 }

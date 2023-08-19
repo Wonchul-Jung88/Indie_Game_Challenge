@@ -13,6 +13,7 @@ public class PlayerFallState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
+        InitializeExtraState();
         Ctx.Animator.SetBool(Ctx.AnimationManager.IsFallingHash, true);
     }
 
@@ -55,5 +56,10 @@ public class PlayerFallState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Run());
         }
+    }
+
+    public override void InitializeExtraState()
+    {
+        SetExtraState(Factory.DefaultExtra());
     }
 }

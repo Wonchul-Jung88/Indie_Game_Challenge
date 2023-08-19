@@ -6,11 +6,24 @@ public class StateController : MonoBehaviour
 
     private PlayerStateMachine playerStateMachine;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    playerStateMachine = GetComponent<PlayerStateMachine>();
+    //    _currentState = playerStateMachine.CurrentState;
+    //}
+
+    private bool hasInitialized = false;
+
+    private void Update()
     {
-        playerStateMachine = GetComponent<PlayerStateMachine>();
-        _currentState = playerStateMachine.CurrentState;
+        if (!hasInitialized)
+        {
+            playerStateMachine = GetComponent<PlayerStateMachine>();
+            _currentState = playerStateMachine.CurrentState;
+            hasInitialized = true;
+        }
     }
+
 
     // アニメーションイベントから呼び出されるメソッド
     public void OnThrowAnimationEnd()
@@ -18,6 +31,14 @@ public class StateController : MonoBehaviour
         if (_currentState.SubState is PlayerThrowState)
         {
             (_currentState.SubState as PlayerThrowState).HandleThrowAnimationEnd();
+        }
+    }
+
+    public void OnThrowAnimationStart()
+    {
+        if (_currentState.ExtraState is PlayerAimState)
+        {
+            (_currentState.ExtraState as PlayerAimState).HandleThrowAnimationStart();
         }
     }
 

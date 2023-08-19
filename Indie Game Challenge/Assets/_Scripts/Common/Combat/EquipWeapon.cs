@@ -19,6 +19,7 @@ public class EquipWeapon : MonoBehaviour
 
     public bool slotFull;
     public bool CanPick => _targetObject != null;
+    public bool IsThrowing = false;
 
     public void AwakeInitialize( PlayerInputManager inputManager )
     {
@@ -39,7 +40,8 @@ public class EquipWeapon : MonoBehaviour
 
         Weapon.transform.parent = null;
         Weapon.transform.position += transform.right / 5;
-        _weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
+        //_weaponRigidbody.AddForce(transform.forward * throwPower + transform.up * 2f, ForceMode.Impulse);
+        _weaponRigidbody.AddForce(Camera.main.transform.forward * throwPower + Camera.main.transform.up, ForceMode.Impulse);
         slotFull = false;
     }
 

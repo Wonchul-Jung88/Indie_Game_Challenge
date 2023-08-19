@@ -88,11 +88,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        //// initially set reference variables
-        //_inputManager = GetComponent<PlayerInputManager>();
-        //_inputManager.AwakeInitialize();
-        //_animationManager = GetComponent<PlayerAnimationManager>();
-        //_animationManager.AwakeInitialize();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _weapon = GetComponent<EquipWeapon>();
@@ -297,6 +292,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnDisable()
     {
+        if (_inputManager == null) return;
         _inputManager.PlayerInput.CharacterControls.Disable();
     }
 }

@@ -1755,7 +1755,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889842030}
-  m_LocalRotation: {x: 0.12217373, y: 0.012431118, z: -0.0015303411, w: 0.99242973}
+  m_LocalRotation: {x: 0.1221737, y: 0.012431083, z: -0.0015303364, w: 0.99242973}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4308,6 +4308,14 @@ PrefabInstance:
       propertyPath: StatsSaveManager
       value: 
       objectReference: {fileID: 1531869049}
+    - target: {fileID: 4037148562549693023, guid: 0dae89164feafcb40acf8e136b654937, type: 3}
+      propertyPath: maxStamina
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037148562549693023, guid: 0dae89164feafcb40acf8e136b654937, type: 3}
+      propertyPath: playerStamina
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4037148562549693023, guid: 0dae89164feafcb40acf8e136b654937, type: 3}
       propertyPath: sliderCanvasGroup
       value: 

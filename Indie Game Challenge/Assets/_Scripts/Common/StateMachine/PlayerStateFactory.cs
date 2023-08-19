@@ -14,6 +14,7 @@ enum PlayerStates
     talk,
     pickingUp,
     throwing,
+    defaultExtra,
 }
 
 public class PlayerStateFactory
@@ -30,11 +31,11 @@ public class PlayerStateFactory
         _states[PlayerStates.jump] = new PlayerJumpState(_context, this);
         _states[PlayerStates.grounded] = new PlayerGroundedState(_context, this);
         _states[PlayerStates.fall] = new PlayerFallState(_context, this);
-        //_states[PlayerStates.attack] = new PlayerAttackState(_context, this);
         _states[PlayerStates.aim] = new PlayerAimState(_context, this);
         _states[PlayerStates.talk] = new PlayerTalkingState(_context, this);
         _states[PlayerStates.throwing] = new PlayerThrowState(_context, this);
         _states[PlayerStates.pickingUp] = new PlayerPickingUpState(_context, this);
+        _states[PlayerStates.defaultExtra] = new PlayerDefaultExtraState(_context, this);
     }
 
     public PlayerBaseState Idle() {
@@ -55,9 +56,6 @@ public class PlayerStateFactory
     public PlayerBaseState Fall() {
         return _states[PlayerStates.fall];
     }
-    //public PlayerBaseState Attack() {
-    //    return _states[PlayerStates.attack];
-    //}
     public PlayerBaseState Aim() {
         return _states[PlayerStates.aim];
     }
@@ -71,5 +69,9 @@ public class PlayerStateFactory
     public PlayerBaseState PickingUp()
     {
         return _states[PlayerStates.pickingUp];
+    }
+    public PlayerBaseState DefaultExtra()
+    {
+        return _states[PlayerStates.defaultExtra];
     }
 }

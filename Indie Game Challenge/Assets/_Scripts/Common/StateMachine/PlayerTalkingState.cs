@@ -21,7 +21,10 @@ public class PlayerTalkingState : PlayerBaseState
         CheckSwitchStates();
     }
 
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsTalkingHash, false);
+    }
 
     public override void InitializeSubState() { }
 
@@ -32,4 +35,6 @@ public class PlayerTalkingState : PlayerBaseState
             SwitchState(Factory.Idle());
         }
     }
+
+    public override void InitializeExtraState() { }
 }

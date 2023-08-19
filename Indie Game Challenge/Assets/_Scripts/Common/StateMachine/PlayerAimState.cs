@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAimState : PlayerBaseState
+public class PlayerAimState : PlayerBaseState, IExtraState
 {
     public PlayerAimState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base( currentContext, playerStateFactory)
     {
+        IsExtraState = true;
     }
 
     public override void EnterState()
     {
         Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
     }
 
     public override void UpdateState()
@@ -23,20 +22,24 @@ public class PlayerAimState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.InputManager.IsThrowPressed)
+        if (!Ctx.InputManager.IsRunPressed)
         {
-            SwitchState(Factory.Throw());
-        }
-        else if ( !Ctx.InputManager.IsRunPressed && !Ctx.InputManager.IsMovementPressed ) {
-            SwitchState(Factory.Idle());
-        }
-        else if ( !Ctx.InputManager.IsRunPressed && Ctx.InputManager.IsMovementPressed )
-        {
-            SwitchState(Factory.Walk());
+            SwitchState(Factory.DefaultExtra());
         }
     }
 
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+        Ctx.Animator.SetBool(Ctx.AnimationManager.IsAimingHash, false);
+    }
+
+    public void HandleThrowAnimationStart()
+    {
+        Ctx.Weapon.IsThrowing = true;
+        SwitchState(Factory.DefaultExtra());
+    }
 
     public override void InitializeSubState() { }
+
+    public override void InitializeExtraState() { }
 }

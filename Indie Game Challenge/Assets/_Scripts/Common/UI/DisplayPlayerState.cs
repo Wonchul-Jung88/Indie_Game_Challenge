@@ -34,10 +34,12 @@ public class DisplayPlayerState : MonoBehaviour
         string stateName = _stateMachine.CurrentState?.GetType().Name ?? "null";
         string substateName = _stateMachine.CurrentState?.SubState?.GetType().Name ?? "null";
         string superstateName = _stateMachine.CurrentState?.SuperState?.GetType().Name ?? "null";
+        string extrastateName = _stateMachine.CurrentState?.ExtraState?.GetType().Name ?? "null";
 
         // Display the name of the current state
         textMeshPro.text = "State: " + stateName + Environment.NewLine +
                            "Super State: " + superstateName + Environment.NewLine +
-                           "Sub State: " + substateName;
+                           "Sub State: " + substateName + Environment.NewLine +
+                           "Extra State: " + extrastateName;
     }
 }

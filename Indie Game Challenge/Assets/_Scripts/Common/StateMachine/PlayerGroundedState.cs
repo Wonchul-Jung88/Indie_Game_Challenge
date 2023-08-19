@@ -19,11 +19,12 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
-        HandleGravity();
+        InitializeExtraState();
     }
 
     public override void UpdateState()
     {
+        HandleGravity();
         CheckSwitchStates();
     }
 
@@ -55,5 +56,10 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Run());
         }
+    }
+
+    public override void InitializeExtraState()
+    {
+        SetExtraState(Factory.DefaultExtra());
     }
 }

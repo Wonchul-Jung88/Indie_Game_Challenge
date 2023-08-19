@@ -20,6 +20,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
+        InitializeExtraState();
         HandleJump();
     }
 
@@ -100,5 +101,8 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         }
     }
 
-    
+    public override void InitializeExtraState()
+    {
+        SetExtraState(Factory.DefaultExtra());
+    }
 }

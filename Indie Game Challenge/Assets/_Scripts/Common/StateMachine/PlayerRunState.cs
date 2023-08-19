@@ -11,8 +11,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsWalkingHash, true);
-        Ctx.Animator.SetBool(Ctx.AnimationManager.IsRunningHash, true);
+        Ctx.Animator.SetFloat(Ctx.AnimationManager.MoveSpeedHash, 1.0f);
     }
 
     public override void UpdateState()
@@ -56,5 +55,11 @@ public class PlayerRunState : PlayerBaseState
             Ctx.warp.Stop();
             SwitchState(Factory.Walk());
         }
+        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsThrowPressed)
+        {
+            SwitchState(Factory.Throw());
+        }
     }
+
+    public override void InitializeExtraState() { }
 }
