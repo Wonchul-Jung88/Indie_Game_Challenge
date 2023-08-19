@@ -20,6 +20,8 @@ public class VillagerDialogueManager : MonoBehaviour
 
     [HideInInspector]
     public VillagerScript currentVillager;
+    [HideInInspector]
+    public PlayerStateMachine playerStateMachine;
 
     private int dialogueIndex;
     public bool canExit;
@@ -35,6 +37,7 @@ public class VillagerDialogueManager : MonoBehaviour
 
     public Volume dialogueDof;
     private PlayerInputManager _inputManager;
+
 
 
     private void Awake()
@@ -116,6 +119,7 @@ public class VillagerDialogueManager : MonoBehaviour
         //FindObjectOfType<MovementInput>().active = true;
         inDialogue = false;
         canExit = false;
+        if (playerStateMachine != null) playerStateMachine.ConversationEnd();
     }
 
     public void FinishDialogue()

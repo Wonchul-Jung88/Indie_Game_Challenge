@@ -32,6 +32,8 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
+        if (Ctx.CurrentState.SubState is PlayerTalkingState) return;
+
         // if player is grounded and jump is pressed, switch to jump state
         if (Ctx.InputManager.IsJumpPressed && !Ctx.InputManager.RequireNewJumpPress && !Ctx.Weapon.slotFull) {
             SwitchState(Factory.Jump());

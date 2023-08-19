@@ -29,6 +29,7 @@ public class DialogueTrigger : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Space) && !ui.inDialogue && currentVillager != null)
         if (_inputManager.IsTalkPressed && !ui.inDialogue && currentVillager != null)
         {
+            ui.playerStateMachine.ConversationStart();
             targetGroup.m_Targets[1].target = currentVillager.transform;
             //movement.active = false;
             ui.SetCharNameAndColor();
@@ -47,6 +48,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             currentVillager = other.GetComponent<VillagerScript>();
             ui.currentVillager = currentVillager;
+            ui.playerStateMachine = GetComponent<PlayerStateMachine>();
         }
     }
 
@@ -56,6 +58,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             currentVillager = null;
             ui.currentVillager = currentVillager;
+            ui.playerStateMachine = null;
         }
     }
 

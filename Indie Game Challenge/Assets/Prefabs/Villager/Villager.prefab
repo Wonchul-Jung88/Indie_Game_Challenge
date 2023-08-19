@@ -605,7 +605,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimController: {fileID: 3518812099851571088}
-  aimTarget: {fileID: 0}
   multiAim: {fileID: 8440319060748924117}
 --- !u!114 &20054331313883490
 MonoBehaviour:
@@ -1285,7 +1284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 0
   m_Data:
-    m_ConstrainedObject: {fileID: 4152174630621216545}
+    m_ConstrainedObject: {fileID: 1409181051467000063}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -1315,8 +1314,8 @@ MonoBehaviour:
     m_Offset: {x: 0, y: 0, z: 0}
     m_MinLimit: -69
     m_MaxLimit: 69
-    m_AimAxis: 4
-    m_UpAxis: 2
+    m_AimAxis: 2
+    m_UpAxis: 5
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
