@@ -33,13 +33,11 @@ public class CustomGroundCheck : MonoBehaviour
         if (Mathf.Abs(currentHeight - lastHeight) > tolerance)
         {
             tolerance = jumpTolerance;
-            Debug.Log("Jump detected! Tolerance set to: " + tolerance);
         }
         else if (isGrounded)
         {
             // ’n–Ê‚ÉÚG‚µ‚Ä‚¢‚ê‚ÎA‹–—e—Ê‚ğŒ³‚É–ß‚·
             tolerance = defaultTolerance;
-            Debug.Log("Grounded. Tolerance set back to: " + tolerance);
         }
 
         Vector3 rayOrigin = transform.position + characterController.center;

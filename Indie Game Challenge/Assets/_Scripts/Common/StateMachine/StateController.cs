@@ -2,32 +2,11 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    private PlayerBaseState _currentState;  // 現在のプレイヤーの状態
-
-    private PlayerStateMachine playerStateMachine;
-
-    //private void Start()
-    //{
-    //    playerStateMachine = GetComponent<PlayerStateMachine>();
-    //    _currentState = playerStateMachine.CurrentState;
-    //}
-
-    private bool hasInitialized = false;
-
-    private void Update()
-    {
-        if (!hasInitialized)
-        {
-            playerStateMachine = GetComponent<PlayerStateMachine>();
-            _currentState = playerStateMachine.CurrentState;
-            hasInitialized = true;
-        }
-    }
-
-
     // アニメーションイベントから呼び出されるメソッド
     public void OnThrowAnimationEnd()
     {
+        var playerStateMachine = GetComponent<PlayerStateMachine>();
+        var _currentState = playerStateMachine.CurrentState;
         if (_currentState.SubState is PlayerThrowState)
         {
             (_currentState.SubState as PlayerThrowState).HandleThrowAnimationEnd();
@@ -36,8 +15,11 @@ public class StateController : MonoBehaviour
 
     public void OnPickingUpAnimationEnd()
     {
+        var playerStateMachine = GetComponent<PlayerStateMachine>();
+        var _currentState = playerStateMachine.CurrentState;
         if (_currentState.SubState is PlayerPickingUpState)
         {
+            Debug.Log("Picking Animation End ~~ ");
             (_currentState.SubState as PlayerPickingUpState).HandlePickingUpAnimationEnd();
         }
     }
