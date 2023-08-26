@@ -37,7 +37,7 @@ public class PlayerFallState : PlayerBaseState, IRootState
     public override void CheckSwitchStates()
     {
         // if player is grounded, switch to the grounded state
-        if (Ctx.CharacterController.isGrounded) {
+        if (Ctx.GroundCheck.IsGrounded) {
             SwitchState(Factory.Grounded());
         }
     }

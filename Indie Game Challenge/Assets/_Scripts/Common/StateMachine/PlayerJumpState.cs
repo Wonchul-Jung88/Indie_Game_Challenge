@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -62,7 +62,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CharacterController.isGrounded)
+        if (Ctx.GroundCheck.IsGrounded)
         {
             SwitchState(Factory.Grounded());
         }
@@ -100,6 +100,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
             Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * .5f;
         }
     }
+
 
     public override void InitializeExtraState()
     {

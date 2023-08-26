@@ -83,6 +83,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     private PlayerBaseState _currentState;  // åªç›ÇÃÉvÉåÉCÉÑÅ[ÇÃèÛë‘
     PlayerStateFactory _states;
+    private CustomGroundCheck _groundCheck;
+    public CustomGroundCheck GroundCheck { get { return _groundCheck; } }
 
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
 
@@ -93,6 +95,7 @@ public class PlayerStateMachine : MonoBehaviour
         _weapon = GetComponent<EquipWeapon>();
         _weapon.AwakeInitialize(_inputManager);
         _staminaController = GetComponent<StaminaController>();
+        _groundCheck = GetComponent<CustomGroundCheck>();
     }
 
     public void SetRunSpeed(float speed)
@@ -145,6 +148,7 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Clear();
 
         float timeToApex = _maxJumpHeight / 2;
+        float gravity = -9.81f;
         float initialGravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
         _initialJumpVelocity = (2 * _maxJumpHeight) / timeToApex;
         float secondJumpGravity = (-2 * (_maxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
@@ -152,14 +156,21 @@ public class PlayerStateMachine : MonoBehaviour
         float thirdJumpGravity = (-2 * (_maxJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
         float thirdJumpInitialVelocity = (2 * (_maxJumpHeight + 4)) / (timeToApex * 1.5f);
 
+        //_initialJumpVelocities.Add(1, _initialJumpVelocity);
+        //_initialJumpVelocities.Add(2, secondJumpInitialVeocity);
+        //_initialJumpVelocities.Add(3, thirdJumpInitialVelocity);
         _initialJumpVelocities.Add(1, _initialJumpVelocity);
         _initialJumpVelocities.Add(2, secondJumpInitialVeocity);
         _initialJumpVelocities.Add(3, thirdJumpInitialVelocity);
 
-        _jumpGravities.Add(0, initialGravity);
-        _jumpGravities.Add(1, initialGravity);
-        _jumpGravities.Add(2, secondJumpGravity);
-        _jumpGravities.Add(3, thirdJumpGravity);
+        //_jumpGravities.Add(0, initialGravity);
+        //_jumpGravities.Add(1, initialGravity);
+        //_jumpGravities.Add(2, secondJumpGravity);
+        //_jumpGravities.Add(3, thirdJumpGravity);
+        _jumpGravities.Add(0, gravity);
+        _jumpGravities.Add(1, gravity);
+        _jumpGravities.Add(2, gravity);
+        _jumpGravities.Add(3, gravity);
     }
 
     private float lastDashEndTime = -5.0f; // Initialize to a value that allows dashing immediately at the start of the game
