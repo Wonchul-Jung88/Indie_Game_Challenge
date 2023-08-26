@@ -205,14 +205,14 @@ public class PlayerStateMachine : MonoBehaviour
             }
             _isDash = false;
         }
-
-        _currentState.UpdateStates();
+        
         HandleRotation();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        _currentState.UpdateStates();
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
     }
