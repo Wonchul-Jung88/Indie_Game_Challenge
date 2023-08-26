@@ -43,7 +43,7 @@ public class EnemyAITutorial : MonoBehaviour
     private float _speed;
     public float patrolRadius = 10.0f;
     
-    private bool isUpdatingTarget = false; // 追加: コルーチンの状態を追跡するフラグ
+    private bool isUpdatingTarget = false; // ????: ?R???[?`???????????????????t???O
     public EnemySpawner spawner;
 
     private void Awake()
@@ -55,7 +55,7 @@ public class EnemyAITutorial : MonoBehaviour
         _isChasingHash = Animator.StringToHash("IsChasing");
         _isAttackingHash = Animator.StringToHash("IsAttacking");
 
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
 
         GenerateRandomTargetPoint();
         StartCoroutine(UpdateTargetPointWithInterval());
@@ -80,23 +80,24 @@ public class EnemyAITutorial : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (isKnockBack && rb.velocity.magnitude <= knockBackThreshold)
-        {
-            isKnockBack = false;
-        }
-    }
+    //private void FixedUpdate()
+    //{
+    //    if (isDead) return;
+
+    //    if (isKnockBack && rb.velocity.magnitude <= knockBackThreshold)
+    //    {
+    //        isKnockBack = false;
+    //    }
+    //}
 
     private void Patroling()
     {
-        if (!isUpdatingTarget) // 追加: コルーチンが動作していない場合のみスタート
+        if (!isUpdatingTarget)
         {
             StartCoroutine(UpdateTargetPointWithInterval());
-            isUpdatingTarget = true; // 追加: コルーチンの状態を更新
+            isUpdatingTarget = true;
         }
 
-        //agent.speed = 1.0f;
         _speed = 1.0f;
         _animator.SetBool(_isChasingHash, false);
         _animator.SetBool(_isAttackingHash, false);
@@ -122,16 +123,14 @@ public class EnemyAITutorial : MonoBehaviour
         );
     }
 
-    public float updateInterval = 5.0f; // この時間間隔でランダムなポイントを生成します。
+    public float updateInterval = 5.0f;
 
-    // コルーチン内の最後でフラグをfalseに設定
     IEnumerator UpdateTargetPointWithInterval()
     {
         while (true)
         {
             GenerateRandomTargetPoint();
 
-            // 3から6の間でランダムな時間をupdateIntervalに設定
             updateInterval = Random.Range(3.0f, 6.0f);
             yield return new WaitForSeconds(updateInterval);
         }
@@ -154,7 +153,7 @@ public class EnemyAITutorial : MonoBehaviour
         if (isUpdatingTarget)
         {
             StopCoroutine(UpdateTargetPointWithInterval());
-            isUpdatingTarget = false; // 追加: コルーチンの状態を更新
+            isUpdatingTarget = false;
         }
 
         //agent.speed = 10.0f;
@@ -163,7 +162,6 @@ public class EnemyAITutorial : MonoBehaviour
         _animator.SetBool(_isAttackingHash, false);
 
         //agent.SetDestination(player.position);
-        // プレイヤーの方向を向く
         MoveTowards(player.position);
     }
 
@@ -187,25 +185,23 @@ public class EnemyAITutorial : MonoBehaviour
         }
     }
 
-    public float rotationSmoothTime = 0.3f; // 方向の補間のためのスムーズタイム
-    private Vector3 currentVelocity; // SmoothDampのための現在のベロシティ
+    public float rotationSmoothTime = 0.3f;
+    private Vector3 currentVelocity;
 
     void MoveTowards(Vector3 target)
     {
         Vector3 lookPosition = target;
-        lookPosition.y = transform.position.y; // Y座標を現在のオブジェクトのY座標に設定
+        lookPosition.y = transform.position.y;
 
         Vector3 desiredDirection = (lookPosition - transform.position).normalized;
         desiredDirection.y = 0;
 
-        // 方向をSmoothDampで滑らかにする
         Vector3 smoothDirection = Vector3.SmoothDamp(transform.forward, desiredDirection, ref currentVelocity, rotationSmoothTime);
         transform.rotation = Quaternion.LookRotation(smoothDirection);
 
         float actualMoveDistance = _speed * Time.deltaTime;
         float remainingDistanceToTarget = (target - transform.position).magnitude;
 
-        // ターゲットまでの距離が次のフレームでの移動距離より短い場合、実際の距離だけ進む
         if (remainingDistanceToTarget < actualMoveDistance)
         {
             actualMoveDistance = remainingDistanceToTarget;
@@ -213,7 +209,6 @@ public class EnemyAITutorial : MonoBehaviour
 
         transform.position += smoothDirection * actualMoveDistance;
 
-        // ターゲットに到達した場合、新しいランダムなターゲットポイントを生成
         if (remainingDistanceToTarget <= actualMoveDistance)
         {
             GenerateRandomTargetPoint();
@@ -224,11 +219,10 @@ public class EnemyAITutorial : MonoBehaviour
     {
         transform.LookAt(target);
         Vector3 eulerAngles = transform.eulerAngles;
-        eulerAngles.x = 0;  // X軸の回転を0に設定
-        eulerAngles.z = 0;  // Z軸の回転を0に設定
+        eulerAngles.x = 0;
+        eulerAngles.z = 0;
         transform.eulerAngles = eulerAngles;
     }
-
 
     private void ResetAttack()
     {
@@ -248,11 +242,11 @@ public class EnemyAITutorial : MonoBehaviour
         }
     }
 
-    public void ApplyKnockBack(Vector3 force, ForceMode mode)
-    {
-        rb.AddForce(force, mode);
-        isKnockBack = true;
-    }
+    //public void ApplyKnockBack(Vector3 force, ForceMode mode)
+    //{
+    //    rb.AddForce(force, mode);
+    //    isKnockBack = true;
+    //}
 
     public void TakeDamageToDestroy(int damage)
     {

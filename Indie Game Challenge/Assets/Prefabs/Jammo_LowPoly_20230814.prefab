@@ -1389,7 +1389,7 @@ MonoBehaviour:
   WeaponPoint: {fileID: 3405669587944720894}
   Player: {fileID: 5413790026076252464}
   WeaponRig: {fileID: 6713468497316448800}
-  throwPower: 150
+  throwPower: 100
   slotFull: 0
   IsThrowing: 0
 --- !u!65 &823932841855350085
@@ -1547,7 +1547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheckDistance: 0.1
-  tolerance: 0.05
+  defaultTolerance: 0.05
+  jumpTolerance: 0
 --- !u!4 &9098678572753204618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8079438363870099360, guid: 82a2914d8f86c62488456950c8330e38, type: 3}

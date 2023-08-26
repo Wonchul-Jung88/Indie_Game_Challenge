@@ -29,24 +29,19 @@ public class EquipWeapon : MonoBehaviour
     public void ThrowWeapon()
     {
         ReleaseVariables();
-        var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
 
         Weapon.GetComponent<Collider>().enabled = true;
         Weapon.GetComponent<Collider>().isTrigger = false;
+        var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
 
         Weapon.GetComponent<WeaponScript>().activated = true;
         _weaponRigidbody.isKinematic = false;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
         Weapon.transform.parent = null;
-        Weapon.transform.position += transform.right / 5;
+        Weapon.transform.position += Player.right / 5;
 
-        // デバッグ情報の出力
-        Vector3 forceToAdd = transform.forward * throwPower + transform.up * 2f;
-        Debug.Log($"Forward Direction: {transform.forward}");
-        Debug.Log($"Throw Power: {throwPower}");
-        Debug.Log($"Up Direction: {transform.up}");
-        Debug.Log($"Force to Add: {forceToAdd}");
+        Vector3 forceToAdd = Player.forward * throwPower;// + Player.up * 2f;
 
         _weaponRigidbody.AddForce(forceToAdd, ForceMode.Impulse);
         slotFull = false;
@@ -91,10 +86,9 @@ public class EquipWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TryGetComponentの結果を変数に格納
         bool hasEnemyAI = other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI);
 
-        // 早期リターン: 必要な条件を満たさない場合はnullをセットしてリターン
+        
         if (hasEnemyAI && enemyAI != null && enemyAI.isDead && !slotFull && _targetObject == null)
         {
             _targetObject = other.gameObject;
@@ -102,7 +96,7 @@ public class EquipWeapon : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other)
-    {// TryGetComponentの結果を変数に格納
+    {
         bool hasEnemyAI = other.TryGetComponent<EnemyAITutorial>(out EnemyAITutorial enemyAI);
 
         if (other.gameObject == _targetObject)
