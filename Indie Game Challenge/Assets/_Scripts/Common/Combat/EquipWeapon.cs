@@ -30,23 +30,37 @@ public class EquipWeapon : MonoBehaviour
     {
         ReleaseVariables();
 
-        Weapon.GetComponent<Collider>().enabled = true;
-        Weapon.GetComponent<Collider>().isTrigger = false;
-        var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
-
+        
         Weapon.GetComponent<WeaponScript>().activated = true;
+        var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
         _weaponRigidbody.isKinematic = false;
         _weaponRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-
-        Weapon.transform.parent = null;
+        Weapon.transform.SetParent(null);
+        Weapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         Weapon.transform.position += Player.right / 5;
-
-        Vector3 forceToAdd = Player.forward * throwPower;// + Player.up * 2f;
-
+        Vector3 forceToAdd = Camera.main.transform.forward * throwPower + transform.up * 2;//Player.forward * throwPower;// + Player.up * 2f;
         _weaponRigidbody.AddForce(forceToAdd, ForceMode.Impulse);
-        slotFull = false;
+        Weapon.GetComponent<Collider>().enabled = true;
+        Weapon.GetComponent<Collider>().isTrigger = false;
     }
 
+    public void WeaponThrow()
+    {
+        //Aim(false, true, 1f);
+
+        //hasWeapon = false;
+        //weaponScript.activated = true;
+        //weaponRb.isKinematic = false;
+        //weaponRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        //weapon.parent = null;
+        //weapon.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
+        //weapon.transform.position += transform.right / 5;
+        //weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
+
+        //Trail
+        //trailRenderer.emitting = true;
+        //trailParticle.Play();
+    }
 
     void Equip()
     {
@@ -62,9 +76,11 @@ public class EquipWeapon : MonoBehaviour
             _weaponRigidbody.isKinematic = true;
         }
 
-        Weapon.transform.localPosition = Vector3.zero;
-        Weapon.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        Weapon.transform.localScale = Vector3.one / 28.0f;
+        //Weapon.transform.localPosition = Vector3.zero;
+        Weapon.transform.position = WeaponPoint.position;
+        //Weapon.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        Weapon.transform.eulerAngles = WeaponPoint.eulerAngles;
+        //Weapon.transform.localScale = Vector3.one / 28.0f;
 
         PostEquip();
     }
