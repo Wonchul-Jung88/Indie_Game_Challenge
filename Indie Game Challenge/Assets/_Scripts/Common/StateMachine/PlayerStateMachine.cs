@@ -81,7 +81,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerInputManager InputManager { get { return _inputManager; } }
     public PlayerAnimationManager AnimationManager { get { return _animationManager; } }
 
-    private PlayerBaseState _currentState;  // Œ»İ‚ÌƒvƒŒƒCƒ„[‚Ìó‘Ô
+    private PlayerBaseState _currentState;
     PlayerStateFactory _states;
     private CustomGroundCheck _groundCheck;
     public CustomGroundCheck GroundCheck { get { return _groundCheck; } }

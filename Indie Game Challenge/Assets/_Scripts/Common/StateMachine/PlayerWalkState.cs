@@ -43,7 +43,7 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Run());
         }
-        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsThrowPressed)
+        else if (Ctx.Weapon.slotFull && Ctx.InputManager.IsThrowPressed && Ctx.CurrentState.ExtraState is PlayerAimState)
         {
             SwitchState(Factory.Throw());
         }
