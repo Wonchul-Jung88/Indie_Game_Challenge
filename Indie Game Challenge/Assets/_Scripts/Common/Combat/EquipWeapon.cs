@@ -29,7 +29,6 @@ public class EquipWeapon : MonoBehaviour
     public void ThrowWeapon()
     {
         ReleaseVariables();
-
         
         Weapon.GetComponent<WeaponScript>().activated = true;
         var _weaponRigidbody = Weapon.GetComponent<Rigidbody>();
@@ -38,7 +37,7 @@ public class EquipWeapon : MonoBehaviour
         Weapon.transform.SetParent(null);
         Weapon.transform.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         Weapon.transform.position += Player.right / 5;
-        Vector3 forceToAdd = Camera.main.transform.forward * throwPower + transform.up * 2;//Player.forward * throwPower;// + Player.up * 2f;
+        Vector3 forceToAdd = -Player.up * throwPower;// + Player.up * 2f;
         _weaponRigidbody.AddForce(forceToAdd, ForceMode.Impulse);
         Weapon.GetComponent<Collider>().enabled = true;
         Weapon.GetComponent<Collider>().isTrigger = false;
