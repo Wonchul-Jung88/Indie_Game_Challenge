@@ -178,6 +178,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fa8d843a-7072-4e74-9395-462e15e1e020",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8df91f94-eb3b-4994-825c-fa32ed2584a9",
                     "path": "<Keyboard>/r",
                     "interactions": "",
