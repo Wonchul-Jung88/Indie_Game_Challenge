@@ -201,7 +201,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fa8d843a-7072-4e74-9395-462e15e1e020"",
-                    ""path"": """",
+                    ""path"": ""<HID::Logicool Logicool Cordless RumblePad 2>/button3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
