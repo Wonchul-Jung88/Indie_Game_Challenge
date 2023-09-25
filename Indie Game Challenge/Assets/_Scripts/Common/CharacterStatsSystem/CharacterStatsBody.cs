@@ -11,7 +11,7 @@ public class CharacterStatsBody : MonoBehaviour
     public CharacterStat Stamina;
     public CharacterStat Power;
     public CharacterStat Guts;
-    public CharacterStat Intelegence;
+    public CharacterStat Intelligence;
 
     [SerializeField] StatsSaveManager StatsSaveManager;
 
@@ -53,6 +53,6 @@ public class CharacterStatsBody : MonoBehaviour
 
     public void AddIntelegence()
     {
-        Intelegence.AddModifier(new StatModifier(10, StatModType.Flat));
+        Intelligence.AddModifier(new StatModifier(10, StatModType.Flat));
     }
 }

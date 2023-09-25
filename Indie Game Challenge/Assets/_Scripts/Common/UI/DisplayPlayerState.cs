@@ -30,6 +30,7 @@ public class DisplayPlayerState : MonoBehaviour
 
     void Update()
     {
+        if (_stateMachine == null) return;
         // Get the name of the current state from the PlayerStateMachine
         string stateName = _stateMachine.CurrentState?.GetType().Name ?? "null";
         string substateName = _stateMachine.CurrentState?.SubState?.GetType().Name ?? "null";

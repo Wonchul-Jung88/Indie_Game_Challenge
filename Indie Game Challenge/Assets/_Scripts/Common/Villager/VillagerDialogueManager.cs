@@ -54,7 +54,7 @@ public class VillagerDialogueManager : MonoBehaviour
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.Space) && inDialogue)
-        if (_inputManager.IsTalkPressed && inDialogue)
+        if (_inputManager != null &&_inputManager.IsTalkPressed && inDialogue)
         {
             if (canExit)
             {

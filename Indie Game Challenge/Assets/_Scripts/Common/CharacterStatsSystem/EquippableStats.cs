@@ -50,7 +50,7 @@ public class EquippableStats : Stats
         if (GutsBonus != 0)
             c.Guts.AddModifier(new StatModifier(GutsBonus, StatModType.Flat, this));
         if (IntelegenceBonus != 0)
-            c.Intelegence.AddModifier(new StatModifier(IntelegenceBonus, StatModType.Flat, this));
+            c.Intelligence.AddModifier(new StatModifier(IntelegenceBonus, StatModType.Flat, this));
 
         if (SpeedPercentBonus != 0)
             c.Speed.AddModifier(new StatModifier(SpeedPercentBonus, StatModType.PercentMult, this));
@@ -61,7 +61,7 @@ public class EquippableStats : Stats
         if (GutsPercentBonus != 0)
             c.Guts.AddModifier(new StatModifier(GutsPercentBonus, StatModType.PercentMult, this));
         if (IntelegencePercentBonus != 0)
-            c.Intelegence.AddModifier(new StatModifier(IntelegencePercentBonus, StatModType.PercentMult, this));
+            c.Intelligence.AddModifier(new StatModifier(IntelegencePercentBonus, StatModType.PercentMult, this));
     }
 
     public void Unequip(CharacterStatsBody c)
@@ -70,7 +70,7 @@ public class EquippableStats : Stats
         c.Stamina.RemoveAllModifiersFromSource(this);
         c.Power.RemoveAllModifiersFromSource(this);
         c.Guts.RemoveAllModifiersFromSource(this);
-        c.Intelegence.RemoveAllModifiersFromSource(this);
+        c.Intelligence.RemoveAllModifiersFromSource(this);
     }
 
     public override string GetItemType()

@@ -34,7 +34,7 @@ public class StatsSaveManager : MonoBehaviour
 
     public void SaveStats(CharacterStatsBody character, string fileName)
     {
-        var totalCount = character.Speed.StatModifiers.Count + character.Stamina.StatModifiers.Count + character.Power.StatModifiers.Count + character.Guts.StatModifiers.Count + character.Intelegence.StatModifiers.Count;
+        var totalCount = character.Speed.StatModifiers.Count + character.Stamina.StatModifiers.Count + character.Power.StatModifiers.Count + character.Guts.StatModifiers.Count + character.Intelligence.StatModifiers.Count;
         var saveData = new StatsContainerSaveData();
 
         character.Speed.StatModifiers.ToList().ForEach(mod =>
